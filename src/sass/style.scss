@@ -1,0 +1,46 @@
+// ========================
+// UTILS
+// ========================
+@import 'utils/utils';
+
+// ========================
+// VENDORS
+// ========================
+@import 'vendors/bootstrap';
+@import 'vendors/select2';
+@import 'vendors/slick';
+@import 'vendors/slick-theme';
+@import 'vendors/rateyo';
+
+// ========================
+// FONTS
+// ========================
+@import 'fonts/material';
+@import 'fonts/suisse';
+
+// ========================
+// BASE
+// ========================
+@import 'layout';
+
+// ========================
+// COMPONENTS
+// ========================
+@import 'components/list/list';
+@import 'components/avatar/avatar';
+
+// ========================
+// COMMON
+// ========================
+@import 'common/navbar';
+@import 'common/content';
+@import 'common/sidebar';
+@import 'common/aside';
+
+// ========================
+// PARTIALS
+// ========================
+
+// ========================
+// PAGES
+// ========================

@@ -1,0 +1,90 @@
+.main {
+  > .content {
+    position: relative;
+    padding: 1rem;
+    margin-top: $navbar-height;
+    margin-left: $sidebar-width;
+
+    @include flex(flex-start, flex-start);
+
+    @media #{$responsive-tablet} {
+      margin-top: 0;
+      margin-left: 0;
+      flex-direction: column;
+    }
+
+    .aside {
+      position: fixed;
+      top: $navbar-height;
+      left: $sidebar-width;
+      width: $aside-width;
+      height: calc(100vh - #{$navbar-height});
+      color: $sidebar-textcolor;
+      transition: transform 0.15s ease-out;
+
+      @media #{$responsive-tablet} {
+        left: 1rem;
+      }
+
+      @media #{$responsive-phone} {
+        position: relative;
+        top: auto;
+        left: auto;
+        height: auto;
+        width: 100%;
+        margin-bottom: 2rem;
+      }
+    }
+
+    .context {
+      margin-left: calc(#{$aside-width} + 1rem);
+      width: calc(100% - #{$aside-width} - 1rem);
+      @media #{$responsive-phone} {
+        padding: 1rem;
+        position: absolute;
+        z-index: 2;
+        margin-left: 0;
+        width: 100%;
+        height: calc(100vh - #{$navbar-height});
+        overflow-y: auto;
+        overflow-x: hidden;
+        top: 0;
+        left: 0;
+        background-color: $body-bgcolor;
+        transform: translateX(-100%);
+        transition: transform 0.15s ease-out;
+      }
+
+      .context-controls {
+        display: none;
+        @media #{$responsive-phone} {
+          @include flex(flex-start, center);
+
+          .control-hide {
+            color: rgba($black, 0.8);
+            &:hover {
+              color: $primary-color;
+            }
+            i, .mdi {
+              font-size: 2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// EVENTS
+
+body.show-context {
+  .main {
+    > .content {
+      .context {
+        @media #{$responsive-phone} {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
+}

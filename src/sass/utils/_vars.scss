@@ -1,0 +1,151 @@
+// ========================
+// THEME COLORS
+// ========================
+$primary-color: #ffb703;
+$secondary-color: #219ebc;
+$tertiary-color: #AA2225;
+
+$secondary-color-2: #F79646;
+$secondary-color-3: #E81E0E;
+$secondary-color-4: #4F81BD;
+
+$tertiary-color: #2DD8EF;
+$tertiary-color-2: #6812BE;
+$tertiary-color-3: #0AFA15;
+$tertiary-color-4: #E6FC10;
+
+// ========================
+// HIGHLIGHTS
+// ========================
+$highlight-color: #2DD8EF;
+$highlight-color-2: #6812BE;
+$highlight-color-3: #0AFA15;
+$highlight-color-4: #E6FC10;
+
+// ========================
+// THEME COLORS MODIFIED
+// ========================
+
+$primary-color-100: #F2F8FC;
+$primary-color-darker: #074CE9;
+$primary-color-dull: lighten(desaturate($primary-color,50%),45%);
+
+
+// ========================
+// BASIC COLORS
+// ========================
+$black: #1A1A1A;
+$gray: #afafaf;
+$lightgray: #E9E9E9;
+$darkgray: #262626;
+
+$red: #FF4444;
+$orange: #F98A1E;
+$yellow: #FFD544;
+$green: #30b407;
+$jade: #008B98;
+$teal: #1FC8B6;
+$blue: #0060FF;
+$indigo: #3A13B7;
+$purple: #902BEE;
+$violet: #E41DA5;
+$white: #FFF;
+
+$disabled: #D7D7D7;
+
+$success: #30b407;
+$warning: #F98A1E;
+$danger: #FF4444;
+$info: #0060FF;
+
+// ========================
+// SYSTEM COLORS
+// ========================
+$text-title: #1e1e1e;
+$text-subtitle: #212121;
+$text-paragraph: #424242;
+$body-bgcolor: #F8F9FA;
+$body-textcolor: #333;
+$paper-bgcolor: #fff;
+$paper-bordercolor: darken($body-bgcolor, 0.15);
+
+// ========================
+// FONTS
+// ========================
+$base-font-size: 16px;
+$font-name: 'suisse';
+$font-family: #{$font-name}, sans-serif;
+
+// ========================
+// BOX SHADOW
+// ========================
+$box-shadow: 0 0 1em 0 rgba(#000,.15);
+$box-shadow-light: 0 0 1em 0 rgba(#000,.05);
+
+// ========================
+// NAVBAR
+// ========================
+$navbar-height: 3em;
+$navbar-height-scorlled: 3em;
+$navbar-bgcolor: #F8F9FA;
+$navbar-bordercolor: darken(#F8F9FA, 0.15);
+$navbar-textcolor: #222431;
+$navbar-linkcolor: $primary-color;
+$navbar-linkcolor-hover: darken($primary-color, 0.15);
+
+// ========================
+// SIDEBAR
+// ========================
+$sidebar-width: 12rem;
+$sidebar-width-drawer: 18rem;
+$sidebar-width-mini: 80px;
+$sidebar-bgcolor: #FFF;
+$sidebar-bordercolor: rgba(#222431, 0.1);
+$sidebar-textcolor: #222431;
+$sidebar-linkcolor: $primary-color;
+$sidebar-linkcolor-hover: darken($primary-color, 0.15);
+
+// ========================
+// ASIDE
+// ========================
+$aside-width: 18rem;
+$aside-width-mini: 80px;
+$aside-bgcolor: #FFF;
+$aside-bordercolor: rgba(#222431, 0.1);
+$aside-textcolor: #222431;
+$aside-linkcolor: $primary-color;
+$aside-linkcolor-hover: darken($primary-color, 0.15);
+
+// ========================
+// FOOTER
+// ========================
+$footer-bgcolor: $darkgray;
+$footer-textcolor: $gray;
+$footer-bordercolor: lighten($darkgray, 0.15);
+$footer-textcolor-secondary: #172032;
+
+// ========================
+// GRID
+// ========================
+$container-width: 1366px;
+$container-width-1025: 800px;
+$container-width-769: 600px;
+$grid-columns: 12;
+$grid-screens: (
+	sm : 512px,
+	md : 1024px,
+	xl : 1446px,
+	lg : 1280px
+);
+
+// ========================
+// TOAST BOX
+// ========================
+$toast-delay: 5000ms;
+
+$responsive-desktop: 'only screen and (min-width:1440px)';
+$responsive-laptop: 'only screen and (max-width:1440px)';
+$responsive-tablet: 'only screen and (max-device-width:1024px), (max-width: 1024px)';
+$responsive-phone: 'only screen and (max-device-width:812px), (max-width:812px)';
+$responsive-portrait: 'and (orientation: portrait)';
+$responsive-landscape: 'and (orientation: landscape)';

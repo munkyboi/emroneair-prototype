@@ -1,0 +1,58 @@
+.navbar {
+  height: $navbar-height;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $navbar-bgcolor;
+  color: $navbar-textcolor;
+  z-index: 1300;
+  transition: box-shadow 0.15s ease-out;
+  @include flex(flex-end, center);
+
+  .burger {
+    width: 2rem;
+    height: 2rem;
+    @include flex(center, center);
+    margin: 0;
+    color: $black;
+    transition: color 0.15s ease-out;
+    position: absolute;
+    left: 1rem;
+
+    &:hover {
+      color: $primary-color;
+    }
+
+    i, .mdi {
+      font-size: 2rem;
+      margin: 0;
+    }
+  }
+
+  // .navbar-actions
+  &-actions {
+    @include flex(flex-end, center);
+  }
+
+  .account-button {
+    position: relative;
+    cursor: pointer;
+
+    .avatar {
+      border: 1px solid $white;
+    }
+
+    .dropdown-menu {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+
+// EVENTS
+body.page-scrolled {
+  .navbar {
+    box-shadow: $box-shadow;
+  }
+}

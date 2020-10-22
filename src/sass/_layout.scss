@@ -1,0 +1,154 @@
+* ,
+*:before ,
+*:after {
+	box-sizing: border-box;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5 {
+	@media #{$responsive-phone} {
+		// word-break: break-all;
+		// hyphens: auto;
+	}
+}
+
+*::selection {
+	background-color: $tertiary-color;
+	color: $white;
+}
+
+html {
+	font-size: $base-font-size;
+	// font-size: calc(max(#{$base-font-size-min}, #{$base-font-size-max});
+	font-family: $font-family !important;
+}
+
+body {
+	margin: 0;
+	color: $body-textcolor;
+	overflow-x: hidden;
+	width: 100%;
+	font-family: $font-family !important;
+	background-color: $body-bgcolor;
+	padding: 0;
+
+	@media #{$responsive-tablet} {
+		padding-top: $navbar-height !important;
+	}
+
+	@include applyScrollbar;
+
+	> app {
+		padding: 0 !important;
+		margin: 0 !important;
+		max-width: 100% !important;
+	}
+}
+
+body.body-no-scroll {
+	overflow-y: hidden;
+}
+
+.container {
+	width: 100%;
+	padding-right: 1rem;
+	padding-left: 1rem;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.align {
+	&--left {
+		text-align: left !important;
+	}
+	&--right {
+		text-align: right !important;
+	}
+	&--center {
+		text-align: center !important;
+	}
+}
+
+.text {
+	&--normal {
+		font-weight: normal !important;
+	}
+	&--bold {
+		font-weight: bold !important;
+	}
+	&--italic {
+		font-style: italic !important;
+	}
+	&--underline {
+		text-decoration: underline !important;
+	}
+	&--large {
+		font-size: 1.25rem;
+	}
+	&--small {
+		font-size: 0.8rem;
+	}
+}
+
+a {
+	color: $primary-color;
+	outline: none !important;
+	text-decoration: none !important;
+
+	&:hover {
+		color: darken($primary-color, 20%);
+	}
+}
+
+.btn {
+	text-transform: uppercase;
+	@include flex(flex-start, center);
+
+	i {
+		font-size: 2rem;
+		line-height: 1;
+	}
+
+	span {
+		margin-left: 1rem;
+	}
+
+	@media #{$responsive-phone} {
+		font-size: 1.4rem;
+	}
+}
+
+.input-group {
+	@include flex(flex-start, stretch);
+	input {
+		height: auto;
+	}
+}
+
+.blockquote {
+	border: 1px solid $gray;
+	background-color: rgba($lightgray, 0.5);
+	width: 100%;
+	padding: 1rem 2rem;
+	@include flex(flex-start, flex-start);
+	font-size: 1rem;
+}
+
+.border-bottom {
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid $lightgray;
+}
+.border-top {
+	padding-top: 1rem;
+	margin-top: 1rem;
+	border-top: 1px solid $lightgray;
+}
+
+.main {
+	display: grid;
+}

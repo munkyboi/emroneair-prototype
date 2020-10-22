@@ -1,0 +1,63 @@
+$path: "../fonts/blenderPro";
+$fontName: 'Blender Pro';
+
+@font-face {
+    font-family: $fontName;
+    src: url('#{$path}/BlenderPro-Heavy.eot');
+    src: url('#{$path}/BlenderPro-Heavy.eot?#iefix') format('embedded-opentype'),
+        url('#{$path}/BlenderPro-Heavy.woff2') format('woff2'),
+        url('#{$path}/BlenderPro-Heavy.woff') format('woff'),
+        url('#{$path}/BlenderPro-Heavy.ttf') format('truetype'),
+        url('#{$path}/BlenderPro-Heavy.svg#BlenderPro-Heavy') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $fontName;
+    src: url('#{$path}/BlenderPro-Bold.eot');
+    src: url('#{$path}/BlenderPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('#{$path}/BlenderPro-Bold.woff2') format('woff2'),
+        url('#{$path}/BlenderPro-Bold.woff') format('woff'),
+        url('#{$path}/BlenderPro-Bold.ttf') format('truetype'),
+        url('#{$path}/BlenderPro-Bold.svg#BlenderPro-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $fontName;
+    src: url('#{$path}/BlenderPro-BookItalic.eot');
+    src: url('#{$path}/BlenderPro-BookItalic.eot?#iefix') format('embedded-opentype'),
+        url('#{$path}/BlenderPro-BookItalic.woff2') format('woff2'),
+        url('#{$path}/BlenderPro-BookItalic.woff') format('woff'),
+        url('#{$path}/BlenderPro-BookItalic.ttf') format('truetype'),
+        url('#{$path}/BlenderPro-BookItalic.svg#BlenderPro-BookItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: $fontName;
+    src: url('#{$path}/BlenderPro-Book.eot');
+    src: url('#{$path}/BlenderPro-Book.eot?#iefix') format('embedded-opentype'),
+        url('#{$path}/BlenderPro-Book.woff2') format('woff2'),
+        url('#{$path}/BlenderPro-Book.woff') format('woff'),
+        url('#{$path}/BlenderPro-Book.ttf') format('truetype'),
+        url('#{$path}/BlenderPro-Book.svg#BlenderPro-Book') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: $fontName;
+    src: url('#{$path}/BlenderPro-Medium.eot');
+    src: url('#{$path}/BlenderPro-Medium.eot?#iefix') format('embedded-opentype'),
+        url('#{$path}/BlenderPro-Medium.woff2') format('woff2'),
+        url('#{$path}/BlenderPro-Medium.woff') format('woff'),
+        url('#{$path}/BlenderPro-Medium.ttf') format('truetype'),
+        url('#{$path}/BlenderPro-Medium.svg#BlenderPro-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+

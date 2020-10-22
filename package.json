@@ -1,0 +1,42 @@
+{
+  "name": "emroneair-prototype",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/munkyboi/emroneair-prototype.git"
+  },
+  "author": "Carlo Abella",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/munkyboi/emroneair-prototype/issues"
+  },
+  "homepage": "https://github.com/munkyboi/emroneair-prototype#readme",
+  "scripts": {
+    "start": "gulp",
+    "dev": "gulp serve",
+    "build": "gulp build",
+    "prod": "cross-env NODE_ENV=prod gulp"
+  },
+  "devDependencies": {
+    "bootstrap": "^4.4.1",
+    "browser-sync": "^2.26.3",
+    "cross-env": "^7.0.2",
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-html-partial": "^1.0.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^2.0.2",
+    "gulp-imagemin": "^5.0.3",
+    "gulp-js-import": "^1.0.6",
+    "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2"
+  },
+  "dependencies": {
+    "gulp-order": "^1.2.0"
+  }
+}
