@@ -1,0 +1,49 @@
+.pagination {
+  @include flex(center, center);
+  width: 100%;
+  margin: 0;
+  padding: 1rem 0;
+  background-color: $white;
+  border-top: 1px solid rgba($black, 0.1);
+  border-radius: 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    @include flex(center, stretch);
+
+    li {
+      font-size: 0.8rem;
+      @include flex(center, stretch);
+
+      a {
+        @include flex(center, center);
+        min-width: 1.75rem;
+        padding: 0 0.5rem;
+        color: $blue;
+        border-radius: 0.25rem;
+
+        &:hover {
+          background-color: $gray;
+          color: $white;
+        }
+
+        i, .mdi {
+          font-size: 1.5rem;
+          line-height: 1;
+        }
+      }
+
+      span {
+        color: rgba($black, 0.5);
+      }
+
+      &.active {
+        a {
+          background-color: $blue;
+          color: $white;
+        }
+      }
+    }
+  }
+}

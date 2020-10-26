@@ -24,7 +24,7 @@
 
   // .sidebar-toolbar
   &-toolbar {
-    height: $navbar-height;
+    height: calc(#{$navbar-height} + 1px);
     @include flex(center, center);
     border-bottom: 1px solid $sidebar-bordercolor;
   }
@@ -34,6 +34,7 @@
     // .list-group-item
     &-item {
       @include flex(flex-start, center);
+      min-height: $contentToolbar-height;
       i, .mdi {
         font-size: 1.5rem;
         margin-right: 1rem;

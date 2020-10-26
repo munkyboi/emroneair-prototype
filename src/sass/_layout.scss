@@ -28,24 +28,39 @@ html {
 }
 
 body {
+	position: relative;
 	margin: 0;
 	color: $body-textcolor;
-	overflow-x: hidden;
+	// overflow-x: hidden;
 	width: 100%;
 	font-family: $font-family !important;
 	background-color: $body-bgcolor;
 	padding: 0;
 
+	// @include applyScrollbar;
+	overflow: hidden;
+
 	@media #{$responsive-tablet} {
 		padding-top: $navbar-height !important;
 	}
-
-	@include applyScrollbar;
 
 	> app {
 		padding: 0 !important;
 		margin: 0 !important;
 		max-width: 100% !important;
+		position: relative;
+		display: block;
+		height: auto;
+
+		> .main {
+			height: calc(100vh); /* Fallback for browsers that do not support Custom Properties */
+			height: calc(var(--vh, 1vh) * 100);
+			overflow: hidden;
+			@media #{$responsive-phone} {
+				height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+				height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+			}
+		}
 	}
 }
 

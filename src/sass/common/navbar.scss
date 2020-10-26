@@ -1,58 +1,70 @@
-.navbar {
-  height: $navbar-height;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: $navbar-bgcolor;
-  color: $navbar-textcolor;
-  z-index: 1300;
-  transition: box-shadow 0.15s ease-out;
-  @include flex(flex-end, center);
+.main {
+  > .navbar {
+    padding: 0 1rem;
+    height: $navbar-height;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $navbar-bgcolor;
+    color: $navbar-textcolor;
+    z-index: 1300;
+    transition: box-shadow 0.15s ease-out;
+    @include flex(flex-start, center);
 
-  .burger {
-    width: 2rem;
-    height: 2rem;
-    @include flex(center, center);
-    margin: 0;
-    color: $black;
-    transition: color 0.15s ease-out;
-    position: absolute;
-    left: 1rem;
-
-    &:hover {
-      color: $primary-color;
+    .navbar-left {
+      @include flex(flex-start, center);
+      flex-grow: 1;
     }
 
-    i, .mdi {
-      font-size: 2rem;
+    .navbar-right {
+      @include flex(flex-end, center);
+      flex-grow: 1;
+    }
+
+    .burger {
+      width: 2rem;
+      height: 2rem;
+      @include flex(center, center);
       margin: 0;
-    }
-  }
+      color: $black;
+      transition: color 0.15s ease-out;
 
-  // .navbar-actions
-  &-actions {
-    @include flex(flex-end, center);
-  }
+      &:hover {
+        color: $primary-color;
+      }
 
-  .account-button {
-    position: relative;
-    cursor: pointer;
-
-    .avatar {
-      border: 1px solid $white;
+      i, .mdi {
+        font-size: 2rem;
+        margin: 0;
+      }
     }
 
-    .dropdown-menu {
-      right: 0;
-      left: auto;
+    .navbar-actions {
+      @include flex(flex-end, center);
+    }
+
+    .account-button {
+      position: relative;
+      cursor: pointer;
+
+      .avatar {
+        border: 1px solid $white;
+      }
+
+      .dropdown-menu {
+        right: 0;
+        left: auto;
+      }
     }
   }
 }
 
 // EVENTS
 body.page-scrolled {
-  .navbar {
-    box-shadow: $box-shadow;
+  .main {
+    > .navbar {
+      box-shadow: $box-shadow;
+    }
   }
 }

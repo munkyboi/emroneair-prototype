@@ -1,0 +1,25 @@
+<% 
+__PAGE__ = 'patients'
+__ASIDE__ = '../templates/asides/patients-list'
+%> 
+
+<%- include('../templates/header'); -%>
+
+<div class='main'>
+  <%- include('../templates/navbar'); -%>
+
+  <%- include('../templates/sidebar'); -%>
+
+<div class='content <% if (__ASIDE__ != '') { %>has-aside<% } %>'>
+    <% if (__ASIDE__ != '') { %>
+    <%- include(__ASIDE__); -%>
+    <% } %>
+
+    <div class='context'>
+      <%- include('../templates/context/patients'); -%>
+    </div>
+  </div>
+
+</div>
+
+<%- include('../templates/footer'); -%>

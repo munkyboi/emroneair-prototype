@@ -1,9 +1,14 @@
 .main {
   > .content {
     position: relative;
-    padding: 1rem;
     margin-top: $navbar-height;
     margin-left: $sidebar-width;
+    position: relative;
+    // height: calc(100% - #{$navbar-height});
+    height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+    width: 100%;
+    overflow: hidden;
 
     @include flex(flex-start, flex-start);
 
@@ -18,7 +23,8 @@
       top: $navbar-height;
       left: $sidebar-width;
       width: $aside-width;
-      height: calc(100vh - #{$navbar-height});
+			height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+			height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
       color: $sidebar-textcolor;
       transition: transform 0.15s ease-out;
 
@@ -32,45 +38,107 @@
         left: auto;
         height: auto;
         width: 100%;
-        margin-bottom: 2rem;
       }
     }
 
     .context {
-      margin-left: calc(#{$aside-width} + 1rem);
-      width: calc(100% - #{$aside-width} - 1rem);
-      @media #{$responsive-phone} {
-        padding: 1rem;
-        position: absolute;
-        z-index: 2;
-        margin-left: 0;
-        width: 100%;
-        height: calc(100vh - #{$navbar-height});
-        overflow-y: auto;
-        overflow-x: hidden;
-        top: 0;
-        left: 0;
-        background-color: $body-bgcolor;
-        transform: translateX(-100%);
-        transition: transform 0.15s ease-out;
+      width: calc(100vw - #{$sidebar-width});
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+      padding: 0;
+
+      @media #{$responsive-tablet} {
+        width: calc(100vw);
       }
 
-      .context-controls {
-        display: none;
-        @media #{$responsive-phone} {
-          @include flex(flex-start, center);
+      .ps__rail-y {
+        z-index: 10;
+      }
 
-          .control-hide {
-            color: rgba($black, 0.8);
-            &:hover {
-              color: $primary-color;
-            }
-            i, .mdi {
-              font-size: 2rem;
-            }
+      .context-container {
+        padding: 1rem;
+      }
+
+      .tabs-container {
+        position: fixed;
+        top: #{$navbar-height};
+        left: calc(#{$sidebar-width});
+        width: calc(100vw - #{$sidebar-width});
+        z-index: 2;
+        @media #{$responsive-tablet} {
+          left: 0;
+        }
+      }
+
+      .tab-content {
+        position: relative;
+        z-index: 1;
+        padding-top: calc(#{$contentToolbar-height} + 1rem) !important;
+        @media #{$responsive-phone} {
+          padding-top: 1rem !important;
+        }
+      }
+    }
+
+    &.has-aside {
+      .context {
+        margin-left: calc(#{$aside-width});
+        width: calc(100vw - #{$sidebar-width} - #{$aside-width});
+        @media #{$responsive-tablet} {
+          margin-left: calc(#{$aside-width} + 1rem);
+          width: calc(100% - #{$aside-width} - 1rem);
+        }
+        @media #{$responsive-phone} {
+          margin-left: 0;
+          width: 100%;
+          padding: 0;
+          position: absolute;
+          z-index: 2;
+          margin-left: 0;
+          width: 100%;
+          // height: calc(100vh - #{$navbar-height});
+          height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+          height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+          overflow-y: auto;
+          overflow-x: hidden;
+          top: 0;
+          left: 0;
+          background-color: $body-bgcolor;
+          transform: translateX(-100%);
+          transition: transform 0.15s ease-out;
+        }
+        .tabs-container {
+          left: calc(#{$sidebar-width} + #{$aside-width});
+          width: calc(100vw - #{$sidebar-width} - #{$aside-width});
+          @media #{$responsive-tablet} {
+            left: calc(#{$aside-width} + 1rem);
+            width: calc(100vw - #{$aside-width} - 1rem);
+          }
+          @media #{$responsive-phone} {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: calc(100vw);
           }
         }
       }
+    }
+  }
+}
+
+.context-controls {
+  @include flex(flex-start, center);
+  display: none;
+  margin-right: 0.5rem;
+
+  .control-hide {
+    color: rgba($black, 0.8);
+    &:hover {
+      color: $primary-color;
+    }
+    i, .mdi {
+      font-size: 2rem;
     }
   }
 }
@@ -85,6 +153,11 @@ body.show-context {
           transform: translateX(0);
         }
       }
+    }
+  }
+  .context-controls {
+    @media #{$responsive-phone} {
+      display: flex;
     }
   }
 }

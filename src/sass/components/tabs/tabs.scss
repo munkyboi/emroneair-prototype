@@ -1,0 +1,77 @@
+.tabs {
+  .tabs-container {
+    @include flex(flex-start, center);
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    background-color: $body-bgcolor;
+
+    @media #{$responsive-phone} {
+      .ps__rail-x {
+        pointer-events: none;
+      }
+    }
+  }
+  .nav-tabs {
+    min-height: calc(#{$contentToolbar-height} + 1px);
+    @include flex(flex-start, stretch);
+    flex-wrap: nowrap;
+    width: 100%;
+    .nav-item {
+      position: relative;
+      @include flex(center, center);
+      padding: 0 1rem;
+      border-radius: 0;
+      color: rgba($body-textcolor, 0.5);
+      min-height: calc(#{$contentToolbar-height} + 1px);
+      border-radius: 0;
+      white-space: nowrap;
+      &:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background-color: rgba($black, 0);
+      }
+
+      &:hover {
+        &:before {
+          background-color: rgba($black, 0);
+        }
+      }
+
+      &.active {
+        background-color: $white;
+        color: rgba($body-textcolor, 1);
+        &:before {
+          background-color: rgba($primary-color, 1);
+        }
+        &:first-of-type {
+          border-left-color: $white;
+        }
+      }
+    }
+  }
+  .tab-content {
+    padding: 1rem !important;
+    background-color: $white;
+    position: relative;
+
+    &:before {
+      content: '';
+      display: block;
+      position: fixed;
+      top: calc(#{$navbar-height} + #{$contentToolbar-height});
+      width: 100%;
+      height: 1rem;
+      background-color: $white;
+
+      @media #{$responsive-phone} {
+        top: 0;
+      }
+    }
+  }
+}
