@@ -35,9 +35,10 @@
     // .list-group-item
     &-item {
       @include flex(flex-start, center);
+      padding: 0 1rem;
       min-height: $contentToolbar-height;
       i, .mdi {
-        font-size: 1.5rem;
+        font-size: 2rem;
         margin-right: 1rem;
       }
       > span {

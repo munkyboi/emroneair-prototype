@@ -1,0 +1,50 @@
+<!-- ASIDE -->
+<div class='aside'>
+  <div class='aside-toolbar'>
+    <div class='aside-tabs'>
+      <div class='tabs'>
+        <div class='tabs-container'>
+          <div class="nav nav-tabs" id="aside-tabs" role="tablist">
+            <a class="nav-item nav-link active" id="nav-list-tab" data-toggle="tab" href="#nav-list" role="tab" aria-controls="nav-list" aria-selected="true">
+              <i class='mdi mdi-clipboard-text-outline'></i>
+            </a>
+            <a class="nav-item nav-link" id="nav-queue-tab" data-toggle="tab" href="#nav-queue" role="tab" aria-controls="nav-queue" aria-selected="false">
+              <i class='mdi mdi-page-next-outline'></i>
+            </a>
+            <a class="nav-item nav-link" id="nav-appointments-tab" data-toggle="tab" href="#nav-appointments" role="tab" aria-controls="nav-appointments" aria-selected="false">
+              <i class='mdi mdi-calendar'></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='aside-content'>
+    <div class="tab-content" id="aside-tabContents">
+      <div class="tab-pane fade show active" id="nav-list" role="tabpanel" aria-labelledby="nav-list-tab">
+        <%- include('../filter-simple') -%>
+        <div class='list-container'>
+          <%- include('../lists/patients-list') -%>
+        </div>
+        <%- include('../pagination') -%>
+      </div>
+      
+      <div class="tab-pane fade" id="nav-queue" role="tabpanel" aria-labelledby="nav-queue-tab">
+        <%- include('../filter-simple') -%>
+        <div class='list-container'>
+          <%- include('../lists/patients-queue') -%>
+        </div>
+        <%- include('../pagination') -%>
+      </div>
+      
+      <div class="tab-pane fade" id="nav-appointments" role="tabpanel" aria-labelledby="nav-appointments-tab">
+        <%- include('../filter-simple') -%>
+        <div class='list-container'>
+          <%- include('../lists/patients-appointments') -%>
+        </div>
+        <%- include('../pagination') -%>
+      </div>
+    </div>
+  </div>
+</div>

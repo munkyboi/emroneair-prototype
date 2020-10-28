@@ -5,17 +5,66 @@
   background-color: $white;
   border: 1px solid rgba($black, 0.1);
   border-left: none;
+  border-top: none;
+  border-right: none;
 
   @media #{$responsive-tablet} {
     padding: 0;
     margin-bottom: 0;
   }
 
+  .aside-toolbar {
+    width: calc(100%);
+    @include flex(flex-start, flex-start, column);
+  }
+
+  .aside-tabs {
+    padding: 0;
+    width: calc(100%);
+    min-height: calc(#{$contentToolbar-height} - 2px);
+
+    .tabs-container {
+      .nav-item {
+        flex-grow: 1;
+
+        > i, .mdi {
+          font-size: 2rem;
+        }
+
+        &:first-of-type {
+          &.active {
+            @media #{$responsive-tablet} {
+              border-left: 1px solid rgba($black, 0.1);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .aside-content {
+    flex-grow: 1;
+    width: 100%;
+    @include flex(flex-start, flex-start, column);
+    border-right: 1px solid rgba($black, 0.1);
+    @media #{$responsive-tablet} {
+      border-left: 1px solid rgba($black, 0.1);
+    }
+    @media #{$responsive-phone} {
+      z-index: 1;
+      // max-height: calc(100vh - #{$navbar-height} - 9rem);
+    }
+
+    .tab-content {
+      height: auto;
+    }
+  }
+
   .filter {
     position: relative;
-    padding: 0 1rem;
     width: calc(100%);
     @include flex(flex-start, center);
+    padding: 0 1rem;
     min-height: $contentToolbar-height;
     border-bottom: 1px solid rgba($black, 0.1);
 
@@ -77,17 +126,15 @@
     }
   }
 
-  .aside-content {
+  .list-container {
     flex-grow: 1;
     position: relative;
     overflow: hidden;
-    max-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
-    max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - 120px);
     width: 100%;
-    @media #{$responsive-phone} {
-      z-index: 1;
-      // max-height: calc(100vh - #{$navbar-height} - 9rem);
-    }
+    min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 3));
+    max-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 3));
   }
 
   .list {
@@ -145,6 +192,7 @@
     .list-context {
       font-size: 1rem;
       line-height: 1.4;
+      width: 100%;
       span {
         display: block;
       }
@@ -159,6 +207,25 @@
       }
       .phone {
         color: rgba($black, 0.35);
+      }
+      .appointment-details {
+        margin: 0.5rem 0;
+        @include flex(flex-start, center);
+
+        .badge {
+          width: 50%;
+          &.time {
+            flex-grow: 1;
+            margin-right: 0.5rem;
+          }
+          &.badge-default {
+            border: 1px solid rgba($black, 0.1);
+          }
+          &.badge-warning {
+            background-color: $warning;
+            color: $white;
+          }
+        }
       }
     }
   }

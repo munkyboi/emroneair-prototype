@@ -29,6 +29,7 @@ let __FAB__ = '';
   const initScripts = () => {
     $(window).trigger('scroll')
     $(window).trigger('resize')
+    $('[data-toggle="tooltip"]').tooltip()
 
     // MAIN
     const MainContainer = document.querySelector('body > app > .main > .content > .context')
@@ -79,12 +80,26 @@ let __FAB__ = '';
         MainContainer.scrollTo(0,0)
       }, 300)
     })
-    const AsideContainer = document.querySelector('.aside  .aside-content')
-    if (AsideContainer) {
-      const AsidePS = new PerfectScrollbar(AsideContainer, {
-        wheelSpeed: 2,
-        wheelPropagation: false,
-        minScrollbarLength: 20
+
+    // ASIDE CONTENT
+    // const AsideContainer = document.querySelector('.aside  .aside-content')
+    // if (AsideContainer) {
+    //   const AsidePS = new PerfectScrollbar(AsideContainer, {
+    //     wheelSpeed: 2,
+    //     wheelPropagation: false,
+    //     minScrollbarLength: 20,
+    //     suppressScrollX: true
+    //   })
+    // }
+    const AsideListContainers = document.querySelectorAll('.aside  .aside-content .list-container')
+    if (AsideListContainers.length > 0) {
+      AsideListContainers.forEach(cont => {
+        new PerfectScrollbar(cont, {
+          wheelSpeed: 2,
+          wheelPropagation: false,
+          minScrollbarLength: 20,
+          suppressScrollX: true
+        })
       })
     }
 
@@ -103,13 +118,16 @@ let __FAB__ = '';
     })
 
     // TABS SCROLLBAR
-    const TabsContainer = document.querySelector('.tabs .tabs-container')
-    if (TabsContainer) {
-      const TabsPS = new PerfectScrollbar(TabsContainer, {
-        // handlers: ['keyboard', 'wheel', 'touch'],
-        wheelSpeed: 2,
-        wheelPropagation: false,
-        minScrollbarLength: 20
+    const TabsContainers = document.querySelectorAll('.tabs .tabs-container')
+    if (TabsContainers.length > 0) {
+      TabsContainers.forEach(cont => {
+        new PerfectScrollbar(cont, {
+          // handlers: ['keyboard', 'wheel', 'touch'],
+          wheelSpeed: 2,
+          wheelPropagation: false,
+          minScrollbarLength: 20,
+          suppressScrollY: true
+        })
       })
     }
   }

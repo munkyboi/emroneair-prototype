@@ -1,5 +1,6 @@
 .tabs {
   .tabs-container {
+    position: relative;
     @include flex(flex-start, center);
     width: 100%;
     flex-wrap: nowrap;
@@ -50,7 +51,8 @@
           background-color: rgba($primary-color, 1);
         }
         &:first-of-type {
-          border-left-color: $white;
+          // border-left-color: $white;
+              border-left: 1px solid rgba($black, 0.1);
         }
       }
     }
