@@ -77,17 +77,21 @@
     }
   }
 
-  .list {
-    position: relative;
+  .aside-content {
     flex-grow: 1;
+    position: relative;
     overflow: hidden;
-    width: 100%;
     max-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
     max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - 120px);
+    width: 100%;
     @media #{$responsive-phone} {
       z-index: 1;
       // max-height: calc(100vh - #{$navbar-height} - 9rem);
     }
+  }
+
+  .list {
+    height: auto;
   }
 
   .list-item {

@@ -79,7 +79,7 @@ let __FAB__ = '';
         MainContainer.scrollTo(0,0)
       }, 300)
     })
-    const AsideContainer = document.querySelector('.aside  .list')
+    const AsideContainer = document.querySelector('.aside  .aside-content')
     if (AsideContainer) {
       const AsidePS = new PerfectScrollbar(AsideContainer, {
         wheelSpeed: 2,
