@@ -11,7 +11,7 @@ __FAB__ = '../templates/fabs/patients-fab'
 
   <%- include('../templates/sidebar'); -%>
 
-<div class='content <% if (__ASIDE__ != '') { %>has-aside<% } %>'>
+  <div class='content <% if (__ASIDE__ != '') { %>has-aside<% } %>'>
     <% if (__ASIDE__ != '') { %>
     <%- include(__ASIDE__); -%>
     <% } %>
@@ -19,10 +19,8 @@ __FAB__ = '../templates/fabs/patients-fab'
     <% if (__FAB__ != '') { %>
     <%- include(__FAB__); -%>
     <% } %>
-
-    <div class='context'>
-      <%- include('../templates/context/patients'); -%>
-    </div>
+    
+    <%- include('../templates/context/patients'); -%>
   </div>
 
 </div>

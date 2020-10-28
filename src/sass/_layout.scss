@@ -167,3 +167,27 @@ a {
 .main {
 	display: grid;
 }
+
+.dropdown-menu.datepicker {
+	font-size: 1rem;
+	box-shadow: 0 0.25rem 0.5rem 0 rgba($black, 0.5);
+
+	td, th {
+    width: 2.5rem;
+    height: 2rem;
+	}
+	.datepicker-days, .datepicker-months, .datepicker-years, .datepicker-decades, .datepicker-centuries {
+		table {
+			width: unquote('min(calc(100vw - 3rem), 320px)');
+		}
+	}
+	table {
+		tr {
+			td {
+				span {
+					width: 23%;
+				}
+			}
+		}
+	}
+}

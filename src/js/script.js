@@ -29,10 +29,22 @@ let __FAB__ = '';
   const initScripts = () => {
     $(window).trigger('scroll')
     $(window).trigger('resize')
+
+    // TOOLTIP
     $('[data-toggle="tooltip"]').tooltip()
 
+    // DATEPICKER
+    $('[data-toggle="datepicker"]').datepicker({
+      weekStart: 1,
+      daysOfWeekHighlighted: "6,0",
+      autoclose: true,
+      todayHighlight: true,
+      format: 'yyyy-mm-dd'
+    });
+    $('[data-toggle="datepicker"]').datepicker("setDate", new Date());
+
     // MAIN
-    const MainContainer = document.querySelector('body > app > .main > .content > .context')
+    const MainContainer = document.querySelector('body > app > .main > .content .content-body')
     if (MainContainer) {
       const MainPS = new PerfectScrollbar(MainContainer, {
         wheelSpeed: 2,

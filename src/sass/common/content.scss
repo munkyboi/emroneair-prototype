@@ -41,15 +41,20 @@
       }
     }
 
-    .context {
+    .content-wrapper {
       width: calc(100vw - #{$sidebar-width});
-      position: relative;
       height: 100%;
-      overflow: hidden;
       padding: 0;
 
       @media #{$responsive-tablet} {
         width: calc(100vw);
+      }
+
+      .content-body {
+        width: 100%;
+        height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height});
+        position: relative;
+        overflow: hidden;
       }
 
       .ps__rail-y {
@@ -61,28 +66,19 @@
       }
 
       .tabs-container {
-        position: fixed;
-        top: #{$navbar-height};
-        left: calc(#{$sidebar-width});
         width: calc(100vw - #{$sidebar-width});
-        z-index: 2;
-        @media #{$responsive-tablet} {
-          left: 0;
+        @media #{$responsive-phone} {
+          width: 100%;
         }
       }
 
       .tab-content {
         position: relative;
-        z-index: 1;
-        padding-top: calc(#{$contentToolbar-height} + 1rem) !important;
-        @media #{$responsive-phone} {
-          padding-top: 1rem !important;
-        }
       }
     }
 
     &.has-aside {
-      .context {
+      .content-wrapper {
         margin-left: calc(#{$aside-width});
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
         @media #{$responsive-tablet} {
@@ -108,26 +104,12 @@
           transform: translateX(-100%);
           transition: transform 0.15s ease-out;
         }
-        .tabs-container {
-          left: calc(#{$sidebar-width} + #{$aside-width});
-          width: calc(100vw - #{$sidebar-width} - #{$aside-width});
-          @media #{$responsive-tablet} {
-            left: calc(#{$aside-width} + 1rem);
-            width: calc(100vw - #{$aside-width} - 1rem);
-          }
-          @media #{$responsive-phone} {
-            position: relative;
-            top: 0;
-            left: 0;
-            width: calc(100vw);
-          }
-        }
       }
     }
   }
 }
 
-.context-controls {
+.content-controls {
   @include flex(flex-start, center);
   display: none;
   margin-right: 0.5rem;
@@ -148,14 +130,14 @@
 body.show-context {
   .main {
     > .content {
-      .context {
+      .content-wrapper {
         @media #{$responsive-phone} {
           transform: translateX(0);
         }
       }
     }
   }
-  .context-controls {
+  .content-controls {
     @media #{$responsive-phone} {
       display: flex;
     }
