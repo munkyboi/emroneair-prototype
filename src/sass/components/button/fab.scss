@@ -1,0 +1,66 @@
+.fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1001;
+
+  > a {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+    @include flex(center, center);
+    background-color: $primary-color;
+    color: $white;
+    box-shadow: 0 0.1rem 0.5rem 0 rgba($black, 0.35);
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.45s ease-out;
+    position: relative;
+    z-index: 1001;
+
+    &:hover {
+      background-color: darken($primary-color, 0.5);
+      box-shadow: 0 0.2rem 0.5rem 0 rgba($black, 0.75);
+    }
+
+    > i, .mdi {
+      font-size: 2rem;
+      line-height: 1;
+    }
+  }
+
+  .menu-icons {
+    padding: 1rem;
+    width: unquote('min(420px, calc(100vw - 4rem))');
+    @include flex(center, center, row);
+    flex-wrap: wrap;
+    display: none;
+    transform-origin: bottom right;
+    box-shadow: 0 0.1rem 0.5rem 0 rgba($black, 0.35);
+
+    &.show {
+      display: flex;
+      animation: grow-in 0.15s ease-out 1 both;
+    }
+
+    .iconbtn {
+      width: calc(33.3334% - 1rem);
+      height: 6rem;
+      margin: 0.5rem;
+
+      > span {
+        line-height: 1.4;
+        white-space: normal;
+      }
+    }
+  }
+}
+
+@keyframes grow-in {
+  0% {
+    transform: scale(0) translateY(-1.5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) translateY(1.5rem);
+    opacity: 1;
+  }
+}

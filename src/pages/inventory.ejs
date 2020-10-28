@@ -1,6 +1,7 @@
 <% 
 __PAGE__ = 'inventory'
 __ASIDE__ = ''
+__FAB__ = ''
 %> 
 
 <%- include('../templates/header'); -%>
@@ -13,6 +14,10 @@ __ASIDE__ = ''
   <div class='content <% if (__ASIDE__ != '') { %>has-aside<% } %>'>
     <% if (__ASIDE__ != '') { %>
     <%- include(__ASIDE__); -%>
+    <% } %>
+
+    <% if (__FAB__ != '') { %>
+    <%- include(__FAB__); -%>
     <% } %>
 
     <div class='context'>

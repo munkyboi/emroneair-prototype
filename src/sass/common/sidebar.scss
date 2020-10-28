@@ -8,6 +8,7 @@
   color: $sidebar-textcolor;
   z-index: 1500;
   transition: transform 0.15s ease-out;
+  border-right: 1px solid rgba($black, 0.15);
 
   @media #{$responsive-tablet} {
     width: $sidebar-width-drawer;

@@ -11,8 +11,9 @@
 
 
 
-let __PAGE__ = ''
+let __PAGE__ = '';
 let __VH__ = window.innerHeight * 0.01;
+let __FAB__ = '';
 
 (() => {
   let quickviewProdId = 0
@@ -29,32 +30,23 @@ let __VH__ = window.innerHeight * 0.01;
     $(window).trigger('scroll')
     $(window).trigger('resize')
 
-    document.documentElement.style.setProperty('--vh', `${__VH__}px`);
-
-    // $(window).scroll(function(e) {
-    //   const scrolled = document.body.scrollTop || document.documentElement.scrollTop
-    //   if (scrolled >= 60) {
-    //     $('body').addClass('page-scrolled')
-    //   } else {
-    //     $('body').removeClass('page-scrolled')
-    //   }
-    // })
-
     // MAIN
     const MainContainer = document.querySelector('body > app > .main > .content > .context')
-    const MainPS = new PerfectScrollbar(MainContainer, {
-      wheelSpeed: 2,
-      wheelPropagation: false,
-      minScrollbarLength: 20,
-      suppressScrollX: true
-    })
-    MainContainer.addEventListener('ps-scroll-y', (e) => {
-      if (e.target.scrollTop > 60) {
-        $('body').addClass('page-scrolled')
-      } else {
-        $('body').removeClass('page-scrolled')
-      }
-    })
+    if (MainContainer) {
+      const MainPS = new PerfectScrollbar(MainContainer, {
+        wheelSpeed: 2,
+        wheelPropagation: false,
+        minScrollbarLength: 20,
+        suppressScrollX: true
+      })
+      MainContainer.addEventListener('ps-scroll-y', (e) => {
+        if (e.target.scrollTop > 60) {
+          $('body').addClass('page-scrolled')
+        } else {
+          $('body').removeClass('page-scrolled')
+        }
+      })
+    }
 
     // SIDEBAR
     $('.burger').on('click', function(e) {
@@ -88,11 +80,13 @@ let __VH__ = window.innerHeight * 0.01;
       }, 300)
     })
     const AsideContainer = document.querySelector('.aside  .list')
-    const AsidePS = new PerfectScrollbar(AsideContainer, {
-      wheelSpeed: 2,
-      wheelPropagation: false,
-      minScrollbarLength: 20
-    })
+    if (AsideContainer) {
+      const AsidePS = new PerfectScrollbar(AsideContainer, {
+        wheelSpeed: 2,
+        wheelPropagation: false,
+        minScrollbarLength: 20
+      })
+    }
 
     // ASIDE SEARCH FIELD
     $('.aside .search .form-control').on('keyup', function(e) {
@@ -110,12 +104,14 @@ let __VH__ = window.innerHeight * 0.01;
 
     // TABS SCROLLBAR
     const TabsContainer = document.querySelector('.tabs .tabs-container')
-    const TabsPS = new PerfectScrollbar(TabsContainer, {
-      // handlers: ['keyboard', 'wheel', 'touch'],
-      wheelSpeed: 2,
-      wheelPropagation: false,
-      minScrollbarLength: 20
-    })
+    if (TabsContainer) {
+      const TabsPS = new PerfectScrollbar(TabsContainer, {
+        // handlers: ['keyboard', 'wheel', 'touch'],
+        wheelSpeed: 2,
+        wheelPropagation: false,
+        minScrollbarLength: 20
+      })
+    }
   }
 })()
 

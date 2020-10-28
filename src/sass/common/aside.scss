@@ -4,6 +4,7 @@
   @include flex(flex-start, flex-start, column);
   background-color: $white;
   border: 1px solid rgba($black, 0.1);
+  border-left: none;
 
   @media #{$responsive-tablet} {
     padding: 0;
