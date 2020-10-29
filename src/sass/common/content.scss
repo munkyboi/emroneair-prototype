@@ -97,8 +97,7 @@
           // height: calc(100vh - #{$navbar-height});
           height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
           height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
-          overflow-y: auto;
-          overflow-x: hidden;
+          overflow: hidden;
           top: 0;
           left: 0;
           background-color: $body-bgcolor;
