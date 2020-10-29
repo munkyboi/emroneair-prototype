@@ -106,6 +106,12 @@
         }
         .tabs-container {
           width: calc(100vw - #{$sidebar-width} - #{$aside-width});
+          @media #{$responsive-tablet} {
+            width: calc(100vw - #{$aside-width});
+          }
+          @media #{$responsive-phone} {
+            width: 100%;
+          }
         }
       }
     }
