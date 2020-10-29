@@ -73,6 +73,13 @@ let __FAB__ = '';
     //     }
     //   })
     // }
+    $('body > app > .main > .content .content-body').on('scroll', function(e) {
+      if (e.currentTarget.scrollTop > 60) {
+        $('body').addClass('page-scrolled')
+      } else {
+        $('body').removeClass('page-scrolled')
+      }
+    })
 
     // SIDEBAR
     $('.burger').on('click', function(e) {

@@ -22,6 +22,7 @@
         font-weight: bold;
         min-width: 12rem;
         white-space: nowrap;
+        cursor: pointer;
 
         &.sorting {
           padding-right: 2rem;
@@ -35,6 +36,7 @@
           background-repeat: no-repeat;
           background-position: calc(100% - 0.5rem) 50%;
           background-color: rgba($black, 0.05);
+          border-bottom: 2px solid $primary-color;
         }
         &.sorting_desc {
           padding-right: 2rem;
@@ -42,6 +44,7 @@
           background-repeat: no-repeat;
           background-position: calc(100% - 0.5rem) 50%;
           background-color: rgba($black, 0.05);
+          border-bottom: 2px solid $primary-color;
         }
       }
     }
@@ -63,7 +66,7 @@
         transition: background-color 0.15s ease-out;
         color: rgba($black, 0.8);
         min-width: 12rem;
-        cursor: pointer;
+        cursor: default;
         white-space: nowrap;
 
         &.sorting_1 {
