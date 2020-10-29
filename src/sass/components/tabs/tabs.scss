@@ -1,4 +1,5 @@
 .tabs {
+  background-color: $white;
   .tabs-container {
     position: relative;
     @include flex(flex-start, center);

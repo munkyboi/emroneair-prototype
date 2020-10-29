@@ -194,3 +194,11 @@ a {
 		pointer-events: none;
 	}
 }
+
+.quote {
+	border-radius: 0.25rem;
+	padding: 0.5rem 1rem;
+	display: block;
+	background-color: rgba($black, 0.05);
+	border: 1px solid rgba($black, 0.15);
+}
