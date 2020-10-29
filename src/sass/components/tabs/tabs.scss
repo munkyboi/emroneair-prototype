@@ -12,7 +12,8 @@
     min-height: calc(#{$contentToolbar-height} + 1px);
     @include flex(flex-start, stretch);
     flex-wrap: nowrap;
-    width: 100%;
+    min-width: 100%;
+    width: auto;
     .nav-item {
       position: relative;
       @include flex(center, center);

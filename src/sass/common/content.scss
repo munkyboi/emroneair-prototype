@@ -104,6 +104,9 @@
           transform: translateX(-100%);
           transition: transform 0.15s ease-out;
         }
+        .tabs-container {
+          width: calc(100vw - #{$sidebar-width} - #{$aside-width});
+        }
       }
     }
   }
