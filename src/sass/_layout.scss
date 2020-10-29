@@ -4,12 +4,12 @@
 	box-sizing: border-box;
 }
 
-p,
 h1,
 h2,
 h3,
 h4,
-h5 {
+h5,
+h6 {
 	@media #{$responsive-phone} {
 		// word-break: break-all;
 		// hyphens: auto;
@@ -23,8 +23,6 @@ h5 {
 
 html {
 	font-size: $base-font-size;
-	// font-size: calc(max(#{$base-font-size-min}, #{$base-font-size-max});
-	font-family: $font-family !important;
 }
 
 body {
@@ -33,7 +31,6 @@ body {
 	color: $body-textcolor;
 	// overflow-x: hidden;
 	width: 100%;
-	font-family: $font-family !important;
 	background-color: $body-bgcolor;
 	padding: 0;
 
@@ -189,5 +186,11 @@ a {
 				}
 			}
 		}
+	}
+}
+
+@media #{$responsive-tablet} {
+	.ps__rail-y, .ps__rail-x {
+		pointer-events: none;
 	}
 }

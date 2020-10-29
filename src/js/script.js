@@ -41,7 +41,14 @@ let __FAB__ = '';
       todayHighlight: true,
       format: 'yyyy-mm-dd'
     });
-    $('[data-toggle="datepicker"]').datepicker("setDate", new Date());
+    $('[data-toggle="datepicker"]').datepicker("setDate", new Date())
+    $('.dateselect-icon').on('click', function(e) {
+      e.preventDefault()
+      const datepicker = $(this).siblings('[data-toggle="datepicker"]')
+      datepicker.datepicker('show')
+      // const input = $(this).siblings('.form-control')
+      // input.trigger('focus')
+    })
 
     // MAIN
     const MainContainer = document.querySelector('body > app > .main > .content .content-body')
@@ -140,6 +147,18 @@ let __FAB__ = '';
           minScrollbarLength: 20,
           suppressScrollY: true
         })
+      })
+    }
+    
+
+    // FAB DROPDOWN MENU
+    const FABMenuContainer = document.querySelector('.fab > .dropdown-menu > .dropdown-menu-container')
+    if (FABMenuContainer) {
+      const FABMenuPS = new PerfectScrollbar(FABMenuContainer, {
+        wheelSpeed: 2,
+        wheelPropagation: false,
+        minScrollbarLength: 20,
+        suppressScrollX: true
       })
     }
   }

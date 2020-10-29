@@ -4,6 +4,10 @@
   right: 2rem;
   z-index: 1001;
 
+  @media #{$responsive-phone} {
+    bottom: 2.5rem;
+  }
+
   > a {
     width: 3rem;
     height: 3rem;
@@ -28,16 +32,28 @@
   }
 
   .menu-icons {
-    padding: 1rem;
+    padding: 0;
     width: unquote('min(420px, calc(100vw - 4rem))');
-    @include flex(center, center, row);
-    flex-wrap: wrap;
     display: none;
     transform-origin: bottom right;
     box-shadow: 0 0.1rem 0.5rem 0 rgba($black, 0.35);
 
+    .dropdown-menu-container {
+      width: 100%;
+      max-height: unquote('min(calc(var(--vh, 1vh) * 100 - #{$navbar-height} - #{$contentToolbar-height} - 1rem), 480px)');
+      overflow: hidden;
+      position: relative;
+    }
+    .icon-list {
+      padding: 1rem;
+      width: 100%;
+      height: auto;
+      @include flex(center, center, row);
+      flex-wrap: wrap;
+    }
+
     &.show {
-      display: flex;
+      display: block;
       animation: grow-in 0.15s ease-out 1 both;
     }
 

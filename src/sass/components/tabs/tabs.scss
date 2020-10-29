@@ -6,12 +6,6 @@
     flex-wrap: nowrap;
     overflow: hidden;
     background-color: $body-bgcolor;
-
-    @media #{$responsive-phone} {
-      .ps__rail-x {
-        pointer-events: none;
-      }
-    }
   }
   .nav-tabs {
     min-height: calc(#{$contentToolbar-height} + 1px);

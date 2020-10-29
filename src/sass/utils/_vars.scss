@@ -73,8 +73,10 @@ $paper-bordercolor: darken($body-bgcolor, 0.15);
 // FONTS
 // ========================
 $base-font-size: 16px;
-$font-name: 'Noto Sans JP';
-$font-family: #{$font-name}, sans-serif;
+$base-font-name: 'Cabin';
+$secondary-font-name: 'Cabin';
+$font-family-sans-serif: #{$base-font-name}, sans-serif;
+$font-family-secondary: #{$secondary-font-name}, sans-serif;
 
 // ========================
 // BOX SHADOW
@@ -119,7 +121,7 @@ $aside-linkcolor-hover: darken($primary-color, 0.15);
 // ========================
 // CONTENT TOOLBAR
 // ========================
-$contentToolbar-height: 62px;
+$contentToolbar-height: 4rem;
 $contentToolbar-bgcolor: #FFF;
 $contentToolbar-bordercolor: rgba(#222431, 0.1);
 $contentToolbar-textcolor: #222431;

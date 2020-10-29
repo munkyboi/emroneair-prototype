@@ -4,9 +4,7 @@
     margin-top: $navbar-height;
     margin-left: $sidebar-width;
     position: relative;
-    // height: calc(100% - #{$navbar-height});
-    height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
-    height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+    height: auto;
     width: 100%;
     overflow: hidden;
 
@@ -29,7 +27,7 @@
       transition: transform 0.15s ease-out;
 
       @media #{$responsive-tablet} {
-        left: 1rem;
+        left: 0rem;
       }
 
       @media #{$responsive-phone} {
@@ -43,7 +41,7 @@
 
     .content-wrapper {
       width: calc(100vw - #{$sidebar-width});
-      height: 100%;
+      height: auto;
       padding: 0;
 
       @media #{$responsive-tablet} {
@@ -52,7 +50,8 @@
 
       .content-body {
         width: 100%;
-        height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height});
+        height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+        height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - #{$contentToolbar-height});
         position: relative;
         overflow: hidden;
       }
@@ -67,7 +66,7 @@
 
       .tabs-container {
         width: calc(100vw - #{$sidebar-width});
-        @media #{$responsive-phone} {
+        @media #{$responsive-tablet} {
           width: 100%;
         }
       }
@@ -82,8 +81,8 @@
         margin-left: calc(#{$aside-width});
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
         @media #{$responsive-tablet} {
-          margin-left: calc(#{$aside-width} + 1rem);
-          width: calc(100% - #{$aside-width} - 1rem);
+          margin-left: calc(#{$aside-width});
+          width: calc(100% - #{$aside-width});
         }
         @media #{$responsive-phone} {
           margin-left: 0;
