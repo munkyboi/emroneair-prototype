@@ -6,7 +6,6 @@
     position: relative;
     height: auto;
     width: 100%;
-    overflow: hidden;
 
     @include flex(flex-start, flex-start);
 
@@ -53,7 +52,10 @@
         height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
         height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - #{$contentToolbar-height});
         position: relative;
-        overflow: hidden;
+        // overflow: hidden;
+        @include applyScrollbar();
+        overflow-y: auto;
+        overflow-x: hidden;
       }
 
       .ps__rail-y {
@@ -82,11 +84,11 @@
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
         @media #{$responsive-tablet} {
           margin-left: calc(#{$aside-width});
-          width: calc(100% - #{$aside-width});
+          width: calc(100vw - #{$aside-width});
         }
         @media #{$responsive-phone} {
           margin-left: 0;
-          width: 100%;
+          width: 100vw;
           padding: 0;
           position: absolute;
           z-index: 2;

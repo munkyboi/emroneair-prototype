@@ -30,6 +30,12 @@ let __FAB__ = '';
     $(window).trigger('scroll')
     $(window).trigger('resize')
 
+    // DATATABLES
+    $('.datatables').DataTable({
+      "scrollX": true,
+      "order": [[ 0, "asc" ]]
+    })
+
     // TOOLTIP
     $('[data-toggle="tooltip"]').tooltip()
 
@@ -51,22 +57,22 @@ let __FAB__ = '';
     })
 
     // MAIN
-    const MainContainer = document.querySelector('body > app > .main > .content .content-body')
-    if (MainContainer) {
-      const MainPS = new PerfectScrollbar(MainContainer, {
-        wheelSpeed: 2,
-        wheelPropagation: false,
-        minScrollbarLength: 20,
-        suppressScrollX: true
-      })
-      MainContainer.addEventListener('ps-scroll-y', (e) => {
-        if (e.target.scrollTop > 60) {
-          $('body').addClass('page-scrolled')
-        } else {
-          $('body').removeClass('page-scrolled')
-        }
-      })
-    }
+    // const MainContainer = document.querySelector('body > app > .main > .content .content-body')
+    // if (MainContainer) {
+    //   const MainPS = new PerfectScrollbar(MainContainer, {
+    //     wheelSpeed: 2,
+    //     wheelPropagation: false,
+    //     minScrollbarLength: 20,
+    //     suppressScrollX: true
+    //   })
+    //   MainContainer.addEventListener('ps-scroll-y', (e) => {
+    //     if (e.target.scrollTop > 60) {
+    //       $('body').addClass('page-scrolled')
+    //     } else {
+    //       $('body').removeClass('page-scrolled')
+    //     }
+    //   })
+    // }
 
     // SIDEBAR
     $('.burger').on('click', function(e) {
@@ -136,6 +142,12 @@ let __FAB__ = '';
       $(this).parent().find('.form-control').val('')
     })
 
+    // TABS EVENT
+    $('.nav-tabs a').on('show.bs.tab', function(e) {
+      if (typeof e.currentTarget.dataset.consist !== undefined) {
+        console.log('datatables...')
+      }
+    });
     // TABS SCROLLBAR
     const TabsContainers = document.querySelectorAll('.tabs .tabs-container')
     if (TabsContainers.length > 0) {

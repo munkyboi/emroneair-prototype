@@ -4,13 +4,14 @@
     width: 100%;
     @include flex(flex-start, flex-start);
 
-    @include media-breakpoint-down(sm) {
+    @media #{$responsive-tablet} {
       flex-direction: column;
     }
   }
 
   .title-col {
     border-bottom: 1px solid rgba($black, 0.15);
+    padding: 0.5rem 1rem;
 
     *[data-toggle='collapse'] {
       display: block;
@@ -37,7 +38,7 @@
   .avatar-col {
     margin-right: 1rem;
 
-    @include media-breakpoint-down(sm) {
+    @media #{$responsive-tablet} {
       width: 100%;
       margin-right: 0rem;
       margin-bottom: 2rem;
@@ -49,7 +50,7 @@
     flex-grow: 1;
     margin-left: 1rem;
 
-    @include media-breakpoint-down(sm) {
+    @media #{$responsive-tablet} {
       margin-left: 0rem;
     }
 
@@ -61,7 +62,7 @@
 
   .extra-col {
     border-left: 1px solid rgba($black, 0.15);
-    @include media-breakpoint-down(sm) {
+    @media #{$responsive-phone} {
       border-left: none;
     }
   }

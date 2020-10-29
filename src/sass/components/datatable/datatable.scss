@@ -1,0 +1,212 @@
+.datatable-wrapper {
+  // width: calc(100vw - #{$sidebar-width} - #{$aside-width} - 4rem);
+  width: calc(100%);
+  margin: 0 auto;
+
+  @media #{$responsive-tablet} {
+    width: calc(100%);
+    // width: calc(100vw - #{$aside-width} - 4rem);
+  }
+}
+.datatable {
+  position: relative;
+
+  .datatables {
+    > thead {
+      th {
+        border-bottom: 2px solid rgba($black, 0.3);
+        padding: 0.5rem 0.5rem;
+        outline: none;
+        transition: background-color 0.15s ease-out;
+        color: rgba($black, 1);
+        font-weight: bold;
+        min-width: 12rem;
+        white-space: nowrap;
+
+        &.sorting {
+          padding-right: 2rem;
+          background-image: url('/img/sort_both.png');
+          background-repeat: no-repeat;
+          background-position: calc(100% - 0.5rem) 50%;
+        }
+        &.sorting_asc {
+          padding-right: 2rem;
+          background-image: url('/img/sort_asc.png');
+          background-repeat: no-repeat;
+          background-position: calc(100% - 0.5rem) 50%;
+          background-color: rgba($black, 0.05);
+        }
+        &.sorting_desc {
+          padding-right: 2rem;
+          background-image: url('/img/sort_desc.png');
+          background-repeat: no-repeat;
+          background-position: calc(100% - 0.5rem) 50%;
+          background-color: rgba($black, 0.05);
+        }
+      }
+    }
+    > tbody {
+      tr {
+        &:hover {
+          td {
+            background-color: rgba($black, 0.025);
+
+            &.sorting_1 {
+              background-color: rgba($black, 0.075);
+            }
+          }
+        }
+      }
+      td {
+        border-bottom: 1px solid rgba($black, 0.1);
+        padding: 0.5rem 0.5rem;
+        transition: background-color 0.15s ease-out;
+        color: rgba($black, 0.8);
+        min-width: 12rem;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &.sorting_1 {
+          background-color: rgba($black, 0.05);
+          color: rgba($black, 1);
+        }
+      }
+    }
+  }
+
+  .dataTables_wrapper {
+    @include flex(flex-start, flex-start);
+    flex-wrap: wrap;
+  }
+
+  .dataTables_scroll {
+    flex-grow: 1;
+    width: 100%;
+  }
+
+  .dataTables_length {
+    width: 50%;
+    @include flex(flex-start, center);
+    min-height: $contentToolbar-height;
+    padding-left: 1rem;
+    border-bottom: 1px solid rgba($black, 0.1);
+
+    @media #{$responsive-phone} {
+      width: 100%;
+      @include flex(center, center);
+      border-bottom: none;
+    }
+
+    label {
+      margin: 0;
+
+      select {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        border: 1px solid rgba($black, 0.3);
+        outline: none;
+        border-radius: 0.2rem;
+        padding: 0.3rem 0.5rem;
+      }
+    }
+  }
+
+  .dataTables_filter {
+    width: 50%;
+    @include flex(flex-end, center);
+    min-height: $contentToolbar-height;
+    padding-right: 1rem;
+    border-bottom: 1px solid rgba($black, 0.1);
+
+    @media #{$responsive-phone} {
+      width: 100%;
+      @include flex(center, center);
+    }
+
+    label {
+      margin: 0;
+
+      input {
+        margin-left: 0.5rem;
+        border: 1px solid rgba($black, 0.3);
+        outline: none;
+        border-radius: 0.2rem;
+        line-height: 2;
+        padding: 0 0.5rem;
+      }
+    }
+  }
+
+  .dataTables_info {
+    width: 50%;
+    @include flex(flex-start, center);
+    padding: 0 1rem;
+    min-height: $contentToolbar-height;
+
+    @media #{$responsive-tablet} {
+      margin-bottom: 4rem;
+    }
+    
+    @media #{$responsive-phone} {
+      width: 100%;
+      @include flex(center, center);
+      margin-bottom: 0;
+    }
+  }
+
+  .dataTables_paginate {
+    width: 50%;
+    @include flex(flex-end, center);
+    padding: 0 1rem;
+    min-height: $contentToolbar-height;
+
+    @media #{$responsive-tablet} {
+      margin-bottom: 4rem;
+      padding-bottom: 0rem;
+    }
+    
+    @media #{$responsive-phone} {
+      width: 100%;
+      @include flex(center, center);
+      margin-bottom: 0;
+      padding-bottom: 4rem;
+    }
+    
+    a {
+      @include flex(center, center);
+      padding: 0 0.8rem;
+      line-height: 2;
+      margin: 0;
+      cursor: pointer;
+      color: rgba($black, 0.8);
+      border-radius: 50%;
+
+      &.previous, &.next {
+        border-radius: 0;
+      }
+
+      &.disabled {
+        cursor: default;
+        color: rgba($black, 0.5);
+      }
+
+      &:hover {
+        background-color: rgba($black, 0.1);
+        &.disabled {
+          background-color: transparent;
+        }
+      }
+    }
+
+    > span {
+      @include flex(center, center);
+      > a {
+        &.current {
+          background: $blue;
+          color: $white;
+          border: none;
+        }
+      }
+    }
+  }
+}

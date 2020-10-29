@@ -53,8 +53,20 @@
     }
   }
   .tab-content {
-    padding: 1rem !important;
+    padding: 0 !important;
+    padding-bottom: 2rem !important;
     background-color: $white;
     position: relative;
+
+    > .tab-pane {
+      display: block;
+      overflow: hidden;
+      opacity: 1;
+      height: 0;
+    }
+
+    > .active {
+      height: auto;
+    }
   }
 }

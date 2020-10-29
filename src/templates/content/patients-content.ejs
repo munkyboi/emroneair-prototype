@@ -3,9 +3,9 @@
   <div class='tabs'>
     <div class='tabs-container'>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Info</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-profile" aria-selected="false">Labs</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-tests" role="tab" aria-controls="nav-contact" aria-selected="false">Tests</a>
+        <a class="nav-item nav-link active" id="nav-info-tab" data-toggle="tab" href="#nav-info" role="tab" aria-controls="nav-info" aria-selected="true">Info</a>
+        <a class="nav-item nav-link" id="nav-labs-tab" data-toggle="tab" data-consist='datatable' href="#nav-labs" role="tab" aria-controls="nav-labs" aria-selected="false">Labs</a>
+        <a class="nav-item nav-link" id="nav-tests-tab" data-toggle="tab" href="#nav-tests" role="tab" aria-controls="nav-tests" aria-selected="false">Tests</a>
         <a class="nav-item nav-link" id="nav-vitals-tab" data-toggle="tab" href="#nav-vitals" role="tab" aria-controls="nav-vitals" aria-selected="false">Vitals</a>
         <a class="nav-item nav-link" id="nav-meds-tab" data-toggle="tab" href="#nav-meds" role="tab" aria-controls="nav-meds" aria-selected="false">Meds</a>
         <a class="nav-item nav-link" id="nav-vaccines-tab" data-toggle="tab" href="#nav-vaccines" role="tab" aria-controls="nav-vaccines" aria-selected="false">Vaccines</a>
@@ -20,18 +20,13 @@
     </div>
     <div class='content-body'>
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="tab-pane show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
           <%- include('../panels/patient-info.ejs'); -%>
         </div>
-        <div class="tab-pane fade" id="nav-labs" role="tabpanel" aria-labelledby="nav-labs-tab">
-          <h1>Labs</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit nemo error et facere dolore optio illo impedit dolor, omnis, dolorum voluptatibus deleniti? At ipsum officia earum nobis vitae? Modi.</p>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
+        <div class="tab-pane" id="nav-labs" role="tabpanel" aria-labelledby="nav-labs-tab">
+          <%- include('../panels/patient-labs.ejs'); -%>
         </div>
-        <div class="tab-pane fade" id="nav-tests" role="tabpanel" aria-labelledby="nav-tests-tab">
+        <div class="tab-pane" id="nav-tests" role="tabpanel" aria-labelledby="nav-tests-tab">
           <h1>Tests</h1>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit nemo error et facere dolore optio illo impedit dolor, omnis, dolorum voluptatibus deleniti? At ipsum officia earum nobis vitae? Modi.</p>
           <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
