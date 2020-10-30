@@ -3,11 +3,104 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  height: auto;
 
   // .list-item
   &-item {
     @include flex(flex-start, center);
     padding: 0.5rem 1rem;
     width: 100%;
+  }
+
+  .list-item {
+    background-color: rgba($black, 0);
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, border-right 0.15s ease-out;
+    border-right-width: 6px;
+    border-right-style: solid;
+    border-right-color: rgba($black, 0);
+
+    .avatar {
+      margin-right: 1rem;
+    }
+
+    @media #{$responsive-phone} {
+      border-right: none;
+    }
+
+    &.active {
+      border-right-color: $primary-color;
+      @media #{$responsive-phone} {
+        border-right-color: rgba($black, 0);
+        background-color: rgba($black, 0.05);
+      }
+      .list-link {
+        .list-context {
+          .primary-text {
+            color: $primary-color;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      background-color: rgba($black, 0.03);
+      border-right-color: rgba($black, 0);
+      &.active {
+        background-color: rgba($black, 0.03);
+        border-right-color: $primary-color;
+      }
+      @media #{$responsive-phone} {
+        border-right: none;
+      }
+    }
+  }
+
+  .list-link {
+    width: 100%;
+    @include flex(flex-start, center);
+    color: rgba($black, 0.65);
+
+    .list-context {
+      font-size: 1rem;
+      line-height: 1.4;
+      width: 100%;
+      span {
+        display: block;
+      }
+      .primary-text {
+        font-weight: bold;
+        color: rgba($black, 0.8);
+        transition: color 0.15s ease-out;
+      }
+      .secondary-text {
+        text-transform: uppercase;
+        font-size: 1rem;
+      }
+      .phone {
+        color: rgba($black, 0.35);
+      }
+      .date {
+        color: rgba($black, 0.35);
+      }
+      .appointment-details {
+        margin: 0.5rem 0;
+        @include flex(flex-start, center);
+
+        .badge {
+          width: 50%;
+          &.time {
+            flex-grow: 1;
+            margin-right: 0.5rem;
+          }
+          &.badge-default {
+            border: 1px solid rgba($black, 0.1);
+          }
+          &.badge-warning {
+            background-color: $warning;
+            color: $white;
+          }
+        }
+      }
+    }
   }
 }

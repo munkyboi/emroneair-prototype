@@ -1,0 +1,118 @@
+<div class='row'>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-lab-date">Select a date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input id='new-lab-date' type="text" class="form-control" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-lab-select">Select a lab</label>
+      <select id='new-lab-select' class="form-control">
+        <option selected value="" style="display:none;"></option>
+        <option value="ALPHA Feto Protein">ALPHA Feto Protein</option>
+        <option value="ANA Panel">ANA Panel</option>
+        <option value="CBC">CBC</option>
+        <option value="Chemistry">Chemistry</option>
+        <option value="COAGS">COAGS</option>
+        <option value="Electrolytes">Electrolytes</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-12'>
+    <h5>Details</h5>
+    <div class='detail-box row'>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-wbc">WBC</label>
+          <input id="new-lab-wbc" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-rbc">rbc</label>
+          <input id="new-lab-rbc" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-hb">Hb</label>
+          <input id="new-lab-hb" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-hct">Hct</label>
+          <input id="new-lab-hct" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-plt">Plt</label>
+          <input id="new-lab-plt" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-segs">Segs</label>
+          <input id="new-lab-segs" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-lymph">Lymph</label>
+          <input id="new-lab-lymph" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-neutrophil">Neutrophil</label>
+          <input id="new-lab-neutrophil" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-mono">Mono</label>
+          <input id="new-lab-mono" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-eos">Eos</label>
+          <input id="new-lab-eos" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-baso">Baso</label>
+          <input id="new-lab-baso" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-4'>
+        <div class="form-group">
+          <label for="new-lab-bands">Bands</label>
+          <input id="new-lab-bands" class="form-control">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var dialogDatePickers = document.querySelectorAll('#dynamicDialog .modal-body [data-toggle="datepicker"]')
+  if (dialogDatePickers.length > 0) {
+    dialogDatePickers.forEach(picker => {
+      const pipik = new Pikaday({
+        field: picker,
+        format: 'MM/DD/YYYY',
+        onSelect: function() {
+          console.log(this.getMoment().format('Do MMMM YYYY'));
+        }
+      })
+    });
+  }
+</script>

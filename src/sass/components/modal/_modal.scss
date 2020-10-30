@@ -1,0 +1,106 @@
+.modal {
+  z-index: 3001;
+}
+.modal-dialog {
+  padding: 2rem !important;
+}
+.modal-skin {
+  position: relative;
+  pointer-events: all;
+  .close {
+    float: none;
+    clear: both;
+    position: absolute;
+    z-index: 3;
+    top: -1rem;
+    right: -1rem;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: $red;
+    opacity: 1;
+    color: $white;
+    font-size: 2rem;
+    @include flex(center, center);
+    outline: none;
+
+    &:hover {
+      background-color: darken($red, 10%);
+      opacity: 1 !important;
+    }
+  }
+}
+.modal-body {
+  max-height: calc(var(--vh, 1vh) * 100 - 20rem);
+}
+.modal-footer {
+  .btn {
+    font-size: 1rem;
+
+    &.btn-default {
+      color: rgba($black, 0.8);
+      background-color: transparent;
+      border-color: transparent;
+      &:hover {
+        background-color: rgba($black, 0.1);
+      }
+    }
+
+    &.btn-primary {
+      color: $white;
+      background-color: $primary-color;
+      border-color: $primary-color;
+      &:hover {
+        background-color: rgba($primary, 0.8);
+      }
+    }
+
+    &.btn-secondary {
+      color: $white;
+      background-color: $secondary-color;
+      border-color: $secondary-color;
+      &:hover {
+        background-color: rgba($secondary, 0.8);
+      }
+    }
+
+    &.btn-success {
+      color: $white;
+      background-color: $success;
+      border-color: $success;
+      &:hover {
+        background-color: rgba($success, 0.8);
+      }
+    }
+
+    &.btn-info {
+      color: $white;
+      background-color: $info;
+      border-color: $info;
+      &:hover {
+        background-color: rgba($info, 0.8);
+      }
+    }
+
+    &.btn-warning {
+      color: $white;
+      background-color: $warning;
+      border-color: $warning;
+      &:hover {
+        background-color: rgba($warning, 0.8);
+      }
+    }
+
+    &.btn-danger {
+      color: $white;
+      background-color: $danger;
+      border-color: $danger;
+      &:hover {
+        background-color: rgba($danger, 0.8);
+      }
+    }
+  }
+}
+.modal-backdrop {
+  z-index: 3000;
+}

@@ -42,9 +42,11 @@
       width: calc(100vw - #{$sidebar-width});
       height: auto;
       padding: 0;
+      position: relative;
 
       @media #{$responsive-tablet} {
         width: calc(100vw);
+        top: 0;
       }
 
       .content-body {

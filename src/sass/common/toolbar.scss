@@ -1,0 +1,23 @@
+.toolbar {
+  position: relative;
+  width: calc(100%);
+  @include flex(flex-start, center);
+  padding: 0 1rem;
+  min-height: $contentToolbar-height;
+  border-bottom: 1px solid rgba($black, 0.1);
+
+  .btn[data-toggle="modal"] {
+    @include flex(center, center);
+    padding: 0 1rem;
+    line-height: 2;
+    font-size: 1rem;
+    i, .mdi {
+      font-size: 1rem;
+      margin-right: 0.5rem;
+    }
+
+    @media #{$responsive-phone} {
+      width: 100%;
+    }
+  }
+}

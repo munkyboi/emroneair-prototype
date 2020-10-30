@@ -1,0 +1,74 @@
+.input-field {
+  position: relative;
+
+  &.search {
+    .form-control {
+      padding-left: 2.25rem;
+    }
+  }
+
+  .form-control {
+    padding-right: 2.5rem;
+  }
+
+  .clear {
+    position: absolute;
+    font-size: 1.5rem;
+    color: $danger;
+    top: 50%;
+    right: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    @include flex(center, center);
+    display: none;
+    transform: translateY(-50%);
+    i, .mdi {
+      line-height: 1;
+    }
+  }
+
+  .search-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    color: rgba($black, 0.25);
+    top: 50%;
+    left: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    @include flex(center, center);
+    transform: translateY(-50%);
+    i, .mdi {
+      line-height: 1;
+    }
+  }
+
+  .dateselect-icon {
+    position: absolute;
+    font-size: 1.5rem;
+    color: rgba($black, 0.5);
+    top: 50%;
+    right: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    @include flex(center, center);
+    transform: translateY(-50%);
+    pointer-events: none;
+    i, .mdi {
+      line-height: 1;
+    }
+  }
+
+  &.not-empty {
+    .clear {
+      display: flex;
+    }
+  }
+}
+
+.detail-box {
+  padding: 1rem 0;
+  margin: 0;
+  background-color: rgba($black, 0.05);
+  border: 1px solid rgba($black, 0.1);
+  border-radius: 0.2rem;
+}

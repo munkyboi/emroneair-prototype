@@ -1,0 +1,18 @@
+<% 
+__DIALOG_TITLE__ = 'New Test'
+__DIALOG_CONTENT__ = '/forms/new-test-form.html'
+%>
+<div class='toolbar'>
+  <button
+    type='button'
+    class='btn btn-info'
+    data-toggle="modal"
+    data-target="#dynamicDialog"
+    data-title="<%= __DIALOG_TITLE__ %>"
+    data-content="<%= __DIALOG_CONTENT__ %>"
+    data-size="modal-lg"
+  >
+    <i class='mdi mdi-eyedropper-plus'></i>
+    New Test
+  </button>
+</div>

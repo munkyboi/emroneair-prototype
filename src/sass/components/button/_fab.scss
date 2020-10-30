@@ -21,7 +21,7 @@
     z-index: 1001;
 
     &:hover {
-      background-color: darken($primary-color, 0.5);
+      background-color: darken($primary-color, 10%);
       box-shadow: 0 0.2rem 0.5rem 0 rgba($black, 0.75);
     }
 
@@ -78,5 +78,15 @@
   100% {
     transform: scale(1) translateY(1.5rem);
     opacity: 1;
+  }
+}
+
+// EVENTS
+
+body.show-context {
+  .fab {
+    @media #{$responsive-phone} {
+      display: none;
+    }
   }
 }
