@@ -1,2 +1,50 @@
-<h4>New Test Form</h4>
-<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Officia recusandae aliquid porro numquam harum enim, vel molestiae beatae quae itaque tenetur nisi, autem alias, modi sequi natus! Deleniti, suscipit culpa?</p>
+<div class='row'>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-form-date">Select a date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input id='new-form-date' type="text" class="form-control" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-form-select">Select a test</label>
+      <select id='new-form-select' class="form-control">
+        <option selected value="" style="display:none;"></option>
+        <option value="Arterial Duplex Scan">Arterial Duplex Scan</option>
+        <option value="Biopsy">Biopsy</option>
+        <option value="BMD">BMD</option>
+        <option value="Bone Marrow">Bone Marrow</option>
+        <option value="Colonoscopy">Colonoscopy</option>
+        <option value="CT Scan">CT Scan</option>
+        <option value="CXR">CXR</option>
+        <option value="Doppler">Doppler</option>
+        <option value="Doppler/2D Echo">Doppler/2D Echo</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-12'>
+    <div class="form-group">
+      <label for="new-form-result">Result</label>
+      <textarea id="new-form-result" class="form-control" rows="5"></textarea>
+    </div>
+  </div>
+</div>
+<script>
+  var dialogDatePickers = document.querySelectorAll('#dynamicDialog .modal-body [data-toggle="datepicker"]')
+  if (dialogDatePickers.length > 0) {
+    dialogDatePickers.forEach(picker => {
+      const pipik = new Pikaday({
+        field: picker,
+        format: 'MM/DD/YYYY',
+        onSelect: function() {
+          // console.log(this.getMoment().format('Do MMMM YYYY'));
+        }
+      })
+    });
+  }
+</script>

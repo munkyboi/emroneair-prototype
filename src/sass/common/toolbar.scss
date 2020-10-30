@@ -7,17 +7,15 @@
   border-bottom: 1px solid rgba($black, 0.1);
 
   .btn[data-toggle="modal"] {
+    flex-grow: 1;
     @include flex(center, center);
     padding: 0 1rem;
     line-height: 2;
     font-size: 1rem;
+    margin-right: 1rem;
     i, .mdi {
       font-size: 1rem;
       margin-right: 0.5rem;
-    }
-
-    @media #{$responsive-phone} {
-      width: 100%;
     }
   }
 }

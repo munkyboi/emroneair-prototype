@@ -202,3 +202,46 @@ a {
 	background-color: rgba($black, 0.05);
 	border: 1px solid rgba($black, 0.15);
 }
+
+.content-title {
+	border-bottom: 1px solid rgba($black, 0.1);
+	margin-bottom: 1rem;
+	min-height: calc(#{$contentToolbar-height});
+	@include flex(flex-start, center);
+	flex-wrap: nowrap;
+
+	&.clean {
+		margin-bottom: 0;
+		border-bottom: none;
+		min-height: calc(#{$contentToolbar-height} - 1px);
+	}
+
+	@media #{$responsive-tablet} {
+		@include flex(center, flex-start, column);
+		padding: 1rem 0;
+	}
+
+	h1, h2, h3, h4, h5 {
+		flex-grow: 1;
+		text-align: left;
+		margin: 0;
+		@media #{$responsive-tablet} {
+			flex-grow: 0;
+			margin-bottom: 0.5rem;
+		}
+	}
+
+	.content-title-extra {
+		text-align: left;
+		margin: 0;
+		color: rgba($black, 0.5);
+		font-size: 0.8rem;
+		&:not(:last-of-type) {
+			margin-right: 1rem;
+		}
+		@media #{$responsive-tablet} {
+			text-align: left;
+			margin: 0;
+		}
+	}
+}

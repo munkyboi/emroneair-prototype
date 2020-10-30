@@ -213,3 +213,18 @@
     }
   }
 }
+
+.table {
+  tbody {
+    tr {
+      th, td {
+        transition: background-color 0.15s ease-out;
+      }
+      &:hover {
+        th, td {
+          background-color: rgba($black, 0.05);
+        }
+      }
+    }
+  }
+}

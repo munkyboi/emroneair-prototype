@@ -119,6 +119,12 @@ let __DIALOG_CONTENT__ = 'Content here...';
           $parentlist.removeClass('show-viewlist-context')
           $parentlist.find('.list-item.active').removeClass('active')
         })
+        $list.find('.viewlist-content-overlay').on('click', function(e) {
+          e.preventDefault()
+          $parentlist = $(this).closest('.viewlist')
+          $parentlist.removeClass('show-viewlist-context')
+          $parentlist.find('.list-item.active').removeClass('active')
+        })
       })
     }
 
@@ -200,8 +206,6 @@ let __DIALOG_CONTENT__ = 'Content here...';
 
   // DYNAMIC DIALOG EVENT AND AJAX
   $('#dynamicDialog').on('show.bs.modal', function (event) {
-    console.log(event)
-    // event.preventDefault()
     const button = $(event.relatedTarget)
     const title = button.data('title')
     const content = button.data('content')
@@ -213,14 +217,9 @@ let __DIALOG_CONTENT__ = 'Content here...';
       url: content,
       beforeSend: function() {
         modal.find('.modal-body').html('loading content...')
-        // modal.removeClass('show')
       },
       success: function(result) {
         modal.find('.modal-body').html(result)
-      },
-      complete: function(data) {
-        body = modal.find('.modal-body')
-        // modal.addClass('show')
       }
     })
   })
@@ -229,6 +228,7 @@ let __DIALOG_CONTENT__ = 'Content here...';
   function exitAllViewlist() {
     $('.viewlist').each(function(i, e) {
       $(this).removeClass('show-viewlist-context')
+      $(this).find('.list-item.active').removeClass('active')
     })
   }
 })()

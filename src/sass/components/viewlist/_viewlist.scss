@@ -68,6 +68,11 @@
       font-size: 2rem;
       @include flex(center, center);
       display: none;
+
+      &:hover {
+        background-color: darken($red, 10%);
+        opacity: 1 !important;
+      }
       
       @media #{$responsive-phone} {
         display: flex;
@@ -76,7 +81,7 @@
   }
 
   .viewlist-content-wrapper {
-    padding: 1rem;
+    padding: 0 1rem;
     background-color: $white;
     @media #{$responsive-phone} {
       position: relative;
@@ -86,7 +91,7 @@
       max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - 4rem);
       overflow-y: auto;
       overflow-x: hidden;
-      border-radius: 0.1rem;
+      border-radius: 0.2rem;
     }
   }
 

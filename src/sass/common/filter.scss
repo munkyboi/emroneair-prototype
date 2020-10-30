@@ -10,30 +10,4 @@
     flex-grow: 1;
     margin-right: 1rem;
   }
-
-  .sort {
-    position: relative;
-    .sort-button {
-      color: rgba($black, 0.5);
-      &:hover {
-        color: $primary-color;
-      }
-      i, .mdi {
-        font-size: 2rem;
-      }
-    }
-
-    .dropdown-menu {
-      left: auto;
-      right: 0;
-      top: calc(100% - 1rem);
-    }
-
-    .dropdown-item {
-      i, .mdi {
-        margin-right: 0.5rem;
-        font-size: 1.5rem;
-      }
-    }
-  }
 }
