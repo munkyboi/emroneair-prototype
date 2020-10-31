@@ -132,6 +132,9 @@ let __DIALOG_CONTENT__ = 'Content here...';
     $('.aside .list-link').on('click', function(e) {
       e.preventDefault()
       $('body').addClass('show-context')
+      const title = $(this).find('.primary-text').text()
+      $('.navbar .navbar-center .title-place').html(title)
+
     })
     $('.control-hide').on('click', function(e) {
       e.preventDefault()

@@ -17,6 +17,24 @@
       flex-grow: 1;
     }
 
+    .navbar-center {
+      @include flex(center, center);
+      flex-grow: 1;
+      font-weight: bold;
+      font-size: 1.2rem;
+      width: calc(100vw - (2rem * 8));
+
+      p {
+        text-align: center;
+        width: 100%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
+    }
+
     .navbar-right {
       @include flex(flex-end, center);
       flex-grow: 1;
