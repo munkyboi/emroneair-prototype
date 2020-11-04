@@ -1,8 +1,17 @@
 .modal {
   z-index: 3001;
+
+  &.imageViewer {
+    .modal-body {
+      > img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
 }
 .modal-dialog {
-  padding: 2rem !important;
+  padding: 1rem 2rem !important;
 }
 .modal-skin {
   position: relative;
@@ -31,7 +40,7 @@
   }
 }
 .modal-body {
-  max-height: calc(var(--vh, 1vh) * 100 - 20rem);
+  max-height: calc(var(--vh, 1vh) * 100 - 12rem);
 }
 .modal-footer {
   .btn {

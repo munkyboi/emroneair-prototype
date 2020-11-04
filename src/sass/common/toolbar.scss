@@ -18,4 +18,15 @@
       margin-right: 0.5rem;
     }
   }
+
+  &.clean {
+    border-bottom: none;
+    width: auto;
+    padding: 0;
+
+    .btn {
+      flex-grow: 0;
+      margin: 0;
+    }
+  }
 }

@@ -22,7 +22,11 @@
       flex-grow: 1;
       font-weight: bold;
       font-size: 1.2rem;
-      width: calc(100vw - (2rem * 8));
+
+      @media #{$responsive-phone} {
+        width: calc(100vw - (2rem * 6));
+        width: calc(var(--vw, 1vw) * 100 - (2rem * 6);
+      }
 
       p {
         text-align: center;

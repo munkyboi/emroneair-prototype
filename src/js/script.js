@@ -75,6 +75,9 @@ const initScripts = () => {
   // DATEPICKER
   initiateDateTimePicker()
 
+  // QUILL
+  initiateQuill()
+
   // MAIN CONTENT SCROLL DETECTION
   $('body > app > .main > .content .content-body').on('scroll', function(e) {
     if (e.currentTarget.scrollTop > 60) {
@@ -219,22 +222,45 @@ const initScripts = () => {
     const title = button.data('title')
     const content = button.data('content')
     const size = button.data('size')
+    const type = button.data('type')
     const modal = $(this)
     const _this = this
     modal.find('.modal-dialog').addClass(size)
     modal.find('.modal-title').text(title)
-    $.ajax({
-      url: content,
-      beforeSend: function() {
-        modal.find('.modal-body').html('loading content...')
-      },
-      success: function(result) {
-        modal.find('.modal-body').html(result)
-      },
-      complete: function() {
-        initiateDateTimePicker(_this)
-      }
-    })
+    if (type === 'image') {
+      const img = new Image()
+      img.src = content
+      modal.addClass('imageViewer')
+      modal.find('.modal-body').html(img)
+      modal.find('.modal-title').html('View Image')
+      modal.find('.modal-footer').hide()
+    } else {
+      $.ajax({
+        url: content,
+        beforeSend: function() {
+          modal.find('.modal-body').html('loading content...')
+        },
+        success: function(result) {
+          modal.find('.modal-body').html(result)
+          modal.find('.modal-footer').show()
+          modal.find('.modal-footer').html($('<button type="button" class="btn btn-default" data-dismiss="modal">Close</button><button type="button" class="btn btn-success">Save</button>'))
+        },
+        complete: function() {
+          initiateDateTimePicker(_this)
+          initiateQuill(_this)
+        }
+      })
+    }
+  })
+
+  // ACCORDIONS
+  $('.collapse').on('show.bs.collapse', function(event) {
+    const accordion = $(this).closest('.accordion')
+    accordion.addClass('show')
+  })
+  $('.collapse').on('hide.bs.collapse', function(event) {
+    const accordion = $(this).closest('.accordion')
+    accordion.removeClass('show')
   })
 
 
@@ -264,6 +290,9 @@ const initScripts = () => {
     if (ref.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
       const pickers = ref.querySelectorAll('[data-toggle="datepicker"]')
       pickers.forEach(picker => {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('MM/DD/YYYY')
+        }
         tail.DateTime(picker, {
           closeButton: false,
           dateFormat: 'mm/dd/YYYY',
@@ -280,16 +309,23 @@ const initScripts = () => {
     if (ref.querySelectorAll('[data-toggle="datetimepicker"]').length > 0) {
       const pickers = ref.querySelectorAll('[data-toggle="datetimepicker"]')
       pickers.forEach(picker => {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('MM/DD/YYYY h:mm:ss A')
+        }
         tail.DateTime(picker, {
           closeButton: false,
           time12h: true,
           dateFormat: 'mm/dd/YYYY',
+          timeFormat: 'G:ii:ss A',
         });
       });
     }
     if (ref.querySelectorAll('[data-toggle="timepicker"]').length > 0) {
       const pickers = ref.querySelectorAll('[data-toggle="timepicker"]')
       pickers.forEach(picker => {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('h:mm:ss A')
+        }
         tail.DateTime(picker, {
           dateFormat: false,
           closeButton: true,
@@ -298,6 +334,24 @@ const initScripts = () => {
           timeSeconds: null,
         });
       });
+    }
+  }
+
+  const initiateQuill = (ref = document) => {
+    if (ref.querySelectorAll('.editor').length > 0) {
+      const editors = ref.querySelectorAll('.editor')
+      editors.forEach(editor => {
+        const container = editor.querySelector('.editor-field')
+        const input = editor.querySelector('.editor-input')
+        const quill = new Quill(container, {
+          theme: 'snow',
+        })
+        quill.on('text-change', function(delta, oldDelta, source) {
+          if (source == 'user') {
+            input.value = quill.root.innerHTML
+          }
+        })
+      })
     }
   }
 

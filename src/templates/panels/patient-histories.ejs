@@ -1,0 +1,102 @@
+<% 
+__DIALOG_TITLE__ = 'New Meds'
+__DIALOG_CONTENT__ = '/img/profile.jpg'
+%>
+<div class='container-fluid'>
+  <div class='row'>
+    <div class='col-md-12'>
+      <div class='row'>
+
+
+        <div class='col-sm-12 accordion show'>
+          <div class='accordion-header'>
+            <button type='button' data-toggle='collapse' data-target='#present-illness'>
+              <h5>Present Illness</h5>
+            </button>
+            <%- include('../toolbars/toolbar-history-pi'); -%>
+            <i class='accordion-header-icon mdi mdi-chevron-down' data-toggle='collapse' data-target='#present-illness'></i>
+          </div>
+          <div class='collapse show' id='present-illness'>
+            <div class="accordion-content">
+              <p><span class='text--bold'>Field 1:</span> Tubol</p>
+              <p><span class='text--bold'>Field 2:</span> Igit</p>
+              <p><span class='text--bold'>PI 1:</span> 1111222233333</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class='col-sm-12 accordion'>
+          <div class='accordion-header'>
+            <button type='button' data-toggle='collapse' data-target='#past-medical'>
+              <h5>Past Medical</h5>
+            </button>
+            <%- include('../toolbars/toolbar-history-pm'); -%>
+            <i class='accordion-header-icon mdi mdi-chevron-down' data-toggle='collapse' data-target='#past-medical'></i>
+          </div>
+          <div class='collapse' id='past-medical'>
+            <div class="accordion-content">
+              <p><span class='text--bold'>Current Medication:</span> LSD</p>
+              <p><span class='text--bold'>Field5</span> 123123123123</p>
+              <p><span class='text--bold'>PM-1</span> ambooootttt unsa ni</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class='col-sm-12 accordion'>
+          <div class='accordion-header'>
+            <button type='button' data-toggle='collapse' data-target='#past-surgical'>
+              <h5>Past Surgical</h5>
+            </button>
+            <%- include('../toolbars/toolbar-history-ps'); -%>
+            <i class='accordion-header-icon mdi mdi-chevron-down' data-toggle='collapse' data-target='#past-surgical'></i>
+          </div>
+          <div class='collapse' id='past-surgical'>
+            <div class="accordion-content">
+              <p><span class='text--bold'>PSG-1:</span> Nagpatuli</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class='col-sm-12 accordion'>
+          <div class='accordion-header'>
+            <button type='button' data-toggle='collapse' data-target='#family'>
+              <h5>Family</h5>
+            </button>
+            <%- include('../toolbars/toolbar-history-fam'); -%>
+            <i class='accordion-header-icon mdi mdi-chevron-down' data-toggle='collapse' data-target='#family'></i>
+          </div>
+          <div class='collapse' id='family'>
+            <div class="accordion-content">
+              <p><span class='text--bold'>P1:</span> anmsdfnasdf</p>
+              <p><span class='text--bold'>PR-1:</span> camaosdlf</p>
+              <p><span class='text--bold'>TTT:</span> TiTi</p>
+              <p><span class='text--bold'>FA-1:</span> asdkfladm</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class='col-sm-12 accordion'>
+          <div class='accordion-header'>
+            <button type='button' data-toggle='collapse' data-target='#social'>
+              <h5>Social</h5>
+            </button>
+            <%- include('../toolbars/toolbar-history-soc'); -%>
+            <i class='accordion-header-icon mdi mdi-chevron-down' data-toggle='collapse' data-target='#social'></i>
+          </div>
+          <div class='collapse' id='social'>
+            <div class="accordion-content">
+              <p><span class='text--bold'>Social:</span> cececece</p>
+              <p><span class='text--bold'>S-1:</span> cecececeeeeee</p>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

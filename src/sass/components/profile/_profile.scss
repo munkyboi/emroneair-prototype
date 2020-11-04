@@ -1,44 +1,41 @@
 .profile {
+  padding: 0;
   padding-top: 2rem;
   .profile-wrapper {
     width: 100%;
     @include flex(flex-start, flex-start);
 
     @media #{$responsive-tablet} {
+      flex-wrap: wrap;
+    }
+
+    @media #{$responsive-phone} {
       flex-direction: column;
     }
   }
 
   .title-col {
-    border-bottom: 1px solid rgba($black, 0.15);
-    padding: 0.5rem 1rem;
-
-    *[data-toggle='collapse'] {
-      display: block;
-      padding-right: 2rem;
-      position: relative;
-      
-      .icon {
-        position: absolute;
-        right: 0.5rem;
-        top: 50%;
-        color: rgba($black, 0.5);
-        transform: translateY(-50%) rotate(0deg);
-        transition: transform 0.15s ease-out;
-      }
-
-      &[aria-expanded="true"] {
-        .icon {
-          transform: translateY(-50%) rotate(-180deg);
-        }
-      }
+    padding: 0;
+    h5 {
+      padding: 0 1rem;
     }
   }
 
   .avatar-col {
-    margin-right: 1rem;
+    @include flex(center, flex-start);
+    width: calc(16rem);
+    padding: 0 4rem;
+    .row {
+      margin: 0;
+      width: 100%;
+    }
 
     @media #{$responsive-tablet} {
+      width: 100%;
+      margin-bottom: 2rem;
+    }
+
+    @media #{$responsive-phone} {
       width: 100%;
       margin-right: 0rem;
       margin-bottom: 2rem;
@@ -47,23 +44,47 @@
   }
 
   .details-col {
-    flex-grow: 1;
-    margin-left: 1rem;
-
+    width: 60%;
+    .row {
+      margin: 0;
+      width: 100%;
+    }
+    [class^="col-"] {
+      padding: 0;
+    }
     @media #{$responsive-tablet} {
+      width: 50%;
+    }
+
+    @media #{$responsive-phone} {
       margin-left: 0rem;
+      width: 100%;
     }
 
     h5, p {
       line-height: 1.4;
       margin: 0.5rem 0;
     }
+
+    // .collapse {
+    //   border-bottom: 1px solid rgba($black, 0.15);
+    //   padding-bottom: 1rem;
+    // }
   }
 
   .extra-col {
     border-left: 1px solid rgba($black, 0.15);
+    width: 40%;
+    .row {
+      margin: 0;
+      width: 100%;
+    }
+    @media #{$responsive-tablet} {
+      width: 50%;
+    }
     @media #{$responsive-phone} {
       border-left: none;
+      width: 100%;
     }
   }
 }

@@ -94,6 +94,15 @@
       overflow-x: hidden;
       border-radius: 0.2rem;
     }
+
+    .content-context {
+      > img {
+        width: 100%;
+        height: auto;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+      }
+    }
   }
 
   .viewlist-content-overlay {

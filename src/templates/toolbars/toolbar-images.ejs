@@ -1,10 +1,20 @@
-<div class='filter'>
-  <div class='input-field dateselect'>
-    <a class="dateselect-icon" href="#">
-      <i class='mdi mdi-calendar-search'></i>
-    </a>
-    <input type="text" class="form-control current" data-toggle='datepicker' placeholder="Select Date" aria-label="Search">
-  </div>
+<% 
+__DIALOG_TITLE__ = 'New Image'
+__DIALOG_CONTENT__ = '/forms/new-image-form.html'
+%>
+<div class='toolbar'>
+  <button
+    type='button'
+    class='btn btn-info'
+    data-toggle="modal"
+    data-target="#dynamicDialog"
+    data-title="<%= __DIALOG_TITLE__ %>"
+    data-content="<%= __DIALOG_CONTENT__ %>"
+    data-size="modal-lg"
+  >
+    <i class='mdi mdi-image'></i>
+    New Image
+  </button>
   <div class='sort dropdown'>
     <a href='#' class='sort-button' data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
       <i class='mdi mdi-filter-variant'></i>

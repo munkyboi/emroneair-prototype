@@ -2,12 +2,20 @@
   width: 4rem;
   height: 4rem;
   min-width: 4rem;
+  min-height: 4rem;
   overflow: hidden;
   @include flex(center, center);
   border-radius: 50%;
   background-color: $gray;
   font-size: 1rem;
 
+  &.xl {
+    width: 10rem;
+    min-width: 10rem;
+    height: 10rem;
+    min-height: 10rem;
+    font-size: 5rem;
+  }
   &.lg {
     width: 6rem;
     min-width: 6rem;
@@ -18,30 +26,34 @@
     width: 4rem;
     min-width: 4rem;
     height: 4rem;
+    min-height: 4rem;
     font-size: 2rem;
   }
   &.sm {
     width: 3rem;
     min-width: 3rem;
     height: 3rem;
+    min-height: 3rem;
     font-size: 1.5rem;
   }
   &.xs {
     width: 2rem;
     min-width: 2rem;
     height: 2rem;
+    min-height: 2rem;
     font-size: 1rem;
   }
 
-  img {
+  > img {
     width: 100%;
     height: 100%;
+    display: block;
     object-fit: cover;
     line-height: 0;
     box-sizing: border-box;
   }
 
-  p {
+  > p {
     width: 100%;
     height: 100%;
     @include flex(center, center);
@@ -53,7 +65,7 @@
     font-size: inherit;
   }
 
-  i, .mdi {
+  > i, .mdi {
     width: 100%;
     height: 100%;
     @include flex(center, center);
@@ -88,3 +100,5 @@
     background-color: $danger;
   }
 }
+
+@import './avatar-zoomer';

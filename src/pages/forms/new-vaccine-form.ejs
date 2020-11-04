@@ -1,0 +1,48 @@
+<div class='row'>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-form-select">Select a vaccine</label>
+      <select name='vaccine' id='new-form-select' class="form-control">
+        <option selected value="" style="display:none;"></option>
+        <option value="Arterial Duplex Scan">Arterial Duplex Scan</option>
+        <option value="Biopsy">Biopsy</option>
+        <option value="BMD">BMD</option>
+        <option value="Bone Marrow">Bone Marrow</option>
+        <option value="Colonoscopy">Colonoscopy</option>
+        <option value="CT Scan">CT Scan</option>
+        <option value="CXR">CXR</option>
+        <option value="Doppler">Doppler</option>
+        <option value="Doppler/2D Echo">Doppler/2D Echo</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-form-date">Administration date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input name='administration_date' id='new-form-date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-form-expiry">Expiration date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input name='expiration_date' id='new-form-expiry' type="text" class="form-control" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-12 editor'>
+    <div class="form-group">
+      <label for="new-form-result">Remarks</label>
+      <div id='new-form-result' class="editor-field"></div>
+      <input type='hidden' class='editor-input' name='result' />
+    </div>
+  </div>
+</div>

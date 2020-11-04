@@ -7,7 +7,7 @@
         <a class="nav-item nav-link" id="nav-tests-tab" data-toggle="tab" href="#nav-tests" role="tab" aria-controls="nav-tests" aria-selected="false">Tests</a>
         <a class="nav-item nav-link" id="nav-vitals-tab" data-toggle="tab" href="#nav-vitals" role="tab" aria-controls="nav-vitals" aria-selected="false">Vitals</a>
         <a class="nav-item nav-link" id="nav-meds-tab" data-toggle="tab" href="#nav-meds" role="tab" aria-controls="nav-meds" aria-selected="false">Meds</a>
-        <a class="nav-item nav-link" id="nav-vaccines-tab" data-toggle="tab" href="#nav-vaccines" role="tab" aria-controls="nav-vaccines" aria-selected="false">Vaccines</a>
+        <a class="nav-item nav-link" id="nav-vaccine-tab" data-toggle="tab" href="#nav-vaccine" role="tab" aria-controls="nav-vaccine" aria-selected="false">Vaccines</a>
         <a class="nav-item nav-link" id="nav-notes-tab" data-toggle="tab" href="#nav-notes" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</a>
         <a class="nav-item nav-link" id="nav-histories-tab" data-toggle="tab" href="#nav-histories" role="tab" aria-controls="nav-histories" aria-selected="false">Histories</a>
         <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images" aria-selected="false">Images</a>
@@ -33,6 +33,21 @@
         </div>
         <div class="tab-pane" id="nav-meds" role="tabpanel" aria-labelledby="nav-meds-tab">
           <%- include('../panels/patient-meds'); -%>
+        </div>
+        <div class="tab-pane" id="nav-vaccine" role="tabpanel" aria-labelledby="nav-vaccine-tab">
+          <%- include('../panels/patient-vaccine'); -%>
+        </div>
+        <div class="tab-pane" id="nav-notes" role="tabpanel" aria-labelledby="nav-notes-tab">
+          <%- include('../panels/patient-notes'); -%>
+        </div>
+        <div class="tab-pane" id="nav-histories" role="tabpanel" aria-labelledby="nav-histories-tab">
+          <%- include('../panels/patient-histories'); -%>
+        </div>
+        <div class="tab-pane" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">
+          <%- include('../panels/patient-images'); -%>
+        </div>
+        <div class="tab-pane" id="nav-todo" role="tabpanel" aria-labelledby="nav-todo-tab">
+          <%- include('../panels/patient-todo'); -%>
         </div>
       </div>
     </div>

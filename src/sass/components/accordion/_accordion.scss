@@ -1,0 +1,75 @@
+.accordion {
+  padding: 0;
+  width: 100%;
+
+  button[data-toggle='collapse'] {
+    flex-grow: 1;
+    border: none;
+    background: transparent;
+    text-align: left;
+    color: $primary-color;
+    outline: none;
+
+    > * {
+      margin: 0;
+      padding: 0 1rem;
+    }
+
+    &:hover {
+      color: darken($primary-color, 10%);
+    }
+  }
+
+  &.show {
+    .accordion-header {
+      .toolbar {
+        opacity: 1;
+      }
+    }
+    .accordion-header-icon {
+      transform: translateY(-50%) rotate(-180deg);
+    }
+  }
+}
+
+.accordion-header {
+  position: relative;
+  padding-right: 2rem;
+  @include flex(flex-start, center);
+  border-bottom: 1px solid rgba($black, 0.15);
+  background-color: rgba($black, 0);
+  transition: background-color 0.15s ease-out;
+  min-height: $contentToolbar-height;
+
+  .toolbar {
+    margin-left: 1rem;
+    opacity: 0;
+    transition: opacity 0.15s ease-out;
+
+    @media #{$responsive-tablet} {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    background-color: rgba($black, 0.025);
+    .toolbar {
+      opacity: 1;
+    }
+  }
+}
+
+.accordion-content {
+  padding: 1rem;
+  transition: padding 0.15s ease-out;
+  border-bottom: 1px solid rgba($black, 0.15);
+}
+  
+.accordion-header-icon {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  color: rgba($black, 0.5);
+  transform: translateY(-50%) rotate(0deg);
+  transition: transform 0.15s ease-out;
+}
