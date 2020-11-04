@@ -1,0 +1,80 @@
+.sketchpad {
+  border: 1px solid rgba($black, 0.1);
+  background-color: $white;
+}
+.sketchpad-canvas {
+  canvas {
+    max-height: 400px;
+  }
+}
+.sketchpad-wrapper {
+  border: 1px solid rgba($black, 0.1);
+  background-color: $white;
+  width: 100%;
+  height: auto;
+
+  > img {
+    width: 100%;
+    height: auto;
+  }
+}
+.sketchpad-controls {
+  @include flex(center, center);
+  padding: 1rem;
+
+  @media #{$responsive-phone} {
+    flex-direction: column;
+  }
+}
+.sketchpad-size {
+  @include flex(center, center);
+  @media #{$responsive-phone} {
+    padding: 0.5rem 0;
+  }
+  .form-group {
+    margin: 0;
+  }
+}
+.sketchpad-colors {
+  @include flex(center, center);
+  margin: 0 1rem;
+  @media #{$responsive-phone} {
+    padding: 0.5rem 0;
+  }
+
+  .btn {
+    min-width: 2rem;
+    min-height: 2rem;
+
+    &:not(:last-of-type) {
+      margin-right: 0.5rem;
+    }
+
+    &.color-black {
+      background-color: $black;
+    }
+    &.color-red {
+      background-color: $red;
+    }
+    &.color-green {
+      background-color: $green;
+    }
+    &.color-blue {
+      background-color: $blue;
+    }
+  }
+}
+.sketchpad-actions {
+  @include flex(center, center);
+  @media #{$responsive-phone} {
+    padding: 0.5rem 0;
+  }
+  .btn {
+    min-width: 2rem;
+    min-height: 2rem;
+
+    &:not(:last-of-type) {
+      margin-right: 0.5rem;
+    }
+  }
+}

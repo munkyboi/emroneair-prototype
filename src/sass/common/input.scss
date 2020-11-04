@@ -110,6 +110,16 @@
   .btn {
     font-size: 1rem;
   }
+
+  &.inline {
+    @include flex(flex-start, center);
+
+    label {
+      width: auto;
+      margin: 0;
+      margin-right: 1rem;
+    }
+  }
 }
 
 .editor {

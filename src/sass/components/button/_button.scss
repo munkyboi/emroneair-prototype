@@ -1,2 +1,22 @@
 @import './fab.scss';
 @import './iconbutton.scss';
+
+.btn {
+  font-size: 1rem;
+  @include flex(center, center);
+  i, .mdi {
+    font-size: inherit;
+  }
+  &.btn-xs {
+    font-size: 0.75rem;
+  }
+  &.btn-sm {
+    font-size: 0.85rem;
+  }
+
+  > span {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}

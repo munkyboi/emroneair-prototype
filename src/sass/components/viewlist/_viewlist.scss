@@ -93,14 +93,66 @@
       overflow-y: auto;
       overflow-x: hidden;
       border-radius: 0.2rem;
+      padding: 0;
+    }
+
+    .content-title {
+      @media #{$responsive-phone} {
+        padding: 1rem 1rem;
+        margin-bottom: 0;
+      }
     }
 
     .content-context {
+      @media #{$responsive-phone} {
+        max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - 4rem - 200px);
+        @include applyScrollbar();
+        overflow-y: auto;
+        overflow-x: hidden;
+        width: 100%;
+      }
       > img {
         width: 100%;
         height: auto;
         margin: 0 auto;
         margin-bottom: 1rem;
+        @media #{$responsive-phone} {
+          margin-bottom: 0;
+        }
+      }
+    }
+
+    .content-context-wrapper {
+      @media #{$responsive-phone} {
+        padding: 1rem;
+      }
+    }
+
+    .content-footer {
+      border-top: 1px solid rgba($black, 0.1);
+      padding: 1rem 0;
+      @include flex(flex-end, center);
+      @media #{$responsive-phone} {
+        padding: 1rem;
+      }
+
+      .btn {
+        &:not(:last-of-type) {
+          margin-right: 0.5rem;
+        }
+        
+        @media #{$responsive-phone} {
+          min-height: 2.5rem;
+          min-width: 3rem;
+          @include flex(center, center);
+          > span {
+            display: none;
+          }
+          i, .mdi {
+            margin: 0;
+            font-size: 1.25rem;
+          }
+        }
       }
     }
   }

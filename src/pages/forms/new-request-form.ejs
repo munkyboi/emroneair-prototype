@@ -1,0 +1,37 @@
+<div class='row'>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-form-date">Select a date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input id='new-form-date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-form-select">Title</label>
+      <select id='new-form-select' class="form-control">
+        <option selected value="" style="display:none;"></option>
+        <option value="Arterial Duplex Scan">Arterial Duplex Scan</option>
+        <option value="Biopsy">Biopsy</option>
+        <option value="BMD">BMD</option>
+        <option value="Bone Marrow">Bone Marrow</option>
+        <option value="Colonoscopy">Colonoscopy</option>
+        <option value="CT Scan">CT Scan</option>
+        <option value="CXR">CXR</option>
+        <option value="Doppler">Doppler</option>
+        <option value="Doppler/2D Echo">Doppler/2D Echo</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-12 editor'>
+    <div class="form-group">
+      <label for="new-form-description">Description</label>
+      <div id='new-form-description' class="editor-field"></div>
+      <input type='hidden' class='editor-input' name='description' />
+    </div>
+  </div>
+</div>

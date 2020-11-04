@@ -78,6 +78,9 @@ const initScripts = () => {
   // QUILL
   initiateQuill()
 
+  // SKETCHPAD
+  initiateSketchpad()
+
   // MAIN CONTENT SCROLL DETECTION
   $('body > app > .main > .content .content-body').on('scroll', function(e) {
     if (e.currentTarget.scrollTop > 60) {
@@ -117,6 +120,7 @@ const initScripts = () => {
       $list.find('.list-link').on('click', function(e) {
         e.preventDefault()
         $parentlist = $(this).closest('.viewlist')
+        $('body').addClass('show-viewlist-context')
         $parentlist.addClass('show-viewlist-context')
         const $item = $(this).closest('.list-item')
         clearSelectableList($item, $('.viewlist .list'))
@@ -125,12 +129,14 @@ const initScripts = () => {
       $list.find('.close').on('click', function(e) {
         e.preventDefault()
         $parentlist = $(this).closest('.viewlist')
+        $('body').removeClass('show-viewlist-context')
         $parentlist.removeClass('show-viewlist-context')
         $parentlist.find('.list-item.active').removeClass('active')
       })
       $list.find('.viewlist-content-overlay').on('click', function(e) {
         e.preventDefault()
         $parentlist = $(this).closest('.viewlist')
+        $('body').removeClass('show-viewlist-context')
         $parentlist.removeClass('show-viewlist-context')
         $parentlist.find('.list-item.active').removeClass('active')
       })
@@ -248,6 +254,7 @@ const initScripts = () => {
         complete: function() {
           initiateDateTimePicker(_this)
           initiateQuill(_this)
+          initiateSketchpad(_this)
         }
       })
     }
@@ -270,6 +277,7 @@ const initScripts = () => {
 
   // UTILITIES AND FUNCTIONS
   const exitAllViewlist = () => {
+    $('body').removeClass('show-viewlist-context')
     $('.viewlist').each(function(i, e) {
       $(this).removeClass('show-viewlist-context')
       $(this).find('.list-item.active').removeClass('active')
@@ -350,6 +358,57 @@ const initScripts = () => {
           if (source == 'user') {
             input.value = quill.root.innerHTML
           }
+        })
+      })
+    }
+  }
+
+  // https://theisensanders.com/responsive-sketchpad/
+  const initiateSketchpad = (ref = document) => {
+    if (ref.querySelectorAll('.sketchpad').length > 0) {
+      const sketchpads = ref.querySelectorAll('.sketchpad')
+      sketchpads.forEach(sketchpad => {
+        const container = sketchpad.querySelector('.sketchpad-canvas')
+        const sizeSelect = sketchpad.querySelector('.sketchpad-size select')
+        const colorBlack = sketchpad.querySelector('.sketchpad-colors .color-black')
+        const colorRed = sketchpad.querySelector('.sketchpad-colors .color-red')
+        const colorGreen = sketchpad.querySelector('.sketchpad-colors .color-green')
+        const colorBlue = sketchpad.querySelector('.sketchpad-colors .color-blue')
+        const undo = sketchpad.querySelector('.sketchpad-actions .undo')
+        const redo = sketchpad.querySelector('.sketchpad-actions .redo')
+        const clear = sketchpad.querySelector('.sketchpad-actions .clear')
+        const pad = new Sketchpad(container, {
+          line: {
+            color: '#000000',
+            size: 5
+          },
+          height: 400
+        })
+        $(sizeSelect).on('change', function(e) {
+          pad.setLineSize(e.currentTarget.value)
+        })
+        $(colorBlack).on('click', function(e) {
+          pad.setLineColor(e.currentTarget.value)
+        })
+        $(colorRed).on('click', function(e) {
+          pad.setLineColor(e.currentTarget.value)
+        })
+        $(colorGreen).on('click', function(e) {
+          pad.setLineColor(e.currentTarget.value)
+        })
+        $(colorBlue).on('click', function(e) {
+          pad.setLineColor(e.currentTarget.value)
+        })
+        $(clear).on('click', function(e) {
+          if (confirm('Are you sure you want to erase everything?')) {
+            pad.clear()
+          }
+        })
+        $(undo).on('click', function(e) {
+          pad.undo()
+        })
+        $(redo).on('click', function(e) {
+          pad.redo()
         })
       })
     }

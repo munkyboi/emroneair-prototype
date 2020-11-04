@@ -3,6 +3,12 @@
   bottom: 2rem;
   right: 2rem;
   z-index: 1001;
+  animation-name: fab-show;
+  animation-duration: 0.15s;
+  animation-timing-function: ease-out;
+  animation-iteration-count: 1;
+  animation-direction: normal;
+  animation-fill-mode: forwards;
 
   @media #{$responsive-phone} {
     bottom: 2.5rem;
@@ -88,5 +94,46 @@ body.show-context {
     @media #{$responsive-phone} {
       display: none;
     }
+  }
+}
+
+body.show-viewlist-context {
+  .fab {
+    animation-name: fab-hide;
+    animation-duration: 0.15s;
+    animation-timing-function: ease-out;
+    animation-iteration-count: 1;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+  }
+}
+
+@keyframes fab-hide {
+  0% {
+    transform: translateY(0px);
+    pointer-events: all;
+  }
+  99% {
+    transform: translateY(6rem);
+    pointer-events: all;
+  }
+  100% {
+    transform: translateY(6rem);
+    pointer-events: none;
+  }
+}
+
+@keyframes fab-show {
+  0% {
+    transform: translateY(6rem);
+    pointer-events: none;
+  }
+  1% {
+    transform: translateY(6rem);
+    pointer-events: all;
+  }
+  100% {
+    transform: translateY(0px);
+    pointer-events: all;
   }
 }
