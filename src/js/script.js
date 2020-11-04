@@ -294,6 +294,7 @@ const initScripts = () => {
     })
   }
 
+  // https://github.pytes.net/tail.DateTime/
   const initiateDateTimePicker = (ref = document) => {
     if (ref.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
       const pickers = ref.querySelectorAll('[data-toggle="datepicker"]')
@@ -345,6 +346,7 @@ const initScripts = () => {
     }
   }
 
+  // https://quilljs.com/docs/configuration/
   const initiateQuill = (ref = document) => {
     if (ref.querySelectorAll('.editor').length > 0) {
       const editors = ref.querySelectorAll('.editor')
