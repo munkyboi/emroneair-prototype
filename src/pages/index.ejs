@@ -1,7 +1,8 @@
 <% 
-__PAGE__ = 'patients'
-__ASIDE__ = '../templates/asides/patients-asides'
-__FAB__ = '../templates/fabs/patients-fab'
+__PAGE__ = 'patients';
+__CONTENT__ = '../templates/content/patients-content';
+__ASIDE__ = '../templates/asides/patients-asides';
+__FAB__ = '../templates/fabs/patients-fab';
 %> 
 
 <%- include('../templates/header'); -%>
@@ -20,7 +21,7 @@ __FAB__ = '../templates/fabs/patients-fab'
     <%- include(__FAB__); -%>
     <% } %>
     
-    <%- include('../templates/content/patients-content'); -%>
+    <%- include(__CONTENT__); -%>
   </div>
 
 </div>

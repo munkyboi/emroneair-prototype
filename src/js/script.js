@@ -3,208 +3,214 @@
 // ============================================================
 // ============================================================
 // ============================================================
-// ========         MAIN SCRIPTS FOR F8PHOTO          =========
+// ========        MAIN SCRIPTS FOR EMRONEAIR         =========
 // ============================================================
 // ============================================================
 // ============================================================
 // ============================================================
 
+var __PAGE__ = '';
+var __ASIDE__ = '';
+var __CONTENT__ = '';
+var __VH__ = window.innerHeight * 0.01;
+var __FAB__ = '';
+var __DIALOG_NAME__ = 'dialogname';
+var __DIALOG_TITLE__ = 'Dialog Title';
+var __DIALOG_CONTENT__ = 'Content here...';
+var __GLOBAL_STATES__ = {
+  dialog: {
+    title: '',
+    content: '',
+    name: ''
+  },
+  toasts: {},
+  ui: {
+    debugMode: true,
+    page: __PAGE__,
+    aside: __ASIDE__,
+    content: __CONTENT__,
+    fab: __FAB__,
+    vw: window.innerWidth * 0.01,
+    vh: window.innerHeight * 0.01
+  },
+  context: {
+    contextTitle: '',
+    showContext: false,
+  }
+};
 
+// STATE MANAGEMENT
+var globalStates = ObservableSlim.create(__GLOBAL_STATES__, true, function(changes) {
+  console.log(__GLOBAL_STATES__, changes);
+  changes.map((change) => {
+    const property = change.property
+    if (property === 'showContext') {
+      if (change.newValue === true) {
+        document.querySelector('body').classList.add('show-context')
+      } else {
+        document.querySelector('body').classList.remove('show-context')
+      }
+    } else if (property === 'contextTitle') {
+      if (change.type === 'update') {
+        document.querySelector('.navbar .navbar-center .title-place').innerHTML = change.newValue
+      }
+    } else if (property === 'vh') {
+      document.documentElement.style.setProperty('--vh', `${change.newValue}px`);
+    } else if (property === 'vw') {
+      document.documentElement.style.setProperty('--vw', `${change.newValue}px`);
+    }
+  })
+});
 
-let __PAGE__ = '';
-let __VH__ = window.innerHeight * 0.01;
-let __FAB__ = '';
-let __DIALOG_NAME__ = 'dialogname';
-let __DIALOG_TITLE__ = 'Dialog Title';
-let __DIALOG_CONTENT__ = 'Content here...';
-
-(() => {
-  let quickviewProdId = 0
-  const toastDelay = 5000
-  const brandSliderView = 6
-  const productSliderView = 5
-
-  $(document).ready(function() {
-    initScripts()
+const initScripts = () => {
+  // DATATABLES
+  $('.datatables').DataTable({
+    "scrollX": true,
+    "order": [[ 0, "asc" ]]
   })
 
-  // INITIALIZE SCRIPTS
-  const initScripts = () => {
-    $(window).trigger('scroll')
-    $(window).trigger('resize')
+  // TOOLTIP
+  $('[data-toggle="tooltip"]').tooltip()
 
-    // DATATABLES
-    $('.datatables').DataTable({
-      "scrollX": true,
-      "order": [[ 0, "asc" ]]
-    })
+  // DATEPICKER
+  initiateDateTimePicker()
 
-    // TOOLTIP
-    $('[data-toggle="tooltip"]').tooltip()
-
-    // DATEPICKER
-    if (document.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
-      const pickers = document.querySelectorAll('[data-toggle="datepicker"]')
-      pickers.forEach(picker => {
-        new Pikaday({
-          field: picker,
-          format: 'MM/DD/YYYY',
-          onSelect: function() {
-              console.log(this.getMoment().format('Do MMMM YYYY'));
-          }
-        })
-      });
+  // MAIN CONTENT SCROLL DETECTION
+  $('body > app > .main > .content .content-body').on('scroll', function(e) {
+    if (e.currentTarget.scrollTop > 60) {
+      $('body').addClass('page-scrolled')
+    } else {
+      $('body').removeClass('page-scrolled')
     }
-    // $('[data-toggle="datepicker"]').datepicker({
-    //   weekStart: 1,
-    //   daysOfWeekHighlighted: "6,0",
-    //   autoclose: true,
-    //   todayHighlight: true,
-    //   format: 'yyyy-mm-dd'
-    // });
-    // $('[data-toggle="datepicker"]').datepicker("setDate", new Date())
-    // $('.dateselect-icon').on('click', function(e) {
-    //   e.preventDefault()
-    //   const datepicker = $(this).siblings('[data-toggle="datepicker"]')
-    //   datepicker.datepicker('show')
-    //   // const input = $(this).siblings('.form-control')
-    //   // input.trigger('focus')
-    // })
+  })
 
-    // MAIN CONTENT SCROLL DETECTION
-    $('body > app > .main > .content .content-body').on('scroll', function(e) {
-      if (e.currentTarget.scrollTop > 60) {
-        $('body').addClass('page-scrolled')
-      } else {
-        $('body').removeClass('page-scrolled')
-      }
-    })
+  // SIDEBAR
+  $('.burger').on('click', function(e) {
+    e.preventDefault()
+    $('body').toggleClass('show-sidebar')
+  })
+  $('.sidebar-overlay').on('click', function(e) {
+    e.preventDefault()
+    $('body').toggleClass('show-sidebar')
+  })
 
-    // SIDEBAR
-    $('.burger').on('click', function(e) {
-      e.preventDefault()
-      $('body').toggleClass('show-sidebar')
-    })
-    $('.sidebar-overlay').on('click', function(e) {
-      e.preventDefault()
-      $('body').toggleClass('show-sidebar')
-    })
-
-    // LISTS SELECT
-    if ($('.list').length) {
-      $('.list').each(function(i, e) {
-        $list = $(this)
-        $list.find('.list-link').on('click', function(e) {
-          e.preventDefault()
-          const $item = $(this).closest('.list-item')
-          const $parentlist = $(this).closest('.list')
-          $parentlist.find('.list-item.active').removeClass('active')
-          $item.addClass('active')
-        })
+  // LISTS SELECT
+  if ($('.list.list-selectable').length) {
+    $('.list.list-selectable').each(function(i, e) {
+      $list = $(this)
+      $list.find('.list-link').on('click', function(e) {
+        e.preventDefault()
+        const $item = $(this).closest('.list-item')
+        clearSelectableList($item, $('.list.list-selectable'))
+        $item.addClass('active')
       })
-    }
+    })
+  }
 
-    // VIEWLISTS MOBILE VIEW
-    if ($('.viewlist').length) {
-      $('.viewlist').each(function(i, e) {
-        $list = $(this)
-        console.log($list)
-        $list.find('.list-link').on('click', function(e) {
-          $parentlist = $(this).closest('.viewlist')
-          $parentlist.addClass('show-viewlist-context')
-        })
-        $list.find('.close').on('click', function(e) {
-          e.preventDefault()
-          $parentlist = $(this).closest('.viewlist')
-          $parentlist.removeClass('show-viewlist-context')
-          $parentlist.find('.list-item.active').removeClass('active')
-        })
-        $list.find('.viewlist-content-overlay').on('click', function(e) {
-          e.preventDefault()
-          $parentlist = $(this).closest('.viewlist')
-          $parentlist.removeClass('show-viewlist-context')
-          $parentlist.find('.list-item.active').removeClass('active')
-        })
+  // VIEWLISTS MOBILE VIEW
+  if ($('.viewlist').length) {
+    $('.viewlist').each(function(i, e) {
+      $list = $(this)
+      $list.find('.list-link').on('click', function(e) {
+        e.preventDefault()
+        $parentlist = $(this).closest('.viewlist')
+        $parentlist.addClass('show-viewlist-context')
+        const $item = $(this).closest('.list-item')
+        clearSelectableList($item, $('.viewlist .list'))
+        $item.addClass('active')
       })
-    }
-
-    // ASIDE LISTS
-    $('.aside .list-link').on('click', function(e) {
-      e.preventDefault()
-      $('body').addClass('show-context')
-      const title = $(this).find('.primary-text').text()
-      $('.navbar .navbar-center .title-place').html(title)
-
-    })
-    $('.control-hide').on('click', function(e) {
-      e.preventDefault()
-      exitAllViewlist()
-      $('body').removeClass('show-context')
-      setTimeout(() => {
-        MainContainer.scrollTo(0,0)
-      }, 300)
-    })
-
-    // ASIDE CONTENT SCROLLBAR
-    const AsideListContainers = document.querySelectorAll('.list-container')
-    if (AsideListContainers && AsideListContainers.length) {
-      AsideListContainers.forEach(cont => {
-        new PerfectScrollbar(cont, {
-          wheelSpeed: 2,
-          wheelPropagation: false,
-          minScrollbarLength: 20,
-          suppressScrollX: true
-        })
+      $list.find('.close').on('click', function(e) {
+        e.preventDefault()
+        $parentlist = $(this).closest('.viewlist')
+        $parentlist.removeClass('show-viewlist-context')
+        $parentlist.find('.list-item.active').removeClass('active')
       })
-    }
-
-    // ASIDE SEARCH FIELD
-    $('.aside .search .form-control').on('keyup', function(e) {
-      if (e.currentTarget.value.length > 0) {
-        $(this).parent().addClass('not-empty')
-      } else {
-        $(this).parent().removeClass('not-empty')
-      }
-    })
-    $('.aside .search .clear').on('click', function(e) {
-      e.preventDefault()
-      $(this).parent().removeClass('not-empty')
-      $(this).parent().find('.form-control').val('')
-    })
-
-    // TABS EVENT
-    $('.nav-tabs a').on('show.bs.tab', function(e) {
-      exitAllViewlist()
-      if (typeof e.currentTarget.dataset.consist !== undefined) {
-        console.log('datatables...')
-      }
-    })
-
-    // TABS SCROLLBAR
-    const TabsContainers = document.querySelectorAll('.tabs .tabs-container')
-    if (TabsContainers && TabsContainers.length) {
-      TabsContainers.forEach(cont => {
-        new PerfectScrollbar(cont, {
-          // handlers: ['keyboard', 'wheel', 'touch'],
-          wheelSpeed: 2,
-          wheelPropagation: false,
-          minScrollbarLength: 20,
-          suppressScrollY: true
-        })
+      $list.find('.viewlist-content-overlay').on('click', function(e) {
+        e.preventDefault()
+        $parentlist = $(this).closest('.viewlist')
+        $parentlist.removeClass('show-viewlist-context')
+        $parentlist.find('.list-item.active').removeClass('active')
       })
-    }
-    
+    })
+  }
 
-    // FAB POPUP MENU SCROLLBAR
-    const FABMenuContainer = document.querySelector('.fab > .dropdown-menu > .dropdown-menu-container')
-    if (FABMenuContainer) {
-      const FABMenuPS = new PerfectScrollbar(FABMenuContainer, {
+  // ASIDE LISTS
+  $('.aside .list-link').on('click', function(e) {
+    e.preventDefault()
+    // update global state
+    globalStates.context.contextTitle = $(this).find('.primary-text').text()
+    globalStates.context.showContext = true;
+
+  })
+  $('.control-hide').on('click', function(e) {
+    e.preventDefault()
+    exitAllViewlist()
+    setTimeout(() => {
+      MainContainer.scrollTo(0,0)
+    }, 300)
+    // update global state
+    globalStates.context.showContext = false;
+  })
+
+  // ASIDE CONTENT SCROLLBAR
+  const AsideListContainers = document.querySelectorAll('.list-container')
+  if (AsideListContainers && AsideListContainers.length) {
+    AsideListContainers.forEach(cont => {
+      new PerfectScrollbar(cont, {
         wheelSpeed: 2,
         wheelPropagation: false,
         minScrollbarLength: 20,
         suppressScrollX: true
       })
+    })
+  }
+
+  // ASIDE SEARCH FIELD
+  $('.aside .search .form-control').on('keyup', function(e) {
+    if (e.currentTarget.value.length > 0) {
+      $(this).parent().addClass('not-empty')
+    } else {
+      $(this).parent().removeClass('not-empty')
     }
+  })
+  $('.aside .search .clear').on('click', function(e) {
+    e.preventDefault()
+    $(this).parent().removeClass('not-empty')
+    $(this).parent().find('.form-control').val('')
+  })
+
+  // TABS EVENT
+  $('.nav-tabs a').on('show.bs.tab', function(e) {
+    exitAllViewlist()
+    if (typeof e.currentTarget.dataset.consist !== undefined) {
+      // console.log('datatables...')
+    }
+  })
+
+  // TABS SCROLLBAR
+  const TabsContainers = document.querySelectorAll('.tabs .tabs-container')
+  if (TabsContainers && TabsContainers.length) {
+    TabsContainers.forEach(cont => {
+      new PerfectScrollbar(cont, {
+        // handlers: ['keyboard', 'wheel', 'touch'],
+        wheelSpeed: 2,
+        wheelPropagation: false,
+        minScrollbarLength: 20,
+        suppressScrollY: true
+      })
+    })
+  }
+  
+
+  // FAB POPUP MENU SCROLLBAR
+  const FABMenuContainer = document.querySelector('.fab > .dropdown-menu > .dropdown-menu-container')
+  if (FABMenuContainer && FABMenuContainer.length) {
+    const FABMenuPS = new PerfectScrollbar(FABMenuContainer, {
+      wheelSpeed: 2,
+      wheelPropagation: false,
+      minScrollbarLength: 20,
+      suppressScrollX: true
+    })
   }
 
   // DYNAMIC DIALOG EVENT AND AJAX
@@ -214,6 +220,7 @@ let __DIALOG_CONTENT__ = 'Content here...';
     const content = button.data('content')
     const size = button.data('size')
     const modal = $(this)
+    const _this = this
     modal.find('.modal-dialog').addClass(size)
     modal.find('.modal-title').text(title)
     $.ajax({
@@ -223,20 +230,91 @@ let __DIALOG_CONTENT__ = 'Content here...';
       },
       success: function(result) {
         modal.find('.modal-body').html(result)
+      },
+      complete: function() {
+        initiateDateTimePicker(_this)
       }
     })
   })
 
+
+  windowResized()
+  window.onresize = windowResized
+}
+
   // UTILITIES AND FUNCTIONS
-  function exitAllViewlist() {
+  const exitAllViewlist = () => {
     $('.viewlist').each(function(i, e) {
       $(this).removeClass('show-viewlist-context')
       $(this).find('.list-item.active').removeClass('active')
     })
   }
-})()
 
-$(window).on('resize', function(e) {
-  __VH__ = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${__VH__}px`);
+  const clearSelectableList = (ref, obj) => {
+    obj.each(function(i, lists) {
+      $(lists).find('.list-item.active').each((i, item) => {
+        if (item !== ref) {
+          $(item).removeClass('active')
+        }
+      })
+    })
+  }
+
+  const initiateDateTimePicker = (ref = document) => {
+    if (ref.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
+      const pickers = ref.querySelectorAll('[data-toggle="datepicker"]')
+      pickers.forEach(picker => {
+        tail.DateTime(picker, {
+          closeButton: false,
+          dateFormat: 'mm/dd/YYYY',
+          timeFormat: false,
+          time12h: true,
+          timeIncrement: false,
+          timeHours: false,
+          timeMinutes: false,
+          timeSeconds: false,
+          viewDecades: false,
+        });
+      });
+    }
+    if (ref.querySelectorAll('[data-toggle="datetimepicker"]').length > 0) {
+      const pickers = ref.querySelectorAll('[data-toggle="datetimepicker"]')
+      pickers.forEach(picker => {
+        tail.DateTime(picker, {
+          closeButton: false,
+          time12h: true,
+          dateFormat: 'mm/dd/YYYY',
+        });
+      });
+    }
+    if (ref.querySelectorAll('[data-toggle="timepicker"]').length > 0) {
+      const pickers = ref.querySelectorAll('[data-toggle="timepicker"]')
+      pickers.forEach(picker => {
+        tail.DateTime(picker, {
+          dateFormat: false,
+          closeButton: true,
+          timeFormat: 'G:ii:ss A',
+          time12h: true,
+          timeSeconds: null,
+        });
+      });
+    }
+  }
+
+  const windowResized = () => {
+    console.log('window resized')
+    // set global state
+    const vw = window.innerWidth * 0.01;
+    const vh = window.innerHeight * 0.01;
+    if (document.documentElement.style.length === 0) {
+      document.documentElement.style.setProperty('--vw', `${vw}px`);
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+    globalStates.ui.vw = vw;
+    globalStates.ui.vh = vh;
+  }
+
+// Document Ready
+jQuery(function() {
+  initScripts()
 })

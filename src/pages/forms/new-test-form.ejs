@@ -34,17 +34,3 @@
     </div>
   </div>
 </div>
-<script>
-  var dialogDatePickers = document.querySelectorAll('#dynamicDialog .modal-body [data-toggle="datepicker"]')
-  if (dialogDatePickers.length > 0) {
-    dialogDatePickers.forEach(picker => {
-      const pipik = new Pikaday({
-        field: picker,
-        format: 'MM/DD/YYYY',
-        onSelect: function() {
-          // console.log(this.getMoment().format('Do MMMM YYYY'));
-        }
-      })
-    });
-  }
-</script>

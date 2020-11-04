@@ -71,6 +71,11 @@
   background-color: rgba($black, 0.05);
   border: 1px solid rgba($black, 0.1);
   border-radius: 0.2rem;
+
+  .content-title {
+    min-height: auto;
+    padding: 0 1rem 1rem;
+  }
 }
 
 

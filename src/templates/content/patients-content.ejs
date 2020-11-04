@@ -1,5 +1,4 @@
 <div class='content-wrapper'>
-  
   <div class='tabs'>
     <div class='tabs-container'>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -21,13 +20,19 @@
     <div class='content-body'>
       <div class="tab-content">
         <div class="tab-pane show active" id="nav-info" role="tabpanel" aria-labelledby="nav-info-tab">
-          <%- include('../panels/patient-info.ejs'); -%>
+          <%- include('../panels/patient-info'); -%>
         </div>
         <div class="tab-pane" id="nav-labs" role="tabpanel" aria-labelledby="nav-labs-tab">
-          <%- include('../panels/patient-labs.ejs'); -%>
+          <%- include('../panels/patient-labs'); -%>
         </div>
         <div class="tab-pane" id="nav-tests" role="tabpanel" aria-labelledby="nav-tests-tab">
-          <%- include('../panels/patient-tests.ejs'); -%>
+          <%- include('../panels/patient-tests'); -%>
+        </div>
+        <div class="tab-pane" id="nav-vitals" role="tabpanel" aria-labelledby="nav-vitals-tab">
+          <%- include('../panels/patient-vitals'); -%>
+        </div>
+        <div class="tab-pane" id="nav-meds" role="tabpanel" aria-labelledby="nav-meds-tab">
+          <%- include('../panels/patient-meds'); -%>
         </div>
       </div>
     </div>

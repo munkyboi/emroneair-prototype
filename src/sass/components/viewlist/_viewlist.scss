@@ -11,7 +11,7 @@
     
     @media #{$responsive-phone} {
       position: relative;
-      width: 100%;
+      width: 100vw;
     }
   }
   .viewlist-sidebar-wrapper {
@@ -29,14 +29,15 @@
       overflow: hidden;
       width: 100%;
       min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
-      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 3));
+      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 2));
       max-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
-      max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 3));
+      max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 2));
     }
   }
 
   .viewlist-content {
     flex-grow: 1;
+    display: none;
 
     @media #{$responsive-phone} {
       flex-grow: 0;
@@ -111,6 +112,7 @@
 
   &.show-viewlist-context {
     .viewlist-content {
+      display: block;
       @media #{$responsive-phone} {
         display: flex;
       }
