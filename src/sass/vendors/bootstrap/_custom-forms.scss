@@ -178,7 +178,7 @@
     &::before {
       left: -($custom-switch-width + $custom-control-gutter);
       width: $custom-switch-width;
-      pointer-events: all;
+      pointer-events: auto;
       // stylelint-disable-next-line property-blacklist
       border-radius: $custom-switch-indicator-border-radius;
     }

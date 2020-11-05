@@ -11,6 +11,7 @@
     z-index: 1300;
     transition: box-shadow 0.15s ease-out;
     @include flex(flex-start, center);
+    -webkit-backface-visibility: hidden;
 
     .navbar-left {
       @include flex(flex-start, center);

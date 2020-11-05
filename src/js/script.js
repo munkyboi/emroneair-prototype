@@ -35,6 +35,7 @@ var __GLOBAL_STATES__ = {
     contentTabs: document.querySelectorAll('.content-wrapper .nav-tabs .nav-item'),
     contentTotalTabs: document.querySelectorAll('.content-wrapper .nav-tabs .nav-item').length - 1,
     contentTabPositions: [],
+    contentTabWidth: [],
     content: __CONTENT__,
     fab: __FAB__,
     vw: window.innerWidth * 0.01,
@@ -161,9 +162,6 @@ const initScripts = () => {
   $('.control-hide').on('click', function(e) {
     e.preventDefault()
     exitAllViewlist()
-    setTimeout(() => {
-      MainContainer.scrollTo(0,0)
-    }, 300)
     // update global state
     globalStates.context.showContext = false;
   })
@@ -198,51 +196,43 @@ const initScripts = () => {
   })
 
   // CONTENT TABS EVENT
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
+  const asideWidth = document.querySelector('.aside').clientWidth
+  const sidebarWidth = document.querySelector('.sidebar').clientWidth
   document.querySelectorAll('.content-wrapper .nav-tabs .nav-item').forEach(tab => {
     // globalStates.ui.contentTabPositions.push(tab.getBoundingClientRect().left)
-    globalStates.ui.contentTabPositions.push(tab.getBoundingClientRect().left + Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0))
+    globalStates.ui.contentTabWidth.push(tab.clientWidth)
+    const tabLeft = tab.getBoundingClientRect().left - 1
+    if (vw < 812) {
+      globalStates.ui.contentTabPositions.push(tabLeft + vw)
+    } else if (vw < 1024) {
+      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth)
+    } else {
+      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth - sidebarWidth)
+    }
   })
 
-  
-  $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
+  $('.content-wrapper .nav-tabs .nav-item').on('hide.bs.tab', function(e) {
     exitAllViewlist();
-    const tabsArrayLoc = globalStates.ui.contentTabPositions
+  })
+  $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
     const tabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item');
     tabs.forEach((tab, i) => {
       if (tab === e.target) {
         globalStates.ui.contentCurrentTab = i;
       }
     });
-
-    console.log(tabsArrayLoc)
-
-    const tab = $(this);
-    const tabcontainer = $('.content-wrapper .tabs-container');
-    const tabwrapper = $('.content-wrapper .nav-tabs');
-    const tabLocX = tabsArrayLoc[globalStates.ui.contentCurrentTab] + tab.width();
-    const vw = window.outerWidth;
-    console.log(tabLocX, vw);
-    // if (tabLocX >= vw) {
-      tabcontainer.animate({
-        scrollLeft: tabsArrayLoc[globalStates.ui.contentCurrentTab]
-      })
-    // }
-    console.log(tabwrapper[0].getBoundingClientRect().left, tabcontainer.scrollLeft())
   });
-
-  // TABS SCROLLBAR
-  // const TabsContainers = document.querySelectorAll('.tabs .tabs-container')
-  // if (TabsContainers && TabsContainers.length) {
-  //   TabsContainers.forEach(cont => {
-  //     new PerfectScrollbar(cont, {
-  //       // handlers: ['keyboard', 'wheel', 'touch'],
-  //       wheelSpeed: 2,
-  //       wheelPropagation: false,
-  //       minScrollbarLength: 20,
-  //       suppressScrollY: true
-  //     })
-  //   })
-  // }
+  // $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
+  //   const tabsArrayLoc = globalStates.ui.contentTabPositions
+  //   const tabsArrayWidth = globalStates.ui.contentTabWidth
+  //   const tabcontainer = $('.content-wrapper .tabs-container');
+  //   const tabLocX = tabsArrayLoc[globalStates.ui.contentCurrentTab] + tabsArrayWidth[globalStates.ui.contentCurrentTab];
+  //   console.log(tabLocX, tabcontainer.width());
+  //     tabcontainer.stop().animate({
+  //       scrollLeft: globalStates.ui.contentTabPositions[globalStates.ui.contentCurrentTab]
+  //     }, 300)
+  // });
   
 
   // DYNAMIC DIALOG EVENT AND AJAX
@@ -307,7 +297,6 @@ const initScripts = () => {
 // HAMMER TIME!
 const hammerTime = () => {
   const asideTabs = document.querySelectorAll('.aside .aside-tabs .nav-item')
-  const asideTabLength = asideTabs.length - 1
   const hammerContainer = document.querySelector('.aside')
   var hammertime = new Hammer(hammerContainer);
 
@@ -317,11 +306,11 @@ const hammerTime = () => {
       if (globalStates.ui.asideCurrentTab > 0) {
         globalStates.ui.asideCurrentTab--
       } else {
-        globalStates.ui.asideCurrentTab = asideTabLength
+        globalStates.ui.asideCurrentTab = globalStates.ui.asideTotalTabs
       }
     } else if (ev.type === 'swipeleft') {
       console.log('move right')
-      if (globalStates.ui.asideCurrentTab < asideTabLength) {
+      if (globalStates.ui.asideCurrentTab < globalStates.ui.asideTotalTabs) {
         globalStates.ui.asideCurrentTab++
       } else {
         globalStates.ui.asideCurrentTab = 0
@@ -331,7 +320,6 @@ const hammerTime = () => {
   });
 
   const contentTabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')
-  const contentTabLength = contentTabs.length - 1
   const hammerContainerContent = document.querySelector('.content-wrapper .content-body')
   var hammertimeContent = new Hammer(hammerContainerContent);
 
@@ -341,17 +329,27 @@ const hammerTime = () => {
       if (globalStates.ui.contentCurrentTab > 0) {
         globalStates.ui.contentCurrentTab--
       } else {
-        globalStates.ui.contentCurrentTab = contentTabLength
+        globalStates.ui.contentCurrentTab = globalStates.ui.contentTotalTabs
       }
     } else if (ev.type === 'swipeleft') {
       console.log('move right')
-      if (globalStates.ui.contentCurrentTab < contentTabLength) {
+      if (globalStates.ui.contentCurrentTab < globalStates.ui.contentTotalTabs) {
         globalStates.ui.contentCurrentTab++
       } else {
         globalStates.ui.contentCurrentTab = 0
       }
     }
     $(contentTabs[globalStates.ui.contentCurrentTab]).tab('show')
+    const tabsArrayLoc = globalStates.ui.contentTabPositions
+    const tabsArrayWidth = globalStates.ui.contentTabWidth
+    const tabcontainer = $('.content-wrapper .tabs-container');
+    const tabLocX = tabsArrayLoc[globalStates.ui.contentCurrentTab] + tabsArrayWidth[globalStates.ui.contentCurrentTab];
+    console.log(tabLocX, tabcontainer.width());
+    if (tabcontainer.scrollLeft() !== tabcontainer.width()) {
+      tabcontainer.stop().animate({
+        scrollLeft: globalStates.ui.contentTabPositions[globalStates.ui.contentCurrentTab]
+      }, 300)
+    }
   });
 }
 

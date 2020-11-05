@@ -84,14 +84,14 @@
     position: relative;
 
     > .tab-pane {
-      display: block;
-      overflow: hidden;
-      opacity: 1;
-      height: 0;
+      // display: block;
+      // overflow: hidden;
+      // opacity: 1;
+      // height: 0;
     }
 
     > .active {
-      height: auto;
+      // height: auto;
     }
   }
 }

@@ -84,5 +84,7 @@
     overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
+    
+    touch-action: none;
   }
 }

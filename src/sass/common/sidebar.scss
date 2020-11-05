@@ -9,6 +9,7 @@
   z-index: 1500;
   transition: transform 0.15s ease-out;
   border-right: 1px solid rgba($black, 0.15);
+  -webkit-backface-visibility: hidden;
 
   @media #{$responsive-tablet} {
     width: $sidebar-width-drawer;
@@ -64,6 +65,7 @@
     opacity: 0;
     transition: opacity 0.15s ease-out;
     transform: translateX($sidebar-width-drawer);
+    -webkit-backface-visibility: hidden;
   }
 }
 
@@ -75,7 +77,7 @@ body.show-sidebar {
   .sidebar-overlay {
     @media #{$responsive-tablet} {
       opacity: 1;
-      pointer-events: all;
+      pointer-events: auto;
     }
   }
 }

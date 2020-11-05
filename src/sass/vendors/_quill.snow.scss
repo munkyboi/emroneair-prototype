@@ -77,13 +77,13 @@
 }
 .ql-editor ul[data-checked=true] > li *,
 .ql-editor ul[data-checked=false] > li * {
-  pointer-events: all;
+  pointer-events: auto;
 }
 .ql-editor ul[data-checked=true] > li::before,
 .ql-editor ul[data-checked=false] > li::before {
   color: #777;
   cursor: pointer;
-  pointer-events: all;
+  pointer-events: auto;
 }
 .ql-editor ul[data-checked=true] > li::before {
   content: '\2611';

@@ -9,6 +9,7 @@
   animation-iteration-count: 1;
   animation-direction: normal;
   animation-fill-mode: forwards;
+  -webkit-backface-visibility: hidden;
 
   @media #{$responsive-phone} {
     bottom: 2.5rem;
@@ -117,11 +118,11 @@ body.show-viewlist-context {
 @keyframes fab-hide {
   0% {
     transform: translateY(0px);
-    pointer-events: all;
+    pointer-events: auto;
   }
   99% {
     transform: translateY(6rem);
-    pointer-events: all;
+    pointer-events: auto;
   }
   100% {
     transform: translateY(6rem);
@@ -136,10 +137,10 @@ body.show-viewlist-context {
   }
   1% {
     transform: translateY(6rem);
-    pointer-events: all;
+    pointer-events: auto;
   }
   100% {
     transform: translateY(0px);
-    pointer-events: all;
+    pointer-events: auto;
   }
 }

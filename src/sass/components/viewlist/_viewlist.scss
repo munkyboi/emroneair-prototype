@@ -32,8 +32,9 @@
       flex-grow: 1;
       position: relative;
       overflow-y: auto;
-      overflow-x: hidden;
+      overflow-x: auto;
       width: 100%;
+      touch-action: none;
     }
   }
 
@@ -52,6 +53,7 @@
       display: none;
       width: calc(100vw);
       height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+      -webkit-backface-visibility: hidden;
     }
   }
 
@@ -170,6 +172,7 @@
       width: 100vw;
       height: calc(var(--vh, 1vh) * 100);
       background-color: rgba($black, 0.5);
+      -webkit-backface-visibility: hidden;
     }
   }
 
@@ -186,6 +189,7 @@
 .tab-pane.active {
   .viewlist-sidebar {
     position: fixed;
+    -webkit-backface-visibility: hidden;
   }
   .viewlist-content {
     margin-left: calc(#{$aside-width} + 1px);
