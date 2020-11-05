@@ -34,7 +34,8 @@
       overflow-y: auto;
       overflow-x: auto;
       width: 100%;
-      touch-action: none;
+    
+      touch-action: pan-y;
     }
   }
 
