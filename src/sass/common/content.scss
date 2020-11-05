@@ -10,10 +10,17 @@
     height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
     @include flex(flex-start, flex-start);
 
+    background-image: url('/img/bg.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+
     @media #{$responsive-tablet} {
       margin-top: 0;
       margin-left: 0;
       flex-direction: column;
+      background-size: 80%;
+      width: calc(var(--vw, 1vw) * 100);
+      background-position-x: calc(50% + (#{$aside-width} / 2));
     }
 
     .aside {
