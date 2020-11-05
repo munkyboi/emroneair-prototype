@@ -14,13 +14,16 @@
     background-position: center center;
     background-repeat: no-repeat;
 
+    @media #{$responsive-laptop} {
+      background-position-x: calc(50% + (#{$aside-width} / 2));
+      background-size: 80%;
+    }
+
     @media #{$responsive-tablet} {
       margin-top: 0;
       margin-left: 0;
       flex-direction: column;
-      background-size: 80%;
       width: calc(var(--vw, 1vw) * 100);
-      background-position-x: calc(50% + (#{$aside-width} / 2));
     }
 
     .aside {
