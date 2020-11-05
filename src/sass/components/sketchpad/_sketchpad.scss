@@ -21,6 +21,7 @@
 .sketchpad-controls {
   @include flex(center, center);
   padding: 1rem;
+  border-top: 1px solid rgba($black, 0.1);
 
   @media #{$responsive-phone} {
     flex-direction: column;

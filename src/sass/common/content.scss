@@ -100,7 +100,8 @@
       .content-wrapper {
         margin-left: calc(#{$aside-width});
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
-        display: none;
+        opacity: 0;
+        pointer-events: none;
         @media #{$responsive-tablet} {
           margin-left: calc(#{$aside-width});
           width: calc(100vw - #{$aside-width});
@@ -159,7 +160,8 @@ body.show-context {
   .main {
     > .content.has-aside {
       .content-wrapper {
-        display: flex;
+        opacity: 1;
+        pointer-events: all;
         @media #{$responsive-phone} {
           transform: translateX(0);
         }

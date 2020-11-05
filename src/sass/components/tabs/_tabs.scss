@@ -1,11 +1,13 @@
 .tabs {
   background-color: $white;
   .tabs-container {
+    @include applyScrollbar();
     position: relative;
     @include flex(flex-start, center);
     width: 100%;
     flex-wrap: nowrap;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     background-color: $body-bgcolor;
   }
   .nav-tabs {

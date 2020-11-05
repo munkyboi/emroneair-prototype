@@ -46,6 +46,22 @@
 .modal-footer {
   .btn {
     font-size: 1rem;
+    &:not(:last-of-type) {
+      margin-right: 0.5rem;
+    }
+
+    @media #{$responsive-phone} {
+      min-height: 2.5rem;
+      min-width: 3rem;
+      @include flex(center, center);
+      > span {
+        display: none;
+      }
+      i, .mdi {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+    }
 
     &.btn-default {
       color: rgba($black, 0.8);
