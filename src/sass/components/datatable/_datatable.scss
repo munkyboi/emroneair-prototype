@@ -73,6 +73,10 @@
           background-color: rgba($black, 0.05);
           color: rgba($black, 1);
         }
+
+        .table-actions {
+          @include flex(flex-start, center);
+        }
       }
     }
   }

@@ -17,6 +17,10 @@
   .viewlist-sidebar-wrapper {
     width: $aside-width;
     @include flex(flex-start, flex-start, column);
+    min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 1));
+    max-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 1));
 
     @media #{$responsive-phone} {
       position: relative;
@@ -24,14 +28,12 @@
     }
 
     .list-container {
+      @include applyScrollbar();
       flex-grow: 1;
       position: relative;
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       width: 100%;
-      min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
-      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 2));
-      max-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
-      max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 2));
     }
   }
 
@@ -177,6 +179,18 @@
       @media #{$responsive-phone} {
         display: flex;
       }
+    }
+  }
+}
+
+.tab-pane.active {
+  .viewlist-sidebar {
+    position: fixed;
+  }
+  .viewlist-content {
+    margin-left: calc(#{$aside-width} + 1px);
+    @media #{$responsive-phone} {
+      margin-left: 0;
     }
   }
 }

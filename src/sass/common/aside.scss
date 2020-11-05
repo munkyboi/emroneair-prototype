@@ -64,7 +64,9 @@
   .list-container {
     flex-grow: 1;
     position: relative;
-    overflow: hidden;
+    @include applyScrollbar();
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
     min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 3));

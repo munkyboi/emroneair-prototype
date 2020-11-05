@@ -45,9 +45,11 @@
     box-shadow: 0 0.1rem 0.5rem 0 rgba($black, 0.35);
 
     .dropdown-menu-container {
+      @include applyScrollbar();
       width: 100%;
       max-height: unquote('min(calc(var(--vh, 1vh) * 100 - #{$navbar-height} - #{$contentToolbar-height} - 1rem), 480px)');
-      overflow: hidden;
+      overflow-y: auto;
+      overflow-x: hidden;
       position: relative;
     }
     .icon-list {
@@ -67,6 +69,10 @@
       width: calc(33.3334% - 1rem);
       height: 6rem;
       margin: 0.5rem;
+
+      > i, .mdi {
+        font-size: 2rem;
+      }
 
       > span {
         line-height: 1.4;

@@ -1,26 +1,83 @@
 .iconbtn {
   @include flex(center, center, column);
-  min-width: 3rem;
-  min-height: 3rem;
+  min-width: 2rem;
+  min-height: 2rem;
   padding: 0.5rem;
   border-radius: 0.25rem;
+  border: none;
+  background-color: rgba($black, 0);
+  font-size: 1rem;
 
   > i, .mdi {
-    font-size: 2rem;
+    font-size: 1.2rem;
     line-height: 1;
-    margin-bottom: 0.25rem;
-    color: $secondary-color;
+    color: rgba($black, 0.8);
   }
 
   > span {
+    margin-top: 0.25rem;
     text-align: center;
     line-height: 1;
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: rgba($black, 0.5);
+    color: rgba($black, 0.8);
   }
 
   &:hover {
     background-color: rgba($black, 0.1);
+  }
+
+  &.lg {
+    > i, .mdi {
+      font-size: 2rem;
+    }
+  }
+
+  &.sm {
+    > i, .mdi {
+      font-size: 1rem;
+    }
+  }
+
+  &.xs {
+    > i, .mdi {
+      font-size: 0.8rem;
+    }
+  }
+
+  &.primary {
+    > i, .mdi {
+      color: $primary-color;
+    }
+  }
+
+  &.secondary {
+    > i, .mdi {
+      color: $secondary-color;
+    }
+  }
+
+  &.success {
+    > i, .mdi {
+      color: $success;
+    }
+  }
+
+  &.info {
+    > i, .mdi {
+      color: $info;
+    }
+  }
+
+  &.warning {
+    > i, .mdi {
+      color: $warning;
+    }
+  }
+
+  &.danger {
+    > i, .mdi {
+      color: $danger;
+    }
   }
 }

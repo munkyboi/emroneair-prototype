@@ -15,23 +15,6 @@ __DIALOG_CONTENT__ = '/forms/new-todo-form.html'
     <i class='mdi mdi-playlist-check'></i>
     <span>New Todo</span>
   </button>
-  <div class='sort dropdown'>
-    <a href='#' class='sort-button' data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-      <i class='mdi mdi-filter-variant'></i>
-    </a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">
-        <i class='mdi mdi-playlist-check'></i>
-        Show All
-      </a>
-      <a class="dropdown-item" href="#">
-        <i class='mdi mdi-check'></i>
-        Show Completed
-      </a>
-      <a class="dropdown-item" href="#">
-        <i class='mdi mdi-close'></i>
-        Show Incomplete
-      </a>
-    </div>
-  </div>
+  
+  <%- include('../dropdown/toolbar-todo-dropdown'); -%>
 </div>

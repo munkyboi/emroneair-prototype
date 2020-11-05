@@ -3,46 +3,21 @@
   <div class='tabs'>
     <div class='tabs-container'>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Info</a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-labs" role="tab" aria-controls="nav-profile" aria-selected="false">Labs</a>
-        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-tests" role="tab" aria-controls="nav-contact" aria-selected="false">Tests</a>
-        <a class="nav-item nav-link" id="nav-vitals-tab" data-toggle="tab" href="#nav-vitals" role="tab" aria-controls="nav-vitals" aria-selected="false">Vitals</a>
-        <a class="nav-item nav-link" id="nav-meds-tab" data-toggle="tab" href="#nav-meds" role="tab" aria-controls="nav-meds" aria-selected="false">Meds</a>
-        <a class="nav-item nav-link" id="nav-vaccines-tab" data-toggle="tab" href="#nav-vaccines" role="tab" aria-controls="nav-vaccines" aria-selected="false">Vaccines</a>
-        <a class="nav-item nav-link" id="nav-notes-tab" data-toggle="tab" href="#nav-notes" role="tab" aria-controls="nav-notes" aria-selected="false">Notes</a>
-        <a class="nav-item nav-link" id="nav-histories-tab" data-toggle="tab" href="#nav-histories" role="tab" aria-controls="nav-histories" aria-selected="false">Histories</a>
-        <a class="nav-item nav-link" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images" aria-selected="false">Images</a>
-        <a class="nav-item nav-link" id="nav-todo-tab" data-toggle="tab" href="#nav-todo" role="tab" aria-controls="nav-todo" aria-selected="false">Todo</a>
-        <a class="nav-item nav-link" id="nav-requests-tab" data-toggle="tab" href="#nav-requests" role="tab" aria-controls="nav-requests" aria-selected="false">Requests</a>
-        <a class="nav-item nav-link" id="nav-customforms-tab" data-toggle="tab" href="#nav-customforms" role="tab" aria-controls="nav-customforms" aria-selected="false">Custom Forms</a>
-        <a class="nav-item nav-link" id="nav-customdraw-tab" data-toggle="tab" href="#nav-customdraw" role="tab" aria-controls="nav-customdraw" aria-selected="false">Custom Draw</a>
+        <a class="nav-item nav-link active" id="nav-warehouses-tab" data-toggle="tab" href="#nav-warehouses" role="tab" aria-controls="nav-warehouses" aria-selected="true">Warehouses</a>
+        <a class="nav-item nav-link" id="nav-items-tab" data-toggle="tab" href="#nav-items" role="tab" aria-controls="nav-items" aria-selected="false">Items</a>
+        <a class="nav-item nav-link" id="nav-receiving-tab" data-toggle="tab" href="#nav-receiving" role="tab" aria-controls="nav-receiving" aria-selected="false">Receiving</a>
+        <a class="nav-item nav-link" id="nav-adjustments-tab" data-toggle="tab" href="#nav-adjustments" role="tab" aria-controls="nav-adjustments" aria-selected="false">Adjustments</a>
+        <a class="nav-item nav-link" id="nav-invoices-tab" data-toggle="tab" href="#nav-invoices" role="tab" aria-controls="nav-invoices" aria-selected="false">Invoices</a>
+        <a class="nav-item nav-link" id="nav-suppliers-tab" data-toggle="tab" href="#nav-suppliers" role="tab" aria-controls="nav-suppliers" aria-selected="false">Suppliers</a>
       </div>
     </div>
     <div class='content-body'>
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-          <h1>Info</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit nemo error et facere dolore optio illo impedit dolor, omnis, dolorum voluptatibus deleniti? At ipsum officia earum nobis vitae? Modi.</p>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
+        <div class="tab-pane fade show active" id="nav-warehouses" role="tabpanel" aria-labelledby="nav-warehouses-tab">
+          <%- include('../panels/inventory-warehouses'); -%>
         </div>
-        <div class="tab-pane fade" id="nav-labs" role="tabpanel" aria-labelledby="nav-labs-tab">
-          <h1>Labs</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit nemo error et facere dolore optio illo impedit dolor, omnis, dolorum voluptatibus deleniti? At ipsum officia earum nobis vitae? Modi.</p>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-        </div>
-        <div class="tab-pane fade" id="nav-tests" role="tabpanel" aria-labelledby="nav-tests-tab">
-          <h1>Tests</h1>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam suscipit nemo error et facere dolore optio illo impedit dolor, omnis, dolorum voluptatibus deleniti? At ipsum officia earum nobis vitae? Modi.</p>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
-          <div style='width: 100%; height: 500px; background-color: gray; margin-bottom: 2rem'></div>
+        <div class="tab-pane fade" id="nav-items" role="tabpanel" aria-labelledby="nav-items-tab">
+          <%- include('../panels/panel-sample-datatable'); -%>
         </div>
       </div>
     </div>

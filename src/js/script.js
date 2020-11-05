@@ -162,17 +162,17 @@ const initScripts = () => {
   })
 
   // ASIDE CONTENT SCROLLBAR
-  const AsideListContainers = document.querySelectorAll('.list-container')
-  if (AsideListContainers && AsideListContainers.length) {
-    AsideListContainers.forEach(cont => {
-      new PerfectScrollbar(cont, {
-        wheelSpeed: 2,
-        wheelPropagation: false,
-        minScrollbarLength: 20,
-        suppressScrollX: true
-      })
-    })
-  }
+  // const AsideListContainers = document.querySelectorAll('.list-container')
+  // if (AsideListContainers && AsideListContainers.length) {
+  //   AsideListContainers.forEach(cont => {
+  //     new PerfectScrollbar(cont, {
+  //       wheelSpeed: 2,
+  //       wheelPropagation: false,
+  //       minScrollbarLength: 20,
+  //       suppressScrollX: true
+  //     })
+  //   })
+  // }
 
   // ASIDE SEARCH FIELD
   $('.aside .search .form-control').on('keyup', function(e) {
@@ -212,15 +212,15 @@ const initScripts = () => {
   
 
   // FAB POPUP MENU SCROLLBAR
-  const FABMenuContainer = document.querySelector('.fab > .dropdown-menu > .dropdown-menu-container')
-  if (FABMenuContainer && FABMenuContainer.length) {
-    const FABMenuPS = new PerfectScrollbar(FABMenuContainer, {
-      wheelSpeed: 2,
-      wheelPropagation: false,
-      minScrollbarLength: 20,
-      suppressScrollX: true
-    })
-  }
+  // const FABMenuContainer = document.querySelector('.fab > .dropdown-menu > .dropdown-menu-container')
+  // if (FABMenuContainer && FABMenuContainer.length) {
+  //   const FABMenuPS = new PerfectScrollbar(FABMenuContainer, {
+  //     wheelSpeed: 2,
+  //     wheelPropagation: false,
+  //     minScrollbarLength: 20,
+  //     suppressScrollX: true
+  //   })
+  // }
 
   // DYNAMIC DIALOG EVENT AND AJAX
   $('#dynamicDialog').on('show.bs.modal', function (event) {
@@ -238,7 +238,7 @@ const initScripts = () => {
       img.src = content
       modal.addClass('imageViewer')
       modal.find('.modal-body').html(img)
-      modal.find('.modal-title').html('View Image')
+      // modal.find('.modal-title').html('View Image')
       modal.find('.modal-footer').hide()
     } else {
       $.ajax({

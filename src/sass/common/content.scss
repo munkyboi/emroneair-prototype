@@ -46,7 +46,6 @@
       height: auto;
       padding: 0;
       position: relative;
-      display: none;
 
       @media #{$responsive-tablet} {
         width: calc(100vw);
@@ -91,6 +90,7 @@
       .content-wrapper {
         margin-left: calc(#{$aside-width});
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
+        display: none;
         @media #{$responsive-tablet} {
           margin-left: calc(#{$aside-width});
           width: calc(100vw - #{$aside-width});
