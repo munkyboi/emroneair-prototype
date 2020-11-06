@@ -12,6 +12,7 @@
 
     background-image: url('/img/bg.png');
     background-position: center center;
+    background-position-x: calc(50% + (#{$aside-width} / 2));
     background-repeat: no-repeat;
 
     @media #{$responsive-laptop} {
@@ -54,6 +55,7 @@
     .content-wrapper {
       width: calc(100vw - #{$sidebar-width});
       width: calc(var(--vw, 1vw) * 100 - #{$sidebar-width});
+      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
       height: auto;
       padding: 0;
       position: relative;
@@ -101,7 +103,7 @@
       .content-wrapper {
         margin-left: calc(#{$aside-width});
         width: calc(100vw - #{$sidebar-width} - #{$aside-width});
-        opacity: 0;
+        // opacity: 0;
         pointer-events: none;
         @media #{$responsive-tablet} {
           margin-left: calc(#{$aside-width});
@@ -141,8 +143,17 @@
 
 .content-controls {
   @include flex(flex-start, center);
-  display: none;
+  // display: none;
   margin-right: 0.5rem;
+  overflow: hidden;
+  width: 0;
+  transform: translateX(calc(#{$sidebar-width}));
+  transition: width 0.15s ease-out;
+
+  @media #{$responsive-tablet} {
+    transform: translateX(0);
+    margin-right: 0;
+  }
 
   .control-hide {
     color: rgba($black, 0.8);
@@ -170,8 +181,10 @@ body.show-context {
     }
   }
   .content-controls {
-    @media #{$responsive-phone} {
-      display: flex;
+    // display: flex;
+    width: 2rem;
+    @media #{$responsive-tablet} {
+      margin-right: 0.5rem;
     }
   }
 }

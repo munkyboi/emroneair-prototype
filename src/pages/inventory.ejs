@@ -1,7 +1,7 @@
 <% 
 __PAGE__ = 'inventory'
 __CONTENT__ = '../templates/content/inventory-content';
-__ASIDE__ = ''
+__ASIDE__ = '../templates/asides/inventory-asides';
 __FAB__ = '../templates/fabs/inventory-fab';
 %> 
 
@@ -21,7 +21,7 @@ __FAB__ = '../templates/fabs/inventory-fab';
     <%- include(__FAB__); -%>
     <% } %>
     
-    <%- include(__CONTENT__); -%>
+    <div class='content-wrapper'></div>
   </div>
 
 </div>

@@ -21,29 +21,40 @@ var __GLOBAL_STATES__ = {
   dialog: {
     title: '',
     content: '',
-    name: ''
+    name: '',
   },
   toasts: {},
   ui: {
+    pageLoading: false,
+    showMenu: false,
     debugMode: true,
     page: __PAGE__,
     aside: __ASIDE__,
     asideCurrentTab: 0,
-    asideTabs: document.querySelectorAll('.aside .aside-tabs .nav-item'),
-    asideTotalTabs: document.querySelectorAll('.aside .aside-tabs .nav-item').length - 1,
+    asideTabs: '',
+    asideTotalTabs: '',
     contentCurrentTab: 0,
-    contentTabs: document.querySelectorAll('.content-wrapper .nav-tabs .nav-item'),
-    contentTotalTabs: document.querySelectorAll('.content-wrapper .nav-tabs .nav-item').length - 1,
+    contentTabs: '',
+    contentTotalTabs: '',
     contentTabPositions: [],
     contentTabWidth: [],
     content: __CONTENT__,
     fab: __FAB__,
-    vw: window.innerWidth * 0.01,
-    vh: window.innerHeight * 0.01
+    vw: 0,
+    vh: 0,
   },
   context: {
+    contextType: '',
+    contextURL: '',
     contextTitle: '',
+    contextPage: '',
+    asideListTarget: '',
+    asideListItemSelected: '',
+    asideShowContent: false,
     showContext: false,
+    showViewlistContext: false,
+    viewlistTarget: '',
+    viewlistItemSelected: '',
   }
 };
 
@@ -52,16 +63,128 @@ var globalStates = ObservableSlim.create(__GLOBAL_STATES__, true, function(chang
   console.log(__GLOBAL_STATES__, changes);
   changes.map((change) => {
     const property = change.property
-    if (property === 'showContext') {
+    // MOBILE PRELOADER
+    if (property === 'pageLoading') {
+      if (change.newValue === true) {
+        document.querySelector('body').classList.add('page-loading')
+      } else {
+        document.querySelector('body').classList.remove('page-loading')
+      }
+    // BURGER
+    } else if (property === 'showMenu') {
+      if (change.newValue === true) {
+        document.querySelector('body').classList.add('show-sidebar')
+      } else {
+        document.querySelector('body').classList.remove('show-sidebar')
+      }
+    // EXITING CONTEXT EVENT
+    } else if (property === 'showContext') {
       if (change.newValue === true) {
         document.querySelector('body').classList.add('show-context')
       } else {
         document.querySelector('body').classList.remove('show-context')
       }
-    } else if (property === 'contextTitle') {
-      if (change.type === 'update') {
-        document.querySelector('.navbar .navbar-center .title-place').innerHTML = change.newValue
+    // VIEWLIST CONTEXT
+    } else if (property === 'showViewlistContext') {
+      if (change.newValue === true) {
+        document.querySelector('body').classList.add('show-viewlist-context')
+      } else {
+        document.querySelector('body').classList.remove('show-viewlist-context')
+        globalStates.context.viewlistTarget.classList.add('show-viewlist-context')
+        const handleListActive = new Promise((res, rej) => {
+          res(
+            globalStates.context.viewlistTarget.__getTarget
+              .querySelectorAll('.list-item')
+              .forEach((e) => {
+                e.classList.remove('active')
+              })
+          )
+        })
+        handleListActive.then(() => {
+          return globalStates.context.viewlistTarget.classList.remove('show-viewlist-context')
+        })
       }
+    // MAIN CONTEXT AJAX
+    } else if (property === 'contextURL') {
+      if (change.newValue !== '') {
+        globalStates.context.showContext = false
+        globalStates.ui.pageLoading = true
+        if (globalStates.context.contextType === 'page') {
+          const contentWrapper = $('.content .content-wrapper')
+          $.ajax({
+            url: change.newValue,
+            beforeSend: function() {
+              contentWrapper.html('<div class="ajaxloader"><div><div></div></div></div>')
+            },
+            success: function(result) {
+              contentWrapper.html(result)
+            },
+            complete: function() {
+              const _this = document.querySelector('.content .content-wrapper')
+              hammerTimeContent()
+              initiateViewlistFunctions()
+              initiateDatatables()
+              initiateDateTimePicker(_this)
+              initiateQuill(_this)
+              initiateSketchpad(_this)
+              initiateAccordions()
+              globalStates.context.showContext = true
+              globalStates.ui.pageLoading = false
+            }
+          })
+        }
+      } else {
+        exitAllViewlist()
+        globalStates.context.showContext = false
+        document.querySelector('.content-wrapper').innerHTML = ''
+      }
+    // ASIDE LIST ACTIVE
+    } else if (property === 'asideListItemSelected') {
+      if (change.newValue !== '') {
+        const handleListActive = new Promise((res, rej) => {
+          res(
+            document.querySelectorAll('.aside .list-selectable')
+              .forEach((el) => {
+                el.querySelectorAll('.list-item')
+                  .forEach((e) => {
+                    e.classList.remove('active')
+                  })
+              })
+          )
+        })
+        handleListActive.then(() => {
+          return change.newValue.classList.add('active')
+        })
+        handleListActive.then(() => {
+          globalStates.context.contextType = change.newValue.querySelector('.list-link').getAttribute('data-type')
+          globalStates.context.contextTitle = change.newValue.querySelector('.primary-text').innerHTML;
+          globalStates.context.contextURL = change.newValue.querySelector('.list-link').getAttribute('data-content') + '?name=' + convertToSlug(change.newValue.querySelector('.primary-text').innerHTML)
+          globalStates.context.viewlistItemSelected = ''
+          globalStates.context.viewlistTarget = ''
+        })
+      }
+    // VIEWLIST ACTIVE
+    } else if (property === 'viewlistItemSelected') {
+      if (change.newValue !== '') {
+        const handleListActive = new Promise((res, rej) => {
+          res(
+            globalStates.context.viewlistTarget.__getTarget
+              .querySelectorAll('.list-item')
+              .forEach((e) => {
+                e.classList.remove('active')
+              })
+          )
+        })
+        handleListActive.then(() => {
+          return globalStates.context.viewlistItemSelected.__getTarget.classList.add('active')
+        })
+        handleListActive.then(() => {
+          return globalStates.context.viewlistTarget.classList.add('show-viewlist-context')
+        })
+      }
+    // CONTEXT TITLE
+    } else if (property === 'contextTitle') {
+      document.querySelector('.navbar .navbar-center .title-place').innerHTML = change.newValue
     } else if (property === 'vh') {
       document.documentElement.style.setProperty('--vh', `${change.newValue}px`);
     } else if (property === 'vw') {
@@ -70,15 +193,17 @@ var globalStates = ObservableSlim.create(__GLOBAL_STATES__, true, function(chang
   })
 });
 
+globalStates.ui.pageLoading = true
+
 const initScripts = () => {
+
+  globalStates.ui.pageLoading = false
+
   // DATATABLES
-  $('.datatables').DataTable({
-    "scrollX": true,
-    "order": [[ 0, "asc" ]]
-  })
+  initiateDatatables()
 
   // TOOLTIP
-  $('[data-toggle="tooltip"]').tooltip()
+  initiateTooltips()
 
   // DATEPICKER
   initiateDateTimePicker()
@@ -88,6 +213,9 @@ const initScripts = () => {
 
   // SKETCHPAD
   initiateSketchpad()
+  
+  // ASIDE HAMMER TIME!
+  hammerTimeAside()
 
   // MAIN CONTENT SCROLL DETECTION
   $('body > app > .main > .content .content-body').on('scroll', function(e) {
@@ -98,72 +226,24 @@ const initScripts = () => {
     }
   })
 
-  // SIDEBAR
+  // BURGER SIDEBAR
   $('.burger').on('click', function(e) {
     e.preventDefault()
-    $('body').toggleClass('show-sidebar')
+    globalStates.ui.showMenu = true
   })
   $('.sidebar-overlay').on('click', function(e) {
     e.preventDefault()
-    $('body').toggleClass('show-sidebar')
+    globalStates.ui.showMenu = false
   })
-
-  // LISTS SELECT
-  if ($('.list.list-selectable').length) {
-    $('.list.list-selectable').each(function(i, e) {
-      $list = $(this)
-      $list.find('.list-link').on('click', function(e) {
-        e.preventDefault()
-        const $item = $(this).closest('.list-item')
-        clearSelectableList($item, $('.list.list-selectable'))
-        $item.addClass('active')
-      })
-    })
-  }
-
-  // VIEWLISTS MOBILE VIEW
-  if ($('.viewlist').length) {
-    $('.viewlist').each(function(i, e) {
-      $list = $(this)
-      $list.find('.list-link').on('click', function(e) {
-        e.preventDefault()
-        $parentlist = $(this).closest('.viewlist')
-        $('body').addClass('show-viewlist-context')
-        $parentlist.addClass('show-viewlist-context')
-        const $item = $(this).closest('.list-item')
-        clearSelectableList($item, $('.viewlist .list'))
-        $item.addClass('active')
-      })
-      $list.find('.close').on('click', function(e) {
-        e.preventDefault()
-        $parentlist = $(this).closest('.viewlist')
-        $('body').removeClass('show-viewlist-context')
-        $parentlist.removeClass('show-viewlist-context')
-        $parentlist.find('.list-item.active').removeClass('active')
-      })
-      $list.find('.viewlist-content-overlay').on('click', function(e) {
-        e.preventDefault()
-        $parentlist = $(this).closest('.viewlist')
-        $('body').removeClass('show-viewlist-context')
-        $parentlist.removeClass('show-viewlist-context')
-        $parentlist.find('.list-item.active').removeClass('active')
-      })
-    })
-  }
 
   // ASIDE LISTS
-  $('.aside .list-link').on('click', function(e) {
-    e.preventDefault()
-    // update global state
-    globalStates.context.contextTitle = $(this).find('.primary-text').text()
-    globalStates.context.showContext = true;
+  initiateAsideList()
 
-  })
   $('.control-hide').on('click', function(e) {
     e.preventDefault()
-    exitAllViewlist()
     // update global state
-    globalStates.context.showContext = false;
+    globalStates.context.contextURL = ''
+    globalStates.context.asideListItemSelected = ''
   })
 
   // ASIDE SEARCH FIELD
@@ -188,53 +268,9 @@ const initScripts = () => {
         globalStates.ui.asideCurrentTab = i
       }
     })
-    // console.log('aaaaaaaaaaaaaaaaaa', $(this))
-  //   exitAllViewlist()
-  //   if (typeof e.currentTarget.dataset.consist !== undefined) {
-  //     // console.log('datatables...')
-  //   }
   })
 
-  // CONTENT TABS EVENT
-  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0)
-  const asideWidth = document.querySelector('.aside').clientWidth
-  const sidebarWidth = document.querySelector('.sidebar').clientWidth
-  document.querySelectorAll('.content-wrapper .nav-tabs .nav-item').forEach(tab => {
-    // globalStates.ui.contentTabPositions.push(tab.getBoundingClientRect().left)
-    globalStates.ui.contentTabWidth.push(tab.clientWidth)
-    const tabLeft = tab.getBoundingClientRect().left - 1
-    if (vw < 812) {
-      globalStates.ui.contentTabPositions.push(tabLeft + vw)
-    } else if (vw < 1024) {
-      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth)
-    } else {
-      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth - sidebarWidth)
-    }
-  })
-
-  $('.content-wrapper .nav-tabs .nav-item').on('hide.bs.tab', function(e) {
-    exitAllViewlist();
-  })
-  $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
-    const tabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item');
-    tabs.forEach((tab, i) => {
-      if (tab === e.target) {
-        globalStates.ui.contentCurrentTab = i;
-      }
-    });
-  });
-  // $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
-  //   const tabsArrayLoc = globalStates.ui.contentTabPositions
-  //   const tabsArrayWidth = globalStates.ui.contentTabWidth
-  //   const tabcontainer = $('.content-wrapper .tabs-container');
-  //   const tabLocX = tabsArrayLoc[globalStates.ui.contentCurrentTab] + tabsArrayWidth[globalStates.ui.contentCurrentTab];
-  //   console.log(tabLocX, tabcontainer.width());
-  //     tabcontainer.stop().animate({
-  //       scrollLeft: globalStates.ui.contentTabPositions[globalStates.ui.contentCurrentTab]
-  //     }, 300)
-  // });
-  
-
+  // TODO: REFACTOR
   // DYNAMIC DIALOG EVENT AND AJAX
   $('#dynamicDialog').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget)
@@ -257,12 +293,13 @@ const initScripts = () => {
       $.ajax({
         url: content,
         beforeSend: function() {
-          modal.find('.modal-body').html('loading content...')
+          modal.find('.modal-body').html('<div class="ajaxloader"><div><div></div></div></div>')
         },
         success: function(result) {
           modal.find('.modal-body').html(result)
         },
         complete: function() {
+          initiateDatatables()
           initiateDateTimePicker(_this)
           initiateQuill(_this)
           initiateSketchpad(_this)
@@ -277,87 +314,99 @@ const initScripts = () => {
     modal.find('.modal-footer').html($('<button type="button" class="btn btn-default" data-dismiss="modal"><i class="mdi mdi-close"></i><span>Close</span></button><button type="button" class="btn btn-success"><i class="mdi mdi-check"></i><span>Save</span></button>'))
   })
 
-  // ACCORDIONS
-  $('.collapse').on('show.bs.collapse', function(event) {
-    const accordion = $(this).closest('.accordion')
-    accordion.addClass('show')
-  })
-  $('.collapse').on('hide.bs.collapse', function(event) {
-    const accordion = $(this).closest('.accordion')
-    accordion.removeClass('show')
-  })
-  hammerTime()
-
-
-
+  // WINDOW EVENTS
   windowResized()
   window.onresize = windowResized
 }
 
+// ========================================
+// ======= UTILITIES AND FUNCTIONS ========
+// ========================================
+
 // HAMMER TIME!
-const hammerTime = () => {
+const hammerTimeAside = () => {
+  globalStates.ui.asideCurrentTab = 0
+  globalStates.ui.asideTabs = document.querySelectorAll('.aside .aside-tabs .nav-item')
+  globalStates.ui.asideTotalTabs = document.querySelectorAll('.aside .aside-tabs .nav-item').length - 1
   const asideTabs = document.querySelectorAll('.aside .aside-tabs .nav-item')
-  const hammerContainer = document.querySelector('.aside')
-  var hammertime = new Hammer(hammerContainer);
+  if (asideTabs.length > 0) {
+    const hammerContainer = document.querySelector('.aside')
+    var hammertime = new Hammer(hammerContainer);
 
-  hammertime.on('swipeleft swiperight', function(ev) {
-    if (ev.type === 'swiperight') {
-      console.log('move left')
-      if (globalStates.ui.asideCurrentTab > 0) {
-        globalStates.ui.asideCurrentTab--
-      } else {
-        globalStates.ui.asideCurrentTab = globalStates.ui.asideTotalTabs
+    hammertime.on('swipeleft swiperight', function(ev) {
+      if (ev.type === 'swiperight') {
+        // console.log('move left')
+        if (globalStates.ui.asideCurrentTab > 0) {
+          globalStates.ui.asideCurrentTab--
+        } else {
+          globalStates.ui.asideCurrentTab = globalStates.ui.asideTotalTabs
+        }
+      } else if (ev.type === 'swipeleft') {
+        // console.log('move right')
+        if (globalStates.ui.asideCurrentTab < globalStates.ui.asideTotalTabs) {
+          globalStates.ui.asideCurrentTab++
+        } else {
+          globalStates.ui.asideCurrentTab = 0
+        }
       }
-    } else if (ev.type === 'swipeleft') {
-      console.log('move right')
-      if (globalStates.ui.asideCurrentTab < globalStates.ui.asideTotalTabs) {
-        globalStates.ui.asideCurrentTab++
-      } else {
-        globalStates.ui.asideCurrentTab = 0
-      }
-    }
-    $(asideTabs[globalStates.ui.asideCurrentTab]).tab('show')
-  });
+      $(asideTabs[globalStates.ui.asideCurrentTab]).tab('show')
+    });
+  }
+}
 
+const hammerTimeContent = () => {
+  iterateTabs()
   const contentTabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')
-  const hammerContainerContent = document.querySelector('.content-wrapper .content-body')
-  var hammertimeContent = new Hammer(hammerContainerContent);
+  if (contentTabs.length > 0) {
+    const hammerContainerContent = document.querySelector('.content-wrapper .content-body')
+    var hammertimeContent = new Hammer(hammerContainerContent)
 
-  hammertimeContent.on('swipeleft swiperight', function(ev) {
-    if (ev.type === 'swiperight') {
-      console.log('move left')
-      if (globalStates.ui.contentCurrentTab > 0) {
-        globalStates.ui.contentCurrentTab--
-      } else {
-        globalStates.ui.contentCurrentTab = globalStates.ui.contentTotalTabs
+    hammertimeContent.on('swipeleft swiperight', function(ev) {
+      if (ev.type === 'swiperight') {
+        // console.log('move left')
+        if (globalStates.ui.contentCurrentTab > 0) {
+          globalStates.ui.contentCurrentTab--
+        } else {
+          globalStates.ui.contentCurrentTab = globalStates.ui.contentTotalTabs
+        }
+      } else if (ev.type === 'swipeleft') {
+        // console.log('move right')
+        if (globalStates.ui.contentCurrentTab < globalStates.ui.contentTotalTabs) {
+          globalStates.ui.contentCurrentTab++
+        } else {
+          globalStates.ui.contentCurrentTab = 0
+        }
       }
-    } else if (ev.type === 'swipeleft') {
-      console.log('move right')
-      if (globalStates.ui.contentCurrentTab < globalStates.ui.contentTotalTabs) {
-        globalStates.ui.contentCurrentTab++
-      } else {
-        globalStates.ui.contentCurrentTab = 0
+      $(contentTabs[globalStates.ui.contentCurrentTab]).tab('show')
+      const tabcontainer = $('.content-wrapper .tabs-container');
+      if (tabcontainer.scrollLeft() !== tabcontainer.width()) {
+        tabcontainer.stop().animate({
+          scrollLeft: globalStates.ui.contentTabPositions[globalStates.ui.contentCurrentTab]
+        }, 300)
       }
-    }
-    $(contentTabs[globalStates.ui.contentCurrentTab]).tab('show')
-    const tabsArrayLoc = globalStates.ui.contentTabPositions
-    const tabsArrayWidth = globalStates.ui.contentTabWidth
-    const tabcontainer = $('.content-wrapper .tabs-container');
-    const tabLocX = tabsArrayLoc[globalStates.ui.contentCurrentTab] + tabsArrayWidth[globalStates.ui.contentCurrentTab];
-    console.log(tabLocX, tabcontainer.width());
-    if (tabcontainer.scrollLeft() !== tabcontainer.width()) {
-      tabcontainer.stop().animate({
-        scrollLeft: globalStates.ui.contentTabPositions[globalStates.ui.contentCurrentTab]
-      }, 300)
-    }
+    });
+  }
+  $('.content-wrapper .nav-tabs .nav-item').on('hide.bs.tab', function(e) {
+  })
+  $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e) {
+    exitContentViewlist();
+    const tabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item');
+    tabs.forEach((tab, i) => {
+      if (tab === e.target) {
+        globalStates.ui.contentCurrentTab = i;
+      }
+    });
   });
 }
 
-// UTILITIES AND FUNCTIONS
+const exitContentViewlist = () => {
+  globalStates.context.showViewlistContext = false
+  globalStates.context.viewlistItemSelected = ''
+}
 const exitAllViewlist = () => {
+  globalStates.context.contextTitle = ''
   $('body').removeClass('show-viewlist-context')
-  $('.viewlist').each(function(i, e) {
-    $(this).removeClass('show-viewlist-context')
+  $('.aside').each(function(i, e) {
     $(this).find('.list-item.active').removeClass('active')
   })
 }
@@ -370,6 +419,15 @@ const clearSelectableList = (ref, obj) => {
       }
     })
   })
+}
+
+const initiateDatatables = () => {
+  if ($('.datatables').length) {
+    $('.datatables').DataTable({
+      "scrollX": true,
+      "order": [[ 0, "asc" ]]
+    })
+  }
 }
 
 // https://github.pytes.net/tail.DateTime/
@@ -494,17 +552,99 @@ const initiateSketchpad = (ref = document) => {
   }
 }
 
-const windowResized = () => {
-  console.log('window resized')
-  // set global state
-  const vw = window.innerWidth * 0.01;
-  const vh = window.innerHeight * 0.01;
-  if (document.documentElement.style.length === 0) {
-    document.documentElement.style.setProperty('--vw', `${vw}px`);
-    document.documentElement.style.setProperty('--vh', `${vh}px`);
+const initiateViewlistFunctions = () => {
+  if ($('.viewlist').length) {
+    $('.viewlist').each(function(i, e) {
+      $list = $(this)
+      $list.find('.list-link').on('click', function(e) {
+        e.preventDefault()
+        globalStates.context.showViewlistContext = true
+        globalStates.context.viewlistTarget = e.target.closest('.viewlist')
+        globalStates.context.viewlistItemSelected = e.target.closest('.list-item')
+      })
+      $list.find('.close').on('click', function(e) {
+        e.preventDefault()
+        exitContentViewlist()
+      })
+      $list.find('.viewlist-content-overlay').on('click', function(e) {
+        e.preventDefault()
+        exitContentViewlist()
+      })
+    })
   }
+}
+
+function convertToSlug(Text) {
+  return Text
+      .toLowerCase()
+      .replace(/ /g,'-')
+      .replace(/[^\w-]+/g,'')
+      ;
+}
+
+const initiateAccordions = () => {
+  // ACCORDIONS
+  if ($('.collapse').length) {
+    $('.collapse').on('show.bs.collapse', function(event) {
+      const accordion = $(this).closest('.accordion')
+      accordion.addClass('show')
+    })
+    $('.collapse').on('hide.bs.collapse', function(event) {
+      const accordion = $(this).closest('.accordion')
+      accordion.removeClass('show')
+    })
+  }
+}
+
+const windowResized = () => {
+  const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0) * 0.01;
+  const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0) * 0.01;
+  // if (document.documentElement.style.length === 0) {
+  //   document.documentElement.style.setProperty('--vw', `${vw}px`);
+  //   document.documentElement.style.setProperty('--vh', `${vh}px`);
+  // }
   globalStates.ui.vw = vw;
   globalStates.ui.vh = vh;
+}
+
+// CONTENT TABS ITERATION
+const iterateTabs = (ref = document) => {
+  globalStates.ui.contentCurrentTab = 0
+  const vw = Math.max(ref.documentElement.clientWidth || 0, window.innerWidth || 0)
+  const asideWidth = ref.querySelector('.aside').clientWidth
+  const sidebarWidth = ref.querySelector('.sidebar').clientWidth
+  ref.querySelectorAll('.content-wrapper .nav-tabs .nav-item').forEach(tab => {
+    globalStates.ui.contentTabWidth.push(tab.clientWidth)
+    const tabLeft = tab.getBoundingClientRect().left - 1
+    if (vw < 812) {
+      globalStates.ui.contentTabPositions.push(tabLeft + vw)
+    } else if (vw < 1024) {
+      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth)
+    } else {
+      globalStates.ui.contentTabPositions.push(tabLeft - asideWidth - sidebarWidth)
+    }
+  })
+  globalStates.ui.contentTabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')
+  globalStates.ui.contentTotalTabs = document.querySelectorAll('.content-wrapper .nav-tabs .nav-item').length - 1
+}
+
+const initiateTooltips = (ref = document) => {
+  if (ref.querySelectorAll('[data-toggle="tooltip"]').length > 0) {
+    $(ref.querySelectorAll('[data-toggle="tooltip"]')).tooltip()
+  }
+}
+
+const initiateAsideList = () => {
+  if ($('.aside .list-selectable').length) {
+    $('.aside .list-selectable').each(function(e) {
+      $aside = $(this)
+      $aside.find('.list-link').on('click', function(e) {
+        e.preventDefault()
+        globalStates.context.asideListTarget = e.target.closest('.list-selectable')
+        globalStates.context.asideListItemSelected = e.target.closest('.list-item')
+      })
+    })
+  }
 }
 
 // Document Ready
