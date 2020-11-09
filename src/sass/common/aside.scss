@@ -13,7 +13,7 @@
     margin-bottom: 0;
   }
 
-  .aside-toolbar {
+  .aside-toolbar, .aside-header {
     width: calc(100%);
     @include flex(flex-start, flex-start, column);
   }

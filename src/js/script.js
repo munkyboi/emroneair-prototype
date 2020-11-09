@@ -112,7 +112,7 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
     // ======================================
     } else if (property === 'contextURL') {
       if (change.newValue !== '') {
-        if (emrGlobalStates.context.contextType === 'page') {
+        if (emrGlobalStates.context.contextType === 'pageload') {
           const contentWrapper = document.querySelector('.content .content-wrapper')
           async function doAjax(args) {
             let result
@@ -296,7 +296,7 @@ const hammerTimeContent = (cnt) => {
   const asideWidth = document.querySelector('.aside').clientWidth
   const sidebarWidth = document.querySelector('.sidebar').clientWidth
 
-  const doIterate = new Promise((res) => {
+  new Promise((res) => {
     let count = 0
     const tabs = cnt.querySelectorAll('.nav-tabs .nav-item')
     var timeout
@@ -323,15 +323,13 @@ const hammerTimeContent = (cnt) => {
     }
     doFunc()
   })
-
-  doIterate
   .then((res) => {
     // emrGlobalStates.ui.contentTabs = cnt.querySelectorAll('.nav-tabs .nav-item')
     emrGlobalStates.ui.contentTotalTabs = cnt.querySelectorAll('.nav-tabs .nav-item').length
     return emrGlobalStates.ui.contentTotalTabs
   })
   .then((res) => {
-    console.log('========', res)
+    console.log('tabs detected', res)
     if (res > 0) {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt)
@@ -371,7 +369,9 @@ const hammerTimeContent = (cnt) => {
     initiateQuill(cnt)
     initiateSketchpad(cnt)
     initiateAccordions(cnt)
-  }).then(() => {
+    return 'pageload scripts initiated'
+  }).then((res) => {
+    console.log(res)
     emrGlobalStates.context.showContext = true
     emrGlobalStates.ui.pageLoading = false
     console.log('done!')
@@ -397,12 +397,46 @@ const clearSelectableList = (ref, obj) => {
 }
 
 const initiateDatatables = (ref = document) => {
-  if (ref.querySelectorAll('.datatables').length > 0) {
-    $(ref).find('.datatables').DataTable({
-      "scrollX": true,
-      "order": [[ 0, "asc" ]]
+  if (ref.querySelectorAll('.datatable').length > 0) {
+    $(ref).find('.datatable').each(function(i,e) {
+      const datatable = $(this)
+      console.log(datatable)
+      datatable.find('.datatables').DataTable({
+        "scrollX": true,
+        "order": [[ 0, "asc" ]],
+        "dom": 'rtip'
+      })
+      datatable.find('.datatable-toolbar .search .form-control').on('keyup click', function (e) {
+        datatableSearch(datatable.find('.datatables'), $(this))
+        if (e.currentTarget.value.length > 0) {
+          $(this).parent().addClass('not-empty')
+        } else {
+          $(this).parent().removeClass('not-empty')
+        }
+      })
+      datatable.find('.datatable-toolbar .search .clear').on('click', function(e) {
+        e.preventDefault()
+        $(this).parent().removeClass('not-empty')
+        const field = $(this).parent().find('.form-control').val('')
+        datatableSearch(datatable.find('.datatables'), field)
+      })
+      datatable.find('.datatable-toolbar .dropdown-menu .dropdown-item').on('click', function (e) {
+        datatableLengthChange(datatable.find('.datatables'), $(this))
+      })
     })
   }
+}
+
+const datatableSearch = (datatable, field) => {
+  datatable.DataTable().search(
+      field.val(),
+      false, // regex
+      true // smart search
+  ).draw()
+}
+
+const datatableLengthChange = (datatable, field) => {
+  datatable.DataTable().page.len(field.data('value')).draw()
 }
 
 // https://github.pytes.net/tail.DateTime/
@@ -673,12 +707,7 @@ const debounce = (func, wait, immediate) => {
 }
 
 function is_touch_device() {  
-  try {  
-    document.createEvent("TouchEvent");  
-    return true;  
-  } catch (e) {  
-    return false;  
-  }  
+  return 'ontouchstart' in window
 }
 
 const initiateUI = () => {
