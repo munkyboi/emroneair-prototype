@@ -1,0 +1,94 @@
+.pdf-viewer {
+
+  // .pdf-viewer-toolbar
+  &-toolbar {
+    border-top: 1px solid rgba($black, 0.1);
+    height: calc(#{$contentToolbar-height});
+    @include flex(space-between, center);
+
+    .pdf-viewer-next {
+      > span {
+        margin: 0;
+      }
+      i, .mdi {
+        margin-left: 1rem;
+      }
+    }
+  }
+
+  // .pdf-viewer-control
+  &-control {
+    @include flex(flex-start, stretch);
+    width: 100%;
+    .btn {
+      min-height: 2.5rem;
+      &:not(:last-child) {
+        margin-right: 0.5rem;
+      }
+      @media #{$responsive-phone} {
+        &:not(:last-child) {
+          margin-right: 0rem;
+        }
+        > span {
+          display: none;
+        }
+        i, .mdi {
+          margin: 0;
+        }
+      }
+    }
+    .btn-default {
+      border: 1px solid rgba($black, 0.1);
+    }
+    &:not(:last-child) {
+      // margin-right: 1rem;
+    }
+
+    &.zoom {
+      justify-content: center;
+    }
+
+    &.output {
+      justify-content: flex-end;
+    }
+  }
+
+  // .pdf-viewer-pagestuff
+  &-pagestuff {
+    @include flex(flex-start, center);
+    line-height: 1;
+    border: 1px solid rgba($black, 0.1);
+    border-radius: 0.2rem;
+    padding: 0 0.5rem;
+    margin-right: 0.5rem;
+    @media #{$responsive-phone} {
+      margin: 0;
+    }
+    > div {
+      padding: 0;
+    }
+    > small {
+      color: rgba($black, 0.5);
+      padding: 0 0.25rem;
+    }
+  }
+
+  // .pdf-viewer-content
+  &-content {
+    background-color: rgba($black, 0.5);
+    width: 100%;
+    @include applyScrollbar();
+    overflow-y: auto;
+    overflow-x: auto;
+    text-align: center;
+    padding: 2rem;
+    height: calc(100vh - #{$contentToolbar-height} - #{$navbar-height});
+    height: calc(var(--vh, 1vh) * 100 - #{$contentToolbar-height} - #{$navbar-height});
+  }
+
+  #pdfDocumentPrintable {
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+  }
+}

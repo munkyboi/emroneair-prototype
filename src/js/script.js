@@ -113,7 +113,7 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
     } else if (property === 'contextURL') {
       if (change.newValue !== '') {
         if (emrGlobalStates.context.contextType === 'pageload') {
-          const contentWrapper = document.querySelector('.content .content-wrapper')
+          var contentWrapper = document.querySelector('.content .content-wrapper')
           async function doAjax(args) {
             let result
             try {
@@ -336,7 +336,11 @@ const hammerTimeContent = (cnt) => {
         }
       }, 10)
     }
-    doFunc()
+    if (tabs.length > 0) {
+      doFunc()
+    } else {
+      res()
+    }
   })
   .then((res) => {
     // emrGlobalStates.ui.contentTabs = cnt.querySelectorAll('.nav-tabs .nav-item')
@@ -382,15 +386,19 @@ const hammerTimeContent = (cnt) => {
   })
   .then((res) => {
     console.log(res)
+    initiateMainScrolLDetector()
     initiateViewlistFunctions(cnt)
     initiateSelect2(cnt)
     initiateDateTimePicker(cnt)
     initiateQuill(cnt)
     initiateSketchpad(cnt)
     initiateAccordions(cnt)
+    initiatePDFJS()
     // first tab with datatable
-    const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
-    initiateDatatables(firstTabDatatable)
+    if (document.querySelectorAll('.content-wrapper .tabs-container .nav-item').length > 0) {
+      const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
+      initiateDatatables(firstTabDatatable)
+    }
     return 'pageload scripts initiated'
   }).then((res) => {
     console.log(res)
@@ -745,19 +753,171 @@ const debounce = (func, wait, immediate) => {
 	};
 }
 
-function is_touch_device() {  
+const is_touch_device = () => {  
   return 'ontouchstart' in window
 }
 
-const initiateUI = () => {
+const initiatePDFJS = (url = '/sample-pdf.pdf') => {
+  if (!!document.querySelector('.pdf-viewer')) {
+    // If absolute URL from the remote server is provided, configure the CORS
+    // header on that server.
+
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+
+    var pdfDoc = null,
+        pageNum = 1,
+        pageRendering = false,
+        pageNumPending = null,
+        scale = 1,
+        canvas = document.getElementById('pdf-viewer-canvas'),
+        ctx = canvas.getContext('2d');
+
+    /**
+     * Get page info from document, resize canvas accordingly, and render page.
+     * @param num Page number.
+     */
+    function renderPage(num) {
+      pageRendering = true;
+      // Using promise to fetch the page
+      pdfDoc.getPage(num).then(function(page) {
+        var viewport = page.getViewport({scale: scale});
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        // Render PDF page into canvas context
+        var renderContext = {
+          canvasContext: ctx,
+          viewport: viewport
+        };
+        var renderTask = page.render(renderContext);
+
+        // Wait for rendering to finish
+        renderTask.promise.then(function() {
+          pageRendering = false;
+          if (pageNumPending !== null) {
+            // New page rendering is pending
+            renderPage(pageNumPending);
+            pageNumPending = null;
+          }
+        });
+      });
+
+      // Update page counters
+      document.querySelector('.pdf-viewer .pdf-viewer-pagenum').textContent = num;
+    }
+
+    /**
+     * If another page rendering in progress, waits until the rendering is
+     * finised. Otherwise, executes rendering immediately.
+     */
+    function queueRenderPage(num) {
+      if (pageRendering) {
+        pageNumPending = num;
+      } else {
+        renderPage(num);
+      }
+    }
+
+    /**
+     * Displays previous page.
+     */
+    function onPrevPage() {
+      if (pageNum <= 1) {
+        return;
+      }
+      pageNum--;
+      queueRenderPage(pageNum);
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-prev').addEventListener('click', onPrevPage);
+
+    /**
+     * Displays next page.
+     */
+    function onNextPage() {
+      if (pageNum >= pdfDoc.numPages) {
+        return;
+      }
+      pageNum++;
+      queueRenderPage(pageNum);
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-next').addEventListener('click', onNextPage);
+
+    /**
+     * Zoom In
+     */
+    function zoomIn() {
+      // console.log('zooommmm in', scale)
+      if (scale >= 2) {
+        return;
+      }
+      scale = scale + .2;
+      queueRenderPage(pageNum);
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomin').addEventListener('click', zoomIn);
+
+    /**
+     * Zoom Out
+     */
+    function zoomOut() {
+      // console.log('zooommmm out', scale)
+      if (scale <= 0.6) {
+        return;
+      }
+      scale = scale - .2;
+      queueRenderPage(pageNum);
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomout').addEventListener('click', zoomOut);
+
+    /**
+     * Zoom Reset
+     */
+    function zoomReset() {
+      // console.log('zooommmm out', scale)
+      scale = 1;
+      queueRenderPage(pageNum);
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomreset').addEventListener('click', zoomReset);
+
+
+    // PRINT
+    function printPDF(ev) {
+      const file = ev.currentTarget.dataset.file
+      printJS(file)
+      // }
+    }
+    document.querySelector('.pdf-viewer-toolbar .pdf-viewer-print').addEventListener('click', (e) => printPDF(e))
+
+    /**
+     * Asynchronously downloads PDF.
+     */
+    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      pdfDoc = pdfDoc_;
+      document.querySelector('.pdf-viewer .pdf-viewer-pagecount').textContent = pdfDoc.numPages;
+
+      // Initial/first page rendering
+      renderPage(pageNum);
+    });
+  }
+}
+
+const initiateMainScrolLDetector = () => {
   // MAIN CONTENT SCROLL DETECTION
-  $('body > app > .main > .content .content-body').on('scroll', function(e) {
+  $('body > app > .main > .content .scroll-detector').on('scroll', function(e) {
     if (e.currentTarget.scrollTop > 60) {
       $('body').addClass('page-scrolled')
     } else {
       $('body').removeClass('page-scrolled')
     }
   })
+}
+
+const initiateUI = () => {
+  // MAIN SCROLL DETECTOR
+  initiateMainScrolLDetector()
 
   // BURGER SIDEBAR
   $('.burger').on('click', function(e) {
@@ -792,6 +952,8 @@ const initiateUI = () => {
 
   // SKETCHPAD
   initiateSketchpad()
+
+  // PDFJS
 }
 
 // Document Ready

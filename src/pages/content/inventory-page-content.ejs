@@ -1,4 +1,6 @@
-  
+<% 
+__FAB__ = '../../templates/fabs/inventory-fab';
+%>   
   <div class='tabs'>
     <div class='tabs-container'>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -33,3 +35,7 @@
       </div>
     </div>
   </div>
+
+  <% if (__FAB__ != '') { %>
+  <%- include(__FAB__); -%>
+  <% } %>

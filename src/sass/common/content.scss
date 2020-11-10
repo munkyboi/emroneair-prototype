@@ -188,3 +188,14 @@ body.show-context {
     }
   }
 }
+
+.page {
+  background-color: $body-bgcolor;
+  min-height: calc(100vh - #{$navbar-height});
+  min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+
+  .toolbar, .datatable-toolbar {
+    border-top: 1px solid rgba($black, 0.1);
+    background-color: $white;
+  }
+}
