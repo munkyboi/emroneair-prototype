@@ -5,6 +5,16 @@
   padding: 0 1rem;
   min-height: $contentToolbar-height;
   border-bottom: 1px solid rgba($black, 0.1);
+
+  .add-new {
+    margin-right: 1rem;
+    min-height: 38px;
+    @media #{$responsive-phone} {
+      span {
+        display: none;
+      }
+    }
+  }
   
   .input-field {
     flex-grow: 1;

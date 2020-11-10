@@ -1,0 +1,117 @@
+<div class='row'>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class='col-md-12'>
+        <div class="form-group">
+          <label for="new-form-transnum">Transaction Number</label>
+          <input name='transnum' id="new-form-transnum" class="form-control">
+        </div>
+      </div>
+      <div class='col-md-12'>
+        <div class="form-group">
+          <label for="new-form-date">Select a date</label>
+          <div class='input-field dateselect dateselect-current'>
+            <a class="dateselect-icon" href="#">
+              <i class='mdi mdi-calendar-search'></i>
+            </a>
+            <input id='new-form-date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class='col-md-12'>
+        <div class="form-group">
+          <label for="new-form-select2">Select Warehouse</label>
+          <select id='new-form-select' class="select2" name='warehouse'>
+            <option value="Warehouse 1">Warehouse 1</option>
+            <option value="Mandaue Warehouse">Mandaue Warehouse</option>
+            <option value="Lapu-Lapu Warehouse">Lapu-Lapu Warehouse</option>
+            <option value="Mandaue 2">Mandaue 2</option>
+            <option value="Talisay">Talisay</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="row">
+      <div class='col-md-12'>
+        <div class="form-group">
+          <label for="new-form-remarks">Remarks</label>
+          <textarea class='form-control' name='remarks' rows='5'></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="col-md-12">
+    <div class="simple-table">
+      <div class="toolbar table-toolbar">
+        <button
+          class="btn btn-info"
+          data-toggle="modal"
+          data-target="#warehouseItemModal"
+        >
+          <i class="mdi mdi-plus"></i>
+          <span>Add Items</span>
+        </button>
+      </div>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Description</th>
+              <th scope="col">Unit Msr.</th>
+              <th scope="col">On Hand</th>
+              <th scope="col">Operator</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Balance</th>
+              <th scope="col" class='actions'></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Keyboard</th>
+              <td>1</td>
+              <td>
+                <div class="form-group">
+                  <input type="text" class="form-control" value='0'>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">  
+                  <span class="switch switch-sm">
+                    <span><i class="mdi mdi-minus"></i></span>
+                    <input type="checkbox" class="switch" id="switch-sm">
+                    <label for="switch-sm"></label>
+                    <span><i class='mdi mdi-plus'></i></span>
+                  </span>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input type="text" class="form-control" value='0.00'>
+                </div>
+              </td>
+              <td>
+                <div class="form-group">
+                  <input type="text" class="form-control" value='0.00'>
+                </div>
+              </td>
+              <td class='actions'><div class="table-actions">
+                <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                <button class='iconbtn info'><i class="mdi mdi-pencil"></i></button>
+              </div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

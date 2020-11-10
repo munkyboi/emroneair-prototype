@@ -26,7 +26,7 @@
 
       @media #{$responsive-phone} {
         width: calc(100vw - (2rem * 6));
-        width: calc(var(--vw, 1vw) * 100 - (2rem * 6);
+        width: calc(var(--vw, 1vw) * 100 - (2rem * 6));
       }
 
       p {

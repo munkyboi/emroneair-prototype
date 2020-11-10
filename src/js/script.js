@@ -256,7 +256,7 @@ const initScripts = () => {
       modal.addClass('imageViewer')
       modal.find('.modal-body').html(img)
       modal.find('.modal-footer').hide()
-    } else {
+    } else if (type === 'page-load') {
       $.ajax({
         url: content,
         beforeSend: function() {
@@ -267,6 +267,7 @@ const initScripts = () => {
         },
         complete: function() {
           initiateDatatables()
+          initiateSelect2(_this)
           initiateDateTimePicker(_this)
           initiateQuill(_this)
           initiateSketchpad(_this)
@@ -276,9 +277,23 @@ const initScripts = () => {
   })
   $('#dynamicDialog').on('hidden.bs.modal', function (event) {
     modal = $(this)
+    modal.find('.modal-body').html('')
     modal.find('.modal-dialog').removeClass(['modal-sm', 'modal-lg', 'modal-xl'])
     modal.find('.modal-footer').show()
     modal.find('.modal-footer').html($('<button type="button" class="btn btn-default" data-dismiss="modal"><i class="mdi mdi-close"></i><span>Close</span></button><button type="button" class="btn btn-success"><i class="mdi mdi-check"></i><span>Save</span></button>'))
+  })
+
+  $('.modal').on('show.bs.modal', function(ev) {
+    // ev.preventDefault()
+    // $(ev.target).addClass('ready')
+    setTimeout(() => {
+      initiateDatatables(ev.target)
+      // $(ev.target).modal('show')
+      // $(ev.target).addClass('show')
+    }, 200)
+  })
+  $('.modal').on('shown.bs.modal', function(ev) {
+    // $(ev.target).removeClass('ready')
   })
 
   // WINDOW EVENTS
@@ -359,16 +374,23 @@ const hammerTimeContent = (cnt) => {
       exitContentViewlist();
       emrGlobalStates.ui.contentCurrentTab = $(this).index('.content-wrapper .nav-tabs a[data-toggle="tab"]')
     })
+    $('.content-wrapper .nav-tabs .nav-item').on('shown.bs.tab', function(e, i) {
+      tabcnt = document.querySelector(e.target.getAttribute('href'))
+      initiateDatatables(tabcnt)
+    })
     return 'hammer time content done'
   })
   .then((res) => {
     console.log(res)
     initiateViewlistFunctions(cnt)
-    initiateDatatables(cnt)
+    initiateSelect2(cnt)
     initiateDateTimePicker(cnt)
     initiateQuill(cnt)
     initiateSketchpad(cnt)
     initiateAccordions(cnt)
+    // first tab with datatable
+    const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
+    initiateDatatables(firstTabDatatable)
     return 'pageload scripts initiated'
   }).then((res) => {
     console.log(res)
@@ -396,34 +418,51 @@ const clearSelectableList = (ref, obj) => {
   })
 }
 
-const initiateDatatables = (ref = document) => {
+const initiateDatatables = (ref = document.querySelector('.main')) => {
   if (ref.querySelectorAll('.datatable').length > 0) {
     $(ref).find('.datatable').each(function(i,e) {
       const datatable = $(this)
-      console.log(datatable)
-      datatable.find('.datatables').DataTable({
-        "scrollX": true,
-        "order": [[ 0, "asc" ]],
-        "dom": 'rtip'
-      })
-      datatable.find('.datatable-toolbar .search .form-control').on('keyup click', function (e) {
-        datatableSearch(datatable.find('.datatables'), $(this))
-        if (e.currentTarget.value.length > 0) {
-          $(this).parent().addClass('not-empty')
-        } else {
+      const datatableCont = datatable.find('.datatables')
+      const isSelectable = datatableCont.hasClass('selectable')
+      const isMultiSelectable = datatableCont.hasClass('selectable-multi')
+      
+      if (!$.fn.DataTable.isDataTable(datatableCont)) {
+        datatableCont.DataTable({
+          "scrollX": true,
+          "order": [[ 0, "asc" ]],
+          "dom": 'rtip'
+        })
+        datatable.find('.datatable-toolbar .search .form-control').on('keyup click', function (e) {
+          datatableSearch(datatableCont, $(this))
+          if (e.currentTarget.value.length > 0) {
+            $(this).parent().addClass('not-empty')
+          } else {
+            $(this).parent().removeClass('not-empty')
+          }
+        })
+        datatable.find('.datatable-toolbar .search .clear').on('click', function(e) {
+          e.preventDefault()
           $(this).parent().removeClass('not-empty')
+          const field = $(this).parent().find('.form-control').val('')
+          datatableSearch(datatableCont, field)
+        })
+        datatable.find('.datatable-toolbar .dropdown-menu .dropdown-item').on('click', function (e) {
+          datatableLengthChange(datatableCont, $(this))
+        })
+
+        if (isMultiSelectable) {
+          datatableCont.on('click', 'tr', function () {
+            $(this).toggleClass('selected')
+          })
         }
-      })
-      datatable.find('.datatable-toolbar .search .clear').on('click', function(e) {
-        e.preventDefault()
-        $(this).parent().removeClass('not-empty')
-        const field = $(this).parent().find('.form-control').val('')
-        datatableSearch(datatable.find('.datatables'), field)
-      })
-      datatable.find('.datatable-toolbar .dropdown-menu .dropdown-item').on('click', function (e) {
-        datatableLengthChange(datatable.find('.datatables'), $(this))
-      })
+      }
     })
+  }
+}
+
+const initiateSelect2 = (ref = document) => {
+  if (ref.querySelectorAll('.select2').length > 0) {
+    $(ref).find('.select2').select2()
   }
 }
 
@@ -744,6 +783,9 @@ const initiateUI = () => {
 
   // DATEPICKER
   initiateDateTimePicker()
+
+  // SELECT2
+  initiateSelect2()
 
   // QUILL
   initiateQuill()

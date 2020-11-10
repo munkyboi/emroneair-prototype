@@ -20,7 +20,7 @@
         transition: background-color 0.15s ease-out;
         color: rgba($black, 1);
         font-weight: bold;
-        min-width: 12rem;
+        min-width: 3rem;
         white-space: nowrap;
         cursor: pointer;
 
@@ -55,7 +55,23 @@
             background-color: rgba($black, 0.025);
 
             &.sorting_1 {
-              background-color: rgba($black, 0.075);
+              background-color: rgba($black, 0.05);
+            }
+          }
+        }
+        &.selected {
+          td {
+            background-color: rgba($primary-color, 0.1);
+            &.sorting_1 {
+              background-color: rgba($primary-color, 0.15);
+            }
+          }
+          &:hover {
+            td {
+              background-color: rgba($primary-color, 0.1);
+              &.sorting_1 {
+                background-color: rgba($primary-color, 0.15);
+              }
             }
           }
         }
@@ -65,17 +81,13 @@
         padding: 0.5rem 0.5rem;
         transition: background-color 0.15s ease-out;
         color: rgba($black, 0.8);
-        min-width: 12rem;
+        min-width: 3rem;
         cursor: default;
         white-space: nowrap;
 
         &.sorting_1 {
-          background-color: rgba($black, 0.05);
+          background-color: rgba($black, 0.02);
           color: rgba($black, 1);
-        }
-
-        .table-actions {
-          @include flex(flex-start, center);
         }
       }
     }
@@ -217,12 +229,54 @@
     }
   }
 }
+.table-actions {
+  @include flex(flex-start, center);
+}
 
-.table {
-  tbody {
+
+.simple-table {
+
+  .table-toolbar {
+    padding-left: 0;
+    padding-right: 0;
+
+    .btn[data-toggle="modal"] {
+      flex-grow: 0;
+    }
+  }
+
+  .table-footer {
+    td {
+      background-color: rgba($black, 0.1);
+    }
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: calc(100%);
+    // width: calc(var(--vw, 1vw) * 100);
+  }
+
+  .table {
     tr {
       th, td {
         transition: background-color 0.15s ease-out;
+        min-width: 8rem;
+        white-space: nowrap;
+        vertical-align: middle;
+        &.actions {
+          min-width: 3rem;
+        }
+        .form-group {
+          margin: 0;
+        }
+        .switch label {
+          margin: 0;
+        }
+        &.text--right {
+          text-align: right;
+        }
       }
       &:hover {
         th, td {

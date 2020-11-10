@@ -1,5 +1,10 @@
 .modal {
   z-index: 3001;
+  background-color: rgba($black, 0.5);
+
+  &#warehouseItemModal {
+    z-index: 3002;
+  }
 
   &.imageViewer {
     .modal-body {
@@ -129,4 +134,5 @@
 }
 .modal-backdrop {
   z-index: 3000;
+  background: transparent;
 }
