@@ -102,6 +102,11 @@ function jsdata() {
         .pipe(gulp.dest('dist/js'));
 }
 
+function docs() {
+    return gulp.src('src/docs/**/*')
+        .pipe(gulp.dest('dist/docs'));
+}
+
 function img() {
     return gulp.src('src/img/**/*')
         .pipe(gulpIf(isProd, imagemin()))
@@ -135,7 +140,7 @@ function browserSyncReload(done) {
 
 function watchFiles() {
     gulp.watch('src/**/*.ejs', gulp.series(html, browserSyncReload));
-    // gulp.watch('src/**/*.html', gulp.series(html, browserSyncReload));
+    gulp.watch('src/docs/**/*', gulp.series(docs, browserSyncReload));
     gulp.watch('src/**/*.scss', gulp.series(css, browserSyncReload));
     gulp.watch('src/**/*.js', gulp.series(js, modules, browserSyncReload));
     gulp.watch('src/data/**/*.json', gulp.series(json, browserSyncReload));
@@ -159,7 +164,8 @@ exports.modules = modules;
 exports.jsmaps = jsmaps;
 exports.jsdata = jsdata;
 exports.fonts = fonts;
+exports.docs = docs;
 exports.del = del;
-exports.build = gulp.parallel(del, html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos);
-exports.serve = gulp.parallel(html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos, watchFiles, serve);
-exports.default = gulp.series(del, html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos);
+exports.build = gulp.parallel(del, html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos, docs);
+exports.serve = gulp.parallel(html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos, docs, watchFiles, serve);
+exports.default = gulp.series(del, html, css, js, modules, jsmaps, jsdata, json, img, fonts, videos, docs);

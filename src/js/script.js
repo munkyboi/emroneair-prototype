@@ -757,7 +757,7 @@ const is_touch_device = () => {
   return 'ontouchstart' in window
 }
 
-const initiatePDFJS = (url = '/sample-pdf.pdf') => {
+const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
   if (!!document.querySelector('.pdf-viewer')) {
     // If absolute URL from the remote server is provided, configure the CORS
     // header on that server.
