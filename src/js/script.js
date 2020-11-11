@@ -613,16 +613,16 @@ const initiateViewlistFunctions = (ref = document) => {
     ref.querySelectorAll('.viewlist').forEach(list => {
       list.querySelectorAll('.list-link').forEach(link => {
         link.addEventListener('click', (e) => {
-          e.preventDefault()
+          // e.preventDefault()
           emrGlobalStates.context.viewlistItemSelected = e.target.closest('.list-item')
         })
       })
       list.querySelector('.close').addEventListener('click', (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         exitContentViewlist()
       })
       list.querySelector('.viewlist-content-overlay').addEventListener('click', (e) => {
-        e.preventDefault()
+        // e.preventDefault()
         exitContentViewlist()
       })
     })
@@ -705,7 +705,7 @@ const initiateAside = () => {
   if ($('.aside .list-selectable').length) {
     $('.aside .list-selectable').each(function(e) {
       $(this).find('.list-link').on('click', function(e) {
-        e.preventDefault()
+        // e.preventDefault()
         if (!emrGlobalStates.ui.pageLoading) {
           emrGlobalStates.context.asideListItemSelected = e.target.closest('.list-item')
         }
@@ -766,7 +766,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
     var pdfjsLib = window['pdfjs-dist/build/pdf'];
 
     // The workerSrc property shall be specified.
-    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '/js/modules/pdfjs-worker.js';
 
     var pdfDoc = null,
         pageNum = 1,

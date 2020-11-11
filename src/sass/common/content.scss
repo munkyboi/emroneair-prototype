@@ -147,7 +147,7 @@
   margin-right: 0.5rem;
   overflow: hidden;
   width: 0;
-  transform: translateX(calc(#{$sidebar-width}));
+  transform: translateX(calc(#{$sidebar-width} - 1rem));
   transition: width 0.15s ease-out;
 
   @media #{$responsive-tablet} {
@@ -156,12 +156,18 @@
   }
 
   .control-hide {
+    @include flex(flex-start, center);
+    box-sizing: border-box;
+    border: none;
+    background-color: transparent;
+    outline: none;
     color: rgba($black, 0.8);
     &:hover {
       color: $primary-color;
     }
     i, .mdi {
       font-size: 2rem;
+      line-height: 1;
     }
   }
 }

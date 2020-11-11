@@ -46,9 +46,14 @@
     }
 
     .burger {
+      @include flex(center, center);
+      box-sizing: border-box;
+      border: none;
+      background-color: transparent;
+      outline: none;
+      color: rgba($black, 0.8);
       width: 2rem;
       height: 2rem;
-      @include flex(center, center);
       margin: 0;
       color: $black;
       transition: color 0.15s ease-out;
@@ -59,7 +64,7 @@
 
       i, .mdi {
         font-size: 2rem;
-        margin: 0;
+        line-height: 1;
       }
     }
 

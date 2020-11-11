@@ -231,6 +231,14 @@
 }
 .table-actions {
   @include flex(flex-start, center);
+
+  .iconbtn {
+    outline: none;
+    &:focus {
+      border-color: rgb(255, 219, 131);
+      box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
+    }
+  }
 }
 
 

@@ -22,8 +22,16 @@
     @include flex(center, center);
     display: none;
     transform: translateY(-50%);
+    border: none;
+    background-color: transparent;
+    outline: none;
     i, .mdi {
       line-height: 1;
+    }
+
+    &:focus {
+      border-color: rgb(255, 219, 131);
+      box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
     }
   }
 

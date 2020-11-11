@@ -15,17 +15,19 @@
     bottom: 2.5rem;
   }
 
-  > a {
+  > button {
     width: 3rem;
     height: 3rem;
+    border: none;
     border-radius: 1.5rem;
     @include flex(center, center);
     background-color: $primary-color;
     color: $white;
     box-shadow: 0 0.1rem 0.5rem 0 rgba($black, 0.35);
-    transition: background-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.45s ease-out;
+    transition: background-color 0.15s ease-out, color 0.15s ease-out, box-shadow 0.15s ease-out;
     position: relative;
     z-index: 1001;
+    outline: none;
 
     &:hover {
       background-color: darken($primary-color, 10%);
@@ -35,6 +37,11 @@
     > i, .mdi {
       font-size: 2rem;
       line-height: 1;
+    }
+
+    &:focus {
+      border-color: rgb(255, 219, 131);
+      box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
     }
   }
 
@@ -67,9 +74,15 @@
     }
 
     .iconbtn {
-      width: calc(33.3334% - 1rem);
+      @include flex(center, center, column);
+      width: calc(33.3334% - 2rem);
       height: 6rem;
       margin: 0.5rem;
+      padding: 0 0.5rem;
+      border-radius: 0.25rem;
+      border: none;
+      background-color: rgba($black, 0);
+      outline: none;
 
       > i, .mdi {
         font-size: 2rem;
@@ -78,6 +91,10 @@
       > span {
         line-height: 1.4;
         white-space: normal;
+      }
+
+      &:hover {
+        background-color: rgba($black, 0.1);
       }
     }
   }
