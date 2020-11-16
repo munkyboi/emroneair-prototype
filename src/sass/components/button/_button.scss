@@ -27,4 +27,8 @@
       background-color: rgba($black, 0.05);
     }
   }
+
+  &[disabled] {
+    opacity: 0.25;
+  }
 }

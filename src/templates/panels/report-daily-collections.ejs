@@ -1,0 +1,76 @@
+<div class="page-wrapper">
+  <div class="page-toolbar toolbar">
+    <div class="form-group inline">
+      <label for="startDate"><span class='d-md-none'>Start</span><span class='d-none d-md-inline'>Starting Date</span></label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input name='startDate' id='startDate' type="text" class="form-control current" data-toggle='datepicker' aria-label="Start Date" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+    <div class="form-group inline">
+      <label for="endDate"><span class='d-md-none'>End</span><span class='d-none d-md-inline'>Ending Date</span></label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input name='endDate' id='endDate' type="text" class="form-control current" data-toggle='datepicker' aria-label="End Date" data-date-format="dd/mm/yyyy">
+      </div>
+    </div>
+    <button
+      type='button'
+      class='btn btn-info'
+      data-toggle='pdfviewer'
+      data-target='#pdf-viewer-canvas'
+      data-content='/docs/sample-pdf2.pdf'
+    >
+      <i class="mdi mdi-check"></i>
+      <span>Preview</span>
+    </button>
+  </div>
+  <div class="page-body">
+    <div class="pdf-viewer">
+      <div class="pdf-viewer-toolbar toolbar">
+        <div class="pdf-viewer-control">
+          <button class="btn btn-default pdf-viewer-prev">
+            <i class="mdi mdi-chevron-left"></i>
+            <span>Prev</span>
+          </button>
+          <div class="pdf-viewer-pagestuff">
+            <div class="pdf-viewer-pagenum">-</div>
+            <small>OF</small> 
+            <div class="pdf-viewer-pagecount">-</div>
+          </div>
+          <button class="btn btn-default pdf-viewer-next">
+            <span>Next</span>
+            <i class="mdi mdi-chevron-right"></i>
+          </button>
+        </div>
+        <div class="pdf-viewer-control zoom">
+          <button class="btn btn-default pdf-viewer-zoomout">
+            <i class="mdi mdi-minus"></i>
+          </button>
+          <button class="btn btn-default pdf-viewer-zoomreset">
+            <i class="mdi mdi-refresh"></i>
+          </button>
+          <button class="btn btn-default pdf-viewer-zoomin">
+            <i class="mdi mdi-plus"></i>
+          </button>
+        </div>
+        <div class="pdf-viewer-control output">
+          <a href='/docs/sample-pdf.pdf' download="sample-pdf.pdf" class="btn btn-warning pdf-viewer-download">
+            <i class="mdi mdi-download"></i>
+          </a>
+          <button class="btn btn-info pdf-viewer-print" data-file='/docs/sample-pdf.pdf'>
+            <i class="mdi mdi-printer"></i>
+          </button>
+        </div>
+      </div>
+      <div class="pdf-viewer-content scroll-detector">
+        <div class="ajaxloader"><div><div></div></div></div>
+        <canvas id="pdf-viewer-canvas"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

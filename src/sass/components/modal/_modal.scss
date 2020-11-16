@@ -2,8 +2,8 @@
   z-index: 3001;
   background-color: rgba($black, 0.5);
 
-  &#warehouseItemModal {
-    z-index: 3002;
+  &.tier-2 {
+    z-index: 5002;
   }
 
   &.imageViewer {

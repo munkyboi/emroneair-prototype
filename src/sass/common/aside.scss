@@ -2,7 +2,6 @@
   padding: 0;
   margin-bottom: 0;
   @include flex(flex-start, flex-start, column);
-  background-color: $white;
   border: 1px solid rgba($black, 0.1);
   border-left: none;
   border-top: none;
@@ -16,6 +15,11 @@
   .aside-toolbar, .aside-header {
     width: calc(100%);
     @include flex(flex-start, flex-start, column);
+    min-height: calc(#{$contentToolbar-height});
+  }
+
+  .aside-header {
+    background-color: $white;
   }
 
   .aside-tabs {
@@ -47,10 +51,11 @@
     width: 100%;
     @include flex(flex-start, flex-start, column);
     border-right: 1px solid rgba($black, 0.1);
+    background-color: $white;
     
-    min-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    min-height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
     min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 1));
-    max-height: calc(100vh - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
+    max-height: calc(100vh - #{$navbar-height} - #{$contentToolbar-height}); /* Fallback for browsers that do not support Custom Properties */
     max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height} - (#{$contentToolbar-height} * 1));
 
     @media #{$responsive-tablet} {
@@ -87,5 +92,17 @@
     width: 100%;
     
     touch-action: pan-y;
+  }
+
+  &.no-toolbar {
+
+    .aside-content {
+    
+      min-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+      max-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+      max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+  
+    }
   }
 }

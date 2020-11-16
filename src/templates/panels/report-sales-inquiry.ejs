@@ -1,0 +1,42 @@
+<div class="page-wrapper">
+  <div class='paper'>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="startDate">Starting Date</label>
+          <div class='input-field dateselect dateselect-current'>
+            <a class="dateselect-icon" href="#">
+              <i class='mdi mdi-calendar-search'></i>
+            </a>
+            <input name='startDate' id='startDate' type="text" class="form-control current" data-toggle='datepicker' aria-label="Start Date" data-date-format="dd/mm/yyyy">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="endDate">End Date</label>
+          <div class='input-field dateselect dateselect-current'>
+            <a class="dateselect-icon" href="#">
+              <i class='mdi mdi-calendar-search'></i>
+            </a>
+            <input name='endDate' id='endDate' type="text" class="form-control current" data-toggle='datepicker' aria-label="End Date" data-date-format="dd/mm/yyyy">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-end">
+        <button
+          type='button'
+          class='btn btn-info'
+          data-toggle='pageload'
+          data-type='pageload'
+          data-content='/content/sales-report-page-content-continue.html'
+        >
+          <i class="mdi mdi-check"></i>
+          <span>Submit</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

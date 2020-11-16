@@ -147,7 +147,7 @@
   margin-right: 0.5rem;
   overflow: hidden;
   width: 0;
-  transform: translateX(calc(#{$sidebar-width} - 1rem));
+  transform: translateX(calc(#{$sidebar-width}));
   transition: width 0.15s ease-out;
 
   @media #{$responsive-tablet} {
@@ -162,6 +162,7 @@
     background-color: transparent;
     outline: none;
     color: rgba($black, 0.8);
+    padding: 0;
     &:hover {
       color: $primary-color;
     }
@@ -196,12 +197,79 @@ body.show-context {
 }
 
 .page {
+  width: 100%;
   background-color: $body-bgcolor;
-  min-height: calc(100vh - #{$navbar-height});
-  min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+  border-top: 1px solid rgba($black, 0.1);
 
-  .toolbar, .datatable-toolbar {
-    border-top: 1px solid rgba($black, 0.1);
-    background-color: $white;
+  &.hor-center {
+    .page-wrapper {
+      @include flex(center, flex-start);
+    }
   }
+
+  &.abs-center {
+    .page-wrapper {
+      @include flex(center, center);
+    }
+  }
+
+  // .page-wrapper
+  &-wrapper {
+    width: 100%;
+    height: calc(100vh - #{$navbar-height});
+    height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+    @include flex(flex-start, flex-start, column);
+
+    > .toolbar, .datatable-toolbar {
+      background-color: $white;
+      border-top: none;
+
+      .form-group {
+        margin-bottom: 0;
+        margin-right: 1rem;
+      }
+
+      .btn {
+        @media #{$responsive-phone} {
+          min-height: 2.5rem;
+          min-width: 3rem;
+          @include flex(center, center);
+          > span {
+            display: none;
+          }
+          i, .mdi {
+            margin: 0;
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
+  }
+
+  // .page-header
+  &-header {
+    width: 100%;
+    min-height: $contentToolbar-height;
+  }
+
+  // .page-body
+  &-body {
+    width: 100%;
+    height: 100%;
+  }
+
+  // WITH TOOLBAR
+  &.with-toolbar {
+    .page-body {
+      height: calc(100vh - #{$contentToolbar-height});
+      height: calc(var(--vh, 1vh) * 100 - #{$contentToolbar-height});
+    }
+  }
+}
+
+.paper {
+  background-color: $white;
+  border: 1px solid rgba($black, 0.1);
+  border-radius: 0.25rem;
+  padding: 2rem;
 }

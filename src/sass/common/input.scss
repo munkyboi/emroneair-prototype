@@ -92,7 +92,7 @@
   }
 
   &.inline {
-    @include flex(flex-start, center);
+    @include flex(flex-start, center, row);
 
     label {
       width: auto;

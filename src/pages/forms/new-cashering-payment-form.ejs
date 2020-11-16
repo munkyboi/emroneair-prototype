@@ -26,8 +26,8 @@
     <div class="row">
       <div class='col-md-12'>
         <div class="form-group">
-          <label for="new-form-select2">Select Patient</label>
-          <select id='new-form-select2' class="select2" name='patient'>
+          <label for="new-form-patient">Select Patient</label>
+          <select id='new-form-patient' class="select2" name='patient'>
             <option value="Wong, Sam Ting">Wong, Sam Ting</option>
             <option value="Tubol, Rita">Tubol, Rita</option>
             <option value="Oplok, Ken">Oplok, Ken</option>
@@ -38,13 +38,13 @@
       </div>
       <div class='col-md-12'>
         <div class="form-group">
-          <label for="new-form-select2">Select Warehouse</label>
-          <select id='new-form-select' class="select2" name='warehouse'>
-            <option value="Warehouse 1">Warehouse 1</option>
-            <option value="Mandaue Warehouse">Mandaue Warehouse</option>
-            <option value="Lapu-Lapu Warehouse">Lapu-Lapu Warehouse</option>
-            <option value="Mandaue 2">Mandaue 2</option>
-            <option value="Talisay">Talisay</option>
+          <label for="new-form-paymenttype">Select Payment Type</label>
+          <select id='new-form-paymenttype' class="select2" name='paymenttype'>
+            <option value="Kugmo Supplies">Kugmo Supplies</option>
+            <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+            <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+            <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+            <option value="e-Gate Liquid State">e-Gate Liquid State</option>
           </select>
         </div>
       </div>
@@ -59,12 +59,6 @@
           <textarea class='form-control' name='remarks' rows='5'></textarea>
         </div>
       </div>
-      <div class='col-md-12'>
-        <div class="form-group">
-          <label for="new-form-discount">Other Discount</label>
-          <input name='discount' id="new-form-discount" class="form-control" value='0.0'>
-        </div>
-      </div>
     </div>
   </div>
   
@@ -74,10 +68,10 @@
         <button
           class="btn btn-info"
           data-toggle="modal"
-          data-target="#warehouseItemModal"
+          data-target="#chargesModal"
         >
           <i class="mdi mdi-plus"></i>
-          <span>Add Items</span>
+          <span>Add Charges</span>
         </button>
       </div>
       <div class="table-wrapper">
@@ -167,20 +161,38 @@
         <div class="row">
           <div class="col-md-4">
             <div class="form-group inline">
-              <label for="new-form-payable">Total Payable:</label>
-              <input name='payable' id="new-form-payable" class="form-control" disabled value='8,000.00'>
+              <label for="new-form-payable">Payable</label>
+              <input name='payable' id="new-form-payable" class="form-control" disabled>
             </div>
           </div>
           <div class="col-md-4">
             <div class="form-group inline">
-              <label for="new-form-discount">Total Discount</label>
-              <input name='discount' id="new-form-net" class="form-control" disabled value='2,000.00'>
+              <label for="new-form-net">Net</label>
+              <input name='net' id="new-form-net" class="form-control" disabled>
             </div>
           </div>
           <div class="col-md-4 d-flex justify-content-end">
             <div class="form-group inline">
-              <label for="new-form-netpayable"><span class='text--bold'>Net Payable</span></label>
-              <input name='netpayable' id="new-form-netpayable" class="form-control" disabled value='6,000.00'>
+              <label for="new-form-balance"><span class='text--bold'>Balance</span></label>
+              <input name='balance' id="new-form-balance" class="form-control" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group inline">
+              <label for="new-form-discount">Discount</label>
+              <input name='discount' id="new-form-discount" class="form-control" disabled>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="form-group inline">
+              <label for="new-form-amountpaid">Amount Paid</label>
+              <input name='amountpaid' id="new-form-amountpaid" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-4 d-flex justify-content-end">
+            <div class="form-group inline">
+              <label for="new-form-change"><span class='text--bold'>Change</span></label>
+              <input name='change' id="new-form-change" class="form-control" disabled>
             </div>
           </div>
         </div>

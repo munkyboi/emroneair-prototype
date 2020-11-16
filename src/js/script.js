@@ -124,9 +124,6 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
                 beforeSend: () => {
                   emrGlobalStates.context.showContext = false
                   emrGlobalStates.ui.pageLoading = true
-                  emrGlobalStates.ui.contentCurrentTab = 0
-                  emrGlobalStates.ui.contentTabPositions = []
-                  emrGlobalStates.ui.contentTabWidth = []
                   document.querySelector('.content-wrapper').innerHTML = ''
                   contentWrapper.innerHTML = emrGlobalStates.ui.preloaderStr
                 }
@@ -141,6 +138,9 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
           doAjax()
             .then((data) => {
               contentWrapper.innerHTML = data
+              emrGlobalStates.ui.contentCurrentTab = 0
+              emrGlobalStates.ui.contentTabPositions = []
+              emrGlobalStates.ui.contentTabWidth = []
               return 'html insert done'
             })
             .then((res) => {
@@ -222,10 +222,12 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
     } else if (property === 'contentCurrentTab') {
       $(document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')[change.newValue]).tab('show')
       const tabcontainer = document.querySelector('.content-wrapper .tabs-container')
-      if (tabcontainer.scrollLeft !== tabcontainer.clientWidth) {
-        $(tabcontainer).stop().animate({
-          scrollLeft: emrGlobalStates.ui.contentTabPositions[change.newValue]
-        }, 300)
+      if (tabcontainer) {
+        if (tabcontainer.scrollLeft !== tabcontainer.clientWidth) {
+          $(tabcontainer).stop().animate({
+            scrollLeft: emrGlobalStates.ui.contentTabPositions[change.newValue]
+          }, 300)
+        }
       }
     }
   })
@@ -256,7 +258,7 @@ const initScripts = () => {
       modal.addClass('imageViewer')
       modal.find('.modal-body').html(img)
       modal.find('.modal-footer').hide()
-    } else if (type === 'page-load') {
+    } else if (type === 'page-load' || 'page-view') {
       $.ajax({
         url: content,
         beforeSend: function() {
@@ -264,9 +266,14 @@ const initScripts = () => {
         },
         success: function(result) {
           modal.find('.modal-body').html(result)
+          if (type === 'page-view') {
+            modal.find('.modal-footer #modal-save-btn').hide()
+          } else if (type === 'page-load') {
+            modal.find('.modal-footer #modal-print-btn').hide()
+          }
         },
         complete: function() {
-          initiateDatatables()
+          initiateDatatables(_this)
           initiateSelect2(_this)
           initiateDateTimePicker(_this)
           initiateQuill(_this)
@@ -280,14 +287,27 @@ const initScripts = () => {
     modal.find('.modal-body').html('')
     modal.find('.modal-dialog').removeClass(['modal-sm', 'modal-lg', 'modal-xl'])
     modal.find('.modal-footer').show()
-    modal.find('.modal-footer').html($('<button type="button" class="btn btn-default" data-dismiss="modal"><i class="mdi mdi-close"></i><span>Close</span></button><button type="button" class="btn btn-success"><i class="mdi mdi-check"></i><span>Save</span></button>'))
+    modal.find('.modal-footer').html($(`
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-close-btn">
+        <i class="mdi mdi-close"></i>
+        <span>Close</span>
+      </button>
+      <button type="button" class="btn btn-info" id="modal-print-btn">
+        <i class="mdi mdi-printer"></i>
+        <span>Print</span>
+      </button>
+      <button type="button" class="btn btn-success" id="modal-save-btn">
+        <i class="mdi mdi-check"></i>
+        <span>Save</span>
+      </button>
+    `))
   })
 
   $('.modal').on('show.bs.modal', function(ev) {
     // ev.preventDefault()
     // $(ev.target).addClass('ready')
     setTimeout(() => {
-      initiateDatatables(ev.target)
+      // initiateDatatables(ev.target)
       // $(ev.target).modal('show')
       // $(ev.target).addClass('show')
     }, 200)
@@ -369,6 +389,8 @@ const hammerTimeContent = (cnt) => {
           }
         }
       })
+    } else {
+      initiateDatatables(cnt)
     }
     return 'hammer time initiated'
   })
@@ -394,6 +416,8 @@ const hammerTimeContent = (cnt) => {
     initiateSketchpad(cnt)
     initiateAccordions(cnt)
     initiatePDFJS()
+    initiateButtonLinks(cnt)
+    initiateTooltips(cnt)
     // first tab with datatable
     if (document.querySelectorAll('.content-wrapper .tabs-container .nav-item').length > 0) {
       const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
@@ -427,19 +451,61 @@ const clearSelectableList = (ref, obj) => {
 }
 
 const initiateDatatables = (ref = document.querySelector('.main')) => {
+  console.log('datatable initiated....', ref)
   if (ref.querySelectorAll('.datatable').length > 0) {
     $(ref).find('.datatable').each(function(i,e) {
-      const datatable = $(this)
+      const datatable = $(e)
+      const datatablePagination = datatable.find('.datatable-pagination')
+      const datatablePagingInfo = datatablePagination.find('.datatable-paging-info')
+      const datatablePagingNext = datatablePagination.find('.datatable-paging-next')
+      const datatablePagingPrev = datatablePagination.find('.datatable-paging-prev')
       const datatableCont = datatable.find('.datatables')
       const isSelectable = datatableCont.hasClass('selectable')
       const isMultiSelectable = datatableCont.hasClass('selectable-multi')
+      let datatableIfno
       
       if (!$.fn.DataTable.isDataTable(datatableCont)) {
-        datatableCont.DataTable({
-          "scrollX": true,
+        const dt = datatableCont.DataTable({
+          // "scrollX": true,
           "order": [[ 0, "asc" ]],
-          "dom": 'rtip'
+          "dom": 'rt'
         })
+
+        const updatePagingInfo = () => {
+          dtInfo = dt.page.info()
+          datatablePagingInfo.html(`${dtInfo.page + 1} of ${dtInfo.pages}`)
+          if (dtInfo.page === 0) {
+            datatablePagingPrev.attr('disabled', true)
+          } else {
+            datatablePagingPrev.attr('disabled', false)
+          }
+          
+          if (dtInfo.page < dtInfo.pages - 1) {
+            datatablePagingNext.attr('disabled', false)
+          } else {
+            datatablePagingNext.attr('disabled', true)
+          }
+        }
+
+        datatablePagingPrev.on('click', function(ev) {
+          dt.page('previous').draw('page')
+        })
+
+        datatablePagingNext.on('click', function(ev) {
+          dt.page('next').draw('page')
+        })
+
+        updatePagingInfo()
+
+        datatableCont.on('draw.dt', function (e) {
+          setTimeout(() => {
+            window.onresize()
+          }, 300)
+          updatePagingInfo()
+        //   initiateTooltips(e.currentTarget)
+        //   initiateModalToggles(e.currentTarget)
+        });
+        
         datatable.find('.datatable-toolbar .search .form-control').on('keyup click', function (e) {
           datatableSearch(datatableCont, $(this))
           if (e.currentTarget.value.length > 0) {
@@ -460,6 +526,13 @@ const initiateDatatables = (ref = document.querySelector('.main')) => {
 
         if (isMultiSelectable) {
           datatableCont.on('click', 'tr', function () {
+            $(this).toggleClass('selected')
+          })
+        }
+
+        if (isSelectable) {
+          datatableCont.on('click', 'tr', function () {
+            $(this).closest('table').find('tr.selected').removeClass('selected')
             $(this).toggleClass('selected')
           })
         }
@@ -629,6 +702,20 @@ const initiateViewlistFunctions = (ref = document) => {
   }
 }
 
+const initiateButtonLinks = (ref = document) => {
+  console.log('initiateButtonLinks', ref)
+  if (ref.querySelectorAll('[data-toggle=pageload]').length > 0) {
+    ref.querySelectorAll('[data-toggle=pageload]').forEach(button => {
+      button.addEventListener('click', (e) => {
+        // e.preventDefault()
+        emrGlobalStates.context.contextType = e.currentTarget.getAttribute('data-type')
+        emrGlobalStates.context.contextURL = e.currentTarget.getAttribute('data-content')
+        console.log('aaaaaaaaaaaa', e.currentTarget)
+      })
+    })
+  }
+}
+
 function convertToSlug(Text) {
   return Text
       .toLowerCase()
@@ -657,8 +744,25 @@ const windowResized = () => {
 }
 
 const initiateTooltips = (ref = document) => {
+  console.log('tooltip initiated', ref.querySelectorAll('[data-toggle="tooltip"]').length)
   if (ref.querySelectorAll('[data-toggle="tooltip"]').length > 0) {
-    $(ref.querySelectorAll('[data-toggle="tooltip"]')).tooltip()
+    ref.querySelectorAll('[data-toggle="tooltip"]').forEach((item) => {
+      $(item).tooltip()
+    })
+  }
+}
+
+const initiateModalToggles = (ref = document) => {
+  console.log('modal togglers initiated', ref.querySelectorAll('[data-toggle="modal"]').length)
+  if (ref.querySelectorAll('[data-toggle="modal"]').length > 0) {
+    ref.querySelectorAll('[data-toggle="modal"]').forEach((item) => {
+      $(item).on('click', function(e) {
+        const modal = $(this).data('target')
+        console.log(modal)
+        
+        // modal.modal('show')
+      })
+    })
   }
 }
 
@@ -770,7 +874,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
 
     var pdfDoc = null,
         pageNum = 1,
-        pageRendering = false,
+        pageRendering = true,
         pageNumPending = null,
         scale = 1,
         canvas = document.getElementById('pdf-viewer-canvas'),
@@ -782,6 +886,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      */
     function renderPage(num) {
       pageRendering = true;
+      // document.querySelector('.pdf-viewer').classList.add('loading')
       // Using promise to fetch the page
       pdfDoc.getPage(num).then(function(page) {
         var viewport = page.getViewport({scale: scale});
@@ -798,6 +903,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
         // Wait for rendering to finish
         renderTask.promise.then(function() {
           pageRendering = false;
+          document.querySelector('.pdf-viewer').classList.remove('loading')
           if (pageNumPending !== null) {
             // New page rendering is pending
             renderPage(pageNumPending);
@@ -826,11 +932,13 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      * Displays previous page.
      */
     function onPrevPage() {
-      if (pageNum <= 1) {
-        return;
+      if (!pageRendering) {
+        if (pageNum <= 1) {
+          return;
+        }
+        pageNum--;
+        queueRenderPage(pageNum);
       }
-      pageNum--;
-      queueRenderPage(pageNum);
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-prev').addEventListener('click', onPrevPage);
 
@@ -838,11 +946,13 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      * Displays next page.
      */
     function onNextPage() {
-      if (pageNum >= pdfDoc.numPages) {
-        return;
+      if (!pageRendering) {
+        if (pageNum >= pdfDoc.numPages) {
+          return;
+        }
+        pageNum++;
+        queueRenderPage(pageNum);
       }
-      pageNum++;
-      queueRenderPage(pageNum);
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-next').addEventListener('click', onNextPage);
 
@@ -850,12 +960,14 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      * Zoom In
      */
     function zoomIn() {
-      // console.log('zooommmm in', scale)
-      if (scale >= 2) {
-        return;
+      if (!pageRendering) {
+        // console.log('zooommmm in', scale)
+        if (scale >= 2) {
+          return;
+        }
+        scale = scale + .2;
+        queueRenderPage(pageNum);
       }
-      scale = scale + .2;
-      queueRenderPage(pageNum);
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomin').addEventListener('click', zoomIn);
 
@@ -863,12 +975,14 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      * Zoom Out
      */
     function zoomOut() {
-      // console.log('zooommmm out', scale)
-      if (scale <= 0.6) {
-        return;
+      if (!pageRendering) {
+        // console.log('zooommmm out', scale)
+        if (scale <= 0.6) {
+          return;
+        }
+        scale = scale - .2;
+        queueRenderPage(pageNum);
       }
-      scale = scale - .2;
-      queueRenderPage(pageNum);
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomout').addEventListener('click', zoomOut);
 
@@ -876,31 +990,55 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      * Zoom Reset
      */
     function zoomReset() {
-      // console.log('zooommmm out', scale)
-      scale = 1;
-      queueRenderPage(pageNum);
+      if (!pageRendering) {
+        // console.log('zooommmm out', scale)
+        scale = 1;
+        queueRenderPage(pageNum);
+      }
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-zoomreset').addEventListener('click', zoomReset);
 
 
     // PRINT
     function printPDF(ev) {
-      const file = ev.currentTarget.dataset.file
-      printJS(file)
-      // }
+      if (!pageRendering) {
+        const file = ev.currentTarget.dataset.file
+        printJS(file)
+      }
     }
     document.querySelector('.pdf-viewer-toolbar .pdf-viewer-print').addEventListener('click', (e) => printPDF(e))
 
     /**
      * Asynchronously downloads PDF.
      */
+    document.querySelector('.pdf-viewer').classList.add('loading')
     pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
+      document.querySelector('.pdf-viewer').classList.remove('loading')
       document.querySelector('.pdf-viewer .pdf-viewer-pagecount').textContent = pdfDoc.numPages;
 
       // Initial/first page rendering
       renderPage(pageNum);
     });
+
+    if (document.querySelectorAll('[data-toggle="pdfviewer"]').length > 0) {
+      document.querySelectorAll('[data-toggle="pdfviewer"]').forEach((button) => {
+        button.addEventListener('click', (ev) => {
+          const pdffile = ev.currentTarget.dataset.content
+          pdfjsLib.getDocument(pdffile).promise.then(function(pdfDoc_) {
+            pdfDoc = pdfDoc_;
+            document.querySelector('.pdf-viewer').classList.remove('loading')
+            document.querySelector('.pdf-viewer .pdf-viewer-pagecount').textContent = pdfDoc.numPages;
+      
+            // Initial/first page rendering
+            renderPage(pageNum);
+          });
+          document.querySelector('.pdf-viewer-toolbar .pdf-viewer-download').href = pdffile
+          document.querySelector('.pdf-viewer-toolbar .pdf-viewer-download').setAttribute('download','update-report.pdf')
+          document.querySelector('.pdf-viewer-toolbar .pdf-viewer-print').dataset.file = pdffile
+        })
+      })
+    }
   }
 }
 

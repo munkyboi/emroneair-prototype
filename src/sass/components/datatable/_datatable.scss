@@ -2,6 +2,7 @@
   // width: calc(100vw - #{$sidebar-width} - #{$aside-width} - 4rem);
   width: calc(100%);
   margin: 0 auto;
+  background-color: $white;
 
   @media #{$responsive-tablet} {
     width: calc(100%);
@@ -228,6 +229,54 @@
       }
     }
   }
+
+  .datatable-body {
+    @include applyScrollbar();
+    overflow-y: hidden;
+    overflow-x: auto;
+    width: 100%;
+  }
+  .datatable-footer {
+    @include flex(center, center);
+  }
+  .datatable-pagination {
+    @include flex(center, center);
+    line-height: 1;
+
+    .btn {
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      padding: 0;
+      @include flex(center, center);
+      border-radius: 50%;
+      &.datatable-paging-next, &.datatable-paging-prev {
+        font-size: 1.5rem;
+        line-height: 1;
+        background-color: rgba($black, 0.05);
+        color: $blue;
+        &:hover {
+          background-color: rgba($blue, 1);
+          color: $white;
+        }
+        &[disabled] {
+          background-color: rgba($black, 0.05);
+          color: $blue;
+          &:hover {
+            background-color: rgba($black, 0.05);
+            color: $blue;
+          }
+        }
+      }
+    }
+  }
+  .datatable-paging-info {
+    margin-left: 1rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba($black, 0.1);
+    @include flex(center, center);
+    padding: 0.5rem 1rem;
+  }
 }
 .table-actions {
   @include flex(flex-start, center);
@@ -250,12 +299,6 @@
 
     .btn[data-toggle="modal"] {
       flex-grow: 0;
-    }
-  }
-
-  .table-footer {
-    td {
-      background-color: rgba($black, 0.1);
     }
   }
 
@@ -290,6 +333,20 @@
         th, td {
           background-color: rgba($black, 0.05);
         }
+      }
+    }
+  }
+
+  .table-footer {
+    padding: 1rem;
+    background-color: rgba($black, 0.05);
+
+    .form-group {
+      margin-bottom: 0.5rem;
+      margin-top: 0.5rem;
+
+      label {
+        width: 60%;
       }
     }
   }

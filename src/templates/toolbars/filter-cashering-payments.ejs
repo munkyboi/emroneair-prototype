@@ -1,0 +1,29 @@
+<% 
+__DIALOG_TITLE__ = 'New Payment'
+__DIALOG_CONTENT__ = '/forms/new-cashering-payment-form.html'
+%>
+<div class='filter'>
+  <button
+    class='btn btn-info add-new'
+    data-toggle="modal"
+    data-type="page-load"
+    data-target="#dynamicDialog"
+    data-title="<%= __DIALOG_TITLE__ %>"
+    data-content="<%= __DIALOG_CONTENT__ %>"
+    data-size="modal-xl"
+  >
+    <i class='mdi mdi-plus'></i>
+    <span>New Payment</span>
+  </button>
+  <div class='input-field search'>
+    <div class="search-icon">
+      <i class='mdi mdi-magnify'></i>
+    </div>
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+    <button type='button' class="clear">
+      <i class='mdi mdi-close-circle'></i>
+    </button>
+  </div>
+
+  <%- include('../dropdown/datatable-filter-menu'); -%>
+</div>
