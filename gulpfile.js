@@ -64,11 +64,7 @@ function modules() {
 }
 
 function js() {
-    return gulp.src('src/js/**/*.js')
-        .pipe(order([
-            'jquery.min.js',
-			'vendors/**/*.js'
-		]))
+    return gulp.src('src/js/vendors/**/*.js')
         .pipe(jsImport({
             hideConsole: true
         }))

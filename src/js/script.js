@@ -307,7 +307,7 @@ const initScripts = () => {
     // ev.preventDefault()
     // $(ev.target).addClass('ready')
     setTimeout(() => {
-      // initiateDatatables(ev.target)
+      initiateDatatables(ev.target)
       // $(ev.target).modal('show')
       // $(ev.target).addClass('show')
     }, 200)
