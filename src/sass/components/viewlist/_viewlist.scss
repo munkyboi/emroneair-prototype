@@ -102,9 +102,17 @@
     }
 
     .content-title {
+      @include flex(flex-start, center);
+      flex-direction: row;
+      @media #{$responsive-tablet} {
+        @include flex(flex-start, flex-start);
+        flex-direction: column;
+      }
       @media #{$responsive-phone} {
         padding: 1rem 1rem;
         margin-bottom: 0;
+        @include flex(flex-start, flex-start);
+        flex-direction: column;
       }
     }
 
