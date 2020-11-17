@@ -28,6 +28,80 @@
       margin: 0;
     }
   }
+
+  // .toolbar-portable-button
+  &-portable-button {
+    display: none;
+
+    @media #{$responsive-phone} {
+      display: block;
+    }
+  }
+
+  // .toolbar-portable
+  &-portable {
+    position: relative;
+    clear: both;
+    float: none;
+    top: auto;
+    left: auto;
+    min-width: auto;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    margin: 0;
+    width: 100%;
+    @include flex(space-around, center);
+
+    @media #{$responsive-phone} {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      z-index: 1000;
+      display: none;
+      float: left;
+      min-width: 10rem;
+      width: auto;
+      padding: 0.5rem 0;
+      margin: 0.125rem 0 0;
+      font-size: 1rem;
+      color: #212529;
+      text-align: left;
+      list-style: none;
+      background-color: #FFF;
+      background-clip: padding-box;
+      border: 1px solid rgba(26, 26, 26, 0.15);
+      border-radius: 0.25rem;
+
+      .form-group {
+        margin: 0 !important;
+        padding: 0.5rem 1rem;
+        @include flex(flex-start, flex-start, column, !important);
+        flex-direction: column !important;
+      }
+    }
+
+    @media #{$responsive-tablet} {
+      .form-group {
+        &:last-of-type {
+          margin: 0;
+        }
+      }
+      .btn {
+        min-height: 2.5rem;
+        min-width: 3rem;
+        @include flex(center, center);
+        > span {
+          display: none;
+        }
+        i, .mdi {
+          margin: 0;
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
 }
 
 

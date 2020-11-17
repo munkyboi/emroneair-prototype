@@ -418,6 +418,7 @@ const hammerTimeContent = (cnt) => {
     initiatePDFJS()
     initiateButtonLinks(cnt)
     initiateTooltips(cnt)
+    initiateToolbarPortable(cnt)
     // first tab with datatable
     if (document.querySelectorAll('.content-wrapper .tabs-container .nav-item').length > 0) {
       const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
@@ -1039,6 +1040,29 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
         })
       })
     }
+  }
+}
+
+const initiateToolbarPortable = (ref = document) => {
+  console.log('initiateToolbarPortable', ref)
+  if (ref.querySelectorAll('.toolbar-portable').length > 0) {
+    $(ref.querySelectorAll('.toolbar-portable')).each(function(i,e) {
+      $(e).on('click', function(event){
+        var events = $._data(document, 'events') || {};
+        events = events.click || [];
+        for(var i = 0; i < events.length; i++) {
+            if(events[i].selector) {
+                if($(event.target).is(events[i].selector)) {
+                    events[i].handler.call(event.target, event);
+                }
+                $(event.target).parents(events[i].selector).each(function(){
+                    events[i].handler.call(this, event);
+                });
+            }
+        }
+        event.stopPropagation(); 
+      });
+    })
   }
 }
 

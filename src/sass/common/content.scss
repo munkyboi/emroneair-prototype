@@ -246,6 +246,24 @@ body.show-context {
     }
   }
 
+  // .page-toolbar
+  &-toolbar {
+    width: 100%;
+    min-height: $contentToolbar-height;
+    @include flex(space-around, center);
+    .form-group {
+      margin: 0;
+      flex-grow: 1;
+
+      .select2-container {
+        flex-grow: 1 !important;
+        @media #{$responsive-tablet} {
+          width: 100% !important;
+        }
+      }
+    }
+  }
+
   // .page-header
   &-header {
     width: 100%;
