@@ -55,7 +55,7 @@ var __EMR_GLOBAL_STATES__ = {
 
 // STATE MANAGEMENT
 var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, function(changes) {
-  console.log(__EMR_GLOBAL_STATES__, changes);
+  consoleLog(__EMR_GLOBAL_STATES__, changes);
   changes.map((change) => {
     const property = change.property
 
@@ -132,7 +132,7 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
             }
             
             catch (err) {
-              console.log(err)
+              consoleLog(err)
             }
           }
           doAjax()
@@ -144,7 +144,7 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
               return 'html insert done'
             })
             .then((res) => {
-              console.log(res)
+              consoleLog(res)
               const hamm = new Promise((res) => {
                 res(hammerTimeContent(contentWrapper))
               })
@@ -335,7 +335,7 @@ const hammerTimeContent = (cnt) => {
     let count = 0
     const tabs = cnt.querySelectorAll('.nav-tabs .nav-item')
     var timeout
-    console.log('start tab iteration')
+    consoleLog('start tab iteration')
     const doFunc = () => {
       const tabPosX = tabs[count].getBoundingClientRect().left - 1
       if (vw > 1024) {
@@ -350,7 +350,7 @@ const hammerTimeContent = (cnt) => {
           count++
           doFunc()
         } else {
-          console.log('done tab iteration')
+          consoleLog('done tab iteration')
           clearTimeout(timeout)
           res(count)
         }
@@ -368,7 +368,7 @@ const hammerTimeContent = (cnt) => {
     return emrGlobalStates.ui.contentTotalTabs
   })
   .then((res) => {
-    console.log('tabs detected', res)
+    consoleLog('tabs detected', res)
     if (res > 0) {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt)
@@ -395,7 +395,7 @@ const hammerTimeContent = (cnt) => {
     return 'hammer time initiated'
   })
   .then((res) => {
-    console.log(res)
+    consoleLog(res)
     $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e, i) {
       exitContentViewlist();
       emrGlobalStates.ui.contentCurrentTab = $(this).index('.content-wrapper .nav-tabs a[data-toggle="tab"]')
@@ -407,7 +407,7 @@ const hammerTimeContent = (cnt) => {
     return 'hammer time content done'
   })
   .then((res) => {
-    console.log(res)
+    consoleLog(res)
     initiateMainScrolLDetector()
     initiateViewlistFunctions(cnt)
     initiateSelect2(cnt)
@@ -426,10 +426,10 @@ const hammerTimeContent = (cnt) => {
     }
     return 'pageload scripts initiated'
   }).then((res) => {
-    console.log(res)
+    consoleLog(res)
     emrGlobalStates.context.showContext = true
     emrGlobalStates.ui.pageLoading = false
-    console.log('done!')
+    consoleLog('done!')
   })
 }
 
@@ -452,7 +452,7 @@ const clearSelectableList = (ref, obj) => {
 }
 
 const initiateDatatables = (ref = document.querySelector('.main')) => {
-  console.log('datatable initiated....', ref)
+  consoleLog('datatable initiated....', ref)
   if (ref.querySelectorAll('.datatable').length > 0) {
     $(ref).find('.datatable').each(function(i,e) {
       const datatable = $(e)
@@ -704,14 +704,14 @@ const initiateViewlistFunctions = (ref = document) => {
 }
 
 const initiateButtonLinks = (ref = document) => {
-  console.log('initiateButtonLinks', ref)
+  consoleLog('Initiate Button Links...', ref)
   if (ref.querySelectorAll('[data-toggle=pageload]').length > 0) {
     ref.querySelectorAll('[data-toggle=pageload]').forEach(button => {
       button.addEventListener('click', (e) => {
         // e.preventDefault()
         emrGlobalStates.context.contextType = e.currentTarget.getAttribute('data-type')
         emrGlobalStates.context.contextURL = e.currentTarget.getAttribute('data-content')
-        console.log('aaaaaaaaaaaa', e.currentTarget)
+        consoleLog('aaaaaaaaaaaa', e.currentTarget)
       })
     })
   }
@@ -745,7 +745,7 @@ const windowResized = () => {
 }
 
 const initiateTooltips = (ref = document) => {
-  console.log('tooltip initiated', ref.querySelectorAll('[data-toggle="tooltip"]').length)
+  consoleLog('tooltip initiated', ref.querySelectorAll('[data-toggle="tooltip"]').length)
   if (ref.querySelectorAll('[data-toggle="tooltip"]').length > 0) {
     ref.querySelectorAll('[data-toggle="tooltip"]').forEach((item) => {
       $(item).tooltip()
@@ -754,12 +754,12 @@ const initiateTooltips = (ref = document) => {
 }
 
 const initiateModalToggles = (ref = document) => {
-  console.log('modal togglers initiated', ref.querySelectorAll('[data-toggle="modal"]').length)
+  consoleLog('modal togglers initiated', ref.querySelectorAll('[data-toggle="modal"]').length)
   if (ref.querySelectorAll('[data-toggle="modal"]').length > 0) {
     ref.querySelectorAll('[data-toggle="modal"]').forEach((item) => {
       $(item).on('click', function(e) {
         const modal = $(this).data('target')
-        console.log(modal)
+        consoleLog(modal)
         
         // modal.modal('show')
       })
@@ -962,7 +962,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      */
     function zoomIn() {
       if (!pageRendering) {
-        // console.log('zooommmm in', scale)
+        // consoleLog('zooommmm in', scale)
         if (scale >= 2) {
           return;
         }
@@ -977,7 +977,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      */
     function zoomOut() {
       if (!pageRendering) {
-        // console.log('zooommmm out', scale)
+        // consoleLog('zooommmm out', scale)
         if (scale <= 0.6) {
           return;
         }
@@ -992,7 +992,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
      */
     function zoomReset() {
       if (!pageRendering) {
-        // console.log('zooommmm out', scale)
+        // consoleLog('zooommmm out', scale)
         scale = 1;
         queueRenderPage(pageNum);
       }
@@ -1044,7 +1044,7 @@ const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
 }
 
 const initiateToolbarPortable = (ref = document) => {
-  console.log('initiateToolbarPortable', ref)
+  consoleLog('Initiating Toolbar Portable...', ref)
   if (ref.querySelectorAll('.toolbar-portable').length > 0) {
     $(ref.querySelectorAll('.toolbar-portable')).each(function(i,e) {
       $(e).on('click', function(event){
@@ -1075,6 +1075,12 @@ const initiateMainScrolLDetector = () => {
       $('body').removeClass('page-scrolled')
     }
   })
+}
+
+const consoleLog = (log, ...args) => {
+  if (emrGlobalStates.ui.debugMode) {
+    console.log(log, args)
+  }
 }
 
 const initiateUI = () => {
