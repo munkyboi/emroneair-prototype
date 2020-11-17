@@ -250,13 +250,19 @@ body.show-context {
   &-toolbar {
     width: 100%;
     min-height: $contentToolbar-height;
-    @include flex(space-around, center);
+    @include flex(flex-start, center);
+    @media #{$responsive-tablet} {
+      @include flex(space-around, center);
+    }
     .form-group {
       margin: 0;
-      flex-grow: 1;
+      @media #{$responsive-tablet} {
+        flex-grow: 1;
+      }
 
       .select2-container {
         flex-grow: 1 !important;
+        min-width: 10rem;
         @media #{$responsive-tablet} {
           width: 100% !important;
         }

@@ -52,7 +52,7 @@
     border: none;
     margin: 0;
     width: 100%;
-    @include flex(space-around, center);
+    @include flex(flex-start, center);
 
     @media #{$responsive-phone} {
       position: absolute;
