@@ -212,8 +212,6 @@ a {
 	border-bottom: 1px solid rgba($black, 0.1);
 	margin-bottom: 1rem;
 	min-height: calc(#{$contentToolbar-height});
-	@include flex(flex-start, center);
-	flex-wrap: nowrap;
 
 	&.clean {
 		margin-bottom: 0;

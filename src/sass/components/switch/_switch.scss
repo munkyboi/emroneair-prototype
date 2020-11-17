@@ -44,6 +44,16 @@ $switch-transition: .2s all !default;
 .switch {
   font-size: $font-size-base;
   position: relative;
+  @include flex(flex-start, center);
+
+  > span {
+    &:first-of-type {
+      margin-right: 0.5rem;
+    }
+    &:last-of-type {
+      margin-left: 0.5rem;
+    }
+  }
 
   input {
     position: absolute;
@@ -68,6 +78,7 @@ $switch-transition: .2s all !default;
       user-select: none;
       vertical-align: middle;
       text-indent: calc(calc(#{$switch-height} * 2) + .5rem);
+      margin-bottom: 0;
     }
 
     + label::before,

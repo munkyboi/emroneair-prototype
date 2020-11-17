@@ -17,6 +17,23 @@
 }
 .modal-dialog {
   padding: 1rem 2rem !important;
+
+  &.modal-xl {
+    max-width: calc(80vw);
+    @media #{$responsive-phone} {
+      max-width: calc(100vw - 1rem);
+    }
+  }
+
+  &.modal-full {
+    max-width: calc(100vw - 2rem);
+    @media #{$responsive-phone} {
+      max-width: calc(100vw - 1rem);
+    }
+  }
+  @media #{$responsive-phone} {
+    max-width: calc(100vw - 1rem);
+  }
 }
 .modal-skin {
   position: relative;

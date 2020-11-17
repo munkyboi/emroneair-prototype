@@ -1,50 +1,203 @@
-<div class='row'>
-  <div class='col-lg-12 col-xl-12'>
-    <div class="form-group">
-      <label for="new-form-title">Title</label>
-      <input name='title' id="new-form-title" class="form-control">
+<div class="wizardForm">
+  <form action="">
+    <h3 class="wizardForm-maintitle"></h3>
+    <div class="wizard">
+      <!-- SECTION 1 -->
+      <h4 class='wizardForm-title'>Subjective</h4>
+      <section>
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="new-note-date">Select a date</label>
+              <div class='input-field dateselect dateselect-current'>
+                <a class="dateselect-icon" href="#">
+                  <i class='mdi mdi-calendar-search'></i>
+                </a>
+                <input id='new-note-date' name='date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search">
+              </div>
+            </div>
+            <div class="editor">
+              <div class="form-group">
+                <label for="new-form-subjective-remark">Remark</label>
+                <div id='new-form-subjective-remark' class="editor-field"></div>
+                <input type='hidden' class='editor-input' name='subjective-remark' />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 2 -->
+      <h4 class='wizardForm-title'>Objective</h4>
+      <section>
+        <div class="editor">
+          <div class="form-group">
+            <label for="new-form-objective-remark">Remark</label>
+            <div id='new-form-objective-remark' class="editor-field"></div>
+            <input type='hidden' class='editor-input' name='objective-remark' />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group inline">
+              <label for="new-form-vitals">Vitals</label>
+              <select id='new-form-vitals' class="select2" name='vitals'>
+                <option value="Kugmo Supplies">Kugmo Supplies</option>
+                <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+                <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+                <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+                <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="simple-table">
+              <div class="toolbar table-toolbar">
+                <button
+                  type='button'
+                  class="btn btn-info"
+                  data-toggle="modal"
+                  data-target="#warehouseItemModal"
+                >
+                  <i class="mdi mdi-plus"></i>
+                  <span>Add Labs</span>
+                </button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Labs</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Result</th>
+                      <th scope="col" class='actions'></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Stool Exam</th>
+                      <td>10/14/2020 9:00 AM</td>
+                      <td>Once daily before breakfast.</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="simple-table">
+              <div class="toolbar table-toolbar">
+                <button
+                  type='button'
+                  class="btn btn-info"
+                  data-toggle="modal"
+                  data-target="#warehouseItemModal"
+                >
+                  <i class="mdi mdi-plus"></i>
+                  <span>Add Tests</span>
+                </button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Test</th>
+                      <th scope="col">Date</th>
+                      <th scope="col">Result</th>
+                      <th scope="col" class='actions'></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Biopsy</th>
+                      <td>10/14/2020 2:30 PM</td>
+                      <td>Once daily before breakfast.</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 3 -->
+      <h4 class='wizardForm-title'>Assessment</h4>
+      <section>
+        <div class="editor">
+          <div class="form-group">
+            <label for="new-form-assessment-remark">Remark</label>
+            <div id='new-form-assessment-remark' class="editor-field"></div>
+            <input type='hidden' class='editor-input' name='assessment-remark' />
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 4 -->
+      <h4 class='wizardForm-title'>Plan</h4>
+      <section>
+        <div class="editor">
+          <div class="form-group">
+            <label for="new-form-plan-remark">Remark</label>
+            <div id='new-form-plan-remark' class="editor-field"></div>
+            <input type='hidden' class='editor-input' name='plan-remark' />
+          </div>
+        </div>
+        
+        
+        <div class="simple-table">
+          <div class="toolbar table-toolbar">
+            <button
+              type='button'
+              class="btn btn-info"
+              data-toggle="modal"
+              data-target="#warehouseItemModal"
+            >
+              <i class="mdi mdi-plus"></i>
+              <span>Insert Meds</span>
+            </button>
+            <button
+              type='button'
+              class="btn btn-primary"
+              data-toggle="modal"
+              data-target="#newMedsModal"
+            >
+              <i class="mdi mdi-plus"></i>
+              <span>Create New Meds</span>
+            </button>
+          </div>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Medicine</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Prescription</th>
+                  <th scope="col" class='actions'></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Amlodipine (Norvasc) 5mg</th>
+                  <td>10/14/2020</td>
+                  <td>Once daily before breakfast.</td>
+                  <td class='actions'><div class="table-actions">
+                    <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                  </div></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
     </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field1">S</label>
-      <div id='new-form-field1' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field1' />
-    </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field2">O</label>
-      <div id='new-form-field2' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field2' />
-    </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field3">Vitals</label>
-      <div id='new-form-field3' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field3' />
-    </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field4">Labs</label>
-      <div id='new-form-field4' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field4' />
-    </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field5">Tests</label>
-      <div id='new-form-field5' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field5' />
-    </div>
-  </div>
-  <div class='col-lg-12 col-xl-6 editor'>
-    <div class="form-group">
-      <label for="new-form-field6">Meds</label>
-      <div id='new-form-field6' class="editor-field"></div>
-      <input type='hidden' class='editor-input' name='field6' />
-    </div>
-  </div>
+  </form>
 </div>

@@ -252,6 +252,18 @@ const initScripts = () => {
     const _this = this
     modal.find('.modal-dialog').addClass(size)
     modal.find('.modal-title').text(title)
+    modal.find('.modal-body').html(emrGlobalStates.ui.preloaderStr)
+  })
+  $('#dynamicDialog').on('shown.bs.modal', function (event) {
+    const button = $(event.relatedTarget)
+    const title = button.data('title')
+    const content = button.data('content')
+    const size = button.data('size')
+    const type = button.data('type')
+    const modal = $(this)
+    const _this = this
+    modal.find('.modal-dialog').addClass(size)
+    modal.find('.modal-title').text(title)
     if (type === 'image') {
       const img = new Image()
       img.src = content
@@ -274,10 +286,14 @@ const initScripts = () => {
         },
         complete: function() {
           initiateDatatables(_this)
-          initiateSelect2(_this)
-          initiateDateTimePicker(_this)
           initiateQuill(_this)
           initiateSketchpad(_this)
+          initiateWizardForm(_this)
+          initiateSelect2(_this)
+          initiateDateTimePicker(_this)
+
+          if (!modal.find('.wizardForm').length) {
+          }
         }
       })
     }
@@ -303,14 +319,14 @@ const initScripts = () => {
     `))
   })
 
-  $('.modal').on('show.bs.modal', function(ev) {
-    // ev.preventDefault()
-    // $(ev.target).addClass('ready')
-    setTimeout(() => {
-      initiateDatatables(ev.target)
-      // $(ev.target).modal('show')
-      // $(ev.target).addClass('show')
-    }, 200)
+  $('.modal.tier-2').on('shown.bs.modal', function(ev) {
+    console.log('tier-2 modal show event...', this)
+    initiateDatatables(this)
+    initiateQuill(this)
+    initiateSketchpad(this)
+    initiateWizardForm(this)
+    initiateSelect2(this)
+    initiateDateTimePicker(this)
   })
   $('.modal').on('shown.bs.modal', function(ev) {
     // $(ev.target).removeClass('ready')
@@ -543,8 +559,11 @@ const initiateDatatables = (ref = document.querySelector('.main')) => {
 }
 
 const initiateSelect2 = (ref = document) => {
+  consoleLog('initiating select2...', ref)
   if (ref.querySelectorAll('.select2').length > 0) {
-    $(ref).find('.select2').select2()
+    $(ref).find('.select2').select2({
+      tags: true
+    })
   }
 }
 
@@ -562,52 +581,68 @@ const datatableLengthChange = (datatable, field) => {
 
 // https://github.pytes.net/tail.DateTime/
 const initiateDateTimePicker = (ref = document) => {
-  if (ref.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
-    const pickers = ref.querySelectorAll('[data-toggle="datepicker"]')
-    pickers.forEach(picker => {
-      if (picker.classList.contains('current')) {
-        picker.value = moment().format('MM/DD/YYYY')
-      }
-      tail.DateTime(picker, {
-        closeButton: false,
-        dateFormat: 'mm/dd/YYYY',
-        timeFormat: false,
-        time12h: true,
-        timeIncrement: false,
-        timeHours: false,
-        timeMinutes: false,
-        timeSeconds: false,
-        viewDecades: false,
-      })
+  const dpickers = ref.querySelectorAll('[data-toggle="datepicker"]')
+  const dtpickers = ref.querySelectorAll('[data-toggle="datetimepicker"]')
+  const tpickers = ref.querySelectorAll('[data-toggle="timepicker"]')
+  consoleLog('initiating DateTime Picker...', ref, dpickers)
+  if (dpickers.length > 0) {
+    dpickers.forEach(picker => {
+      // check if it belongs to a hidden parent
+      // if ($(picker).closest('.modal.show').length) {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('MM/DD/YYYY')
+        }
+        tail.DateTime(picker, {
+          closeButton: false,
+          dateFormat: 'mm/dd/YYYY',
+          timeFormat: false,
+          time12h: true,
+          timeIncrement: false,
+          timeHours: false,
+          timeMinutes: false,
+          timeSeconds: false,
+          viewDecades: false,
+        })
+      // } else {
+      //   consoleLog('failed to initiate date picker...')
+      // }
     })
   }
-  if (ref.querySelectorAll('[data-toggle="datetimepicker"]').length > 0) {
-    const pickers = ref.querySelectorAll('[data-toggle="datetimepicker"]')
-    pickers.forEach(picker => {
-      if (picker.classList.contains('current')) {
-        picker.value = moment().format('MM/DD/YYYY h:mm:ss A')
-      }
-      tail.DateTime(picker, {
-        closeButton: false,
-        time12h: true,
-        dateFormat: 'mm/dd/YYYY',
-        timeFormat: 'G:ii:ss A',
-      })
+  if (dtpickers.length > 0) {
+    dtpickers.forEach(picker => {
+      // check if it belongs to a hidden parent
+      // if ($(picker).closest('.modal.show').length) {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('MM/DD/YYYY h:mm:ss A')
+        }
+        tail.DateTime(picker, {
+          closeButton: false,
+          time12h: true,
+          dateFormat: 'mm/dd/YYYY',
+          timeFormat: 'G:ii:ss A',
+        })
+      // } else {
+      //   consoleLog('failed to initiate date picker...')
+      // }
     })
   }
-  if (ref.querySelectorAll('[data-toggle="timepicker"]').length > 0) {
-    const pickers = ref.querySelectorAll('[data-toggle="timepicker"]')
-    pickers.forEach(picker => {
-      if (picker.classList.contains('current')) {
-        picker.value = moment().format('h:mm:ss A')
-      }
-      tail.DateTime(picker, {
-        dateFormat: false,
-        closeButton: true,
-        timeFormat: 'G:ii:ss A',
-        time12h: true,
-        timeSeconds: null,
-      })
+  if (tpickers.length > 0) {
+    tpickers.forEach(picker => {
+      // check if it belongs to a hidden parent
+      // if ($(picker).closest('.modal.show').length) {
+        if (picker.classList.contains('current')) {
+          picker.value = moment().format('h:mm:ss A')
+        }
+        tail.DateTime(picker, {
+          dateFormat: false,
+          closeButton: true,
+          timeFormat: 'G:ii:ss A',
+          time12h: true,
+          timeSeconds: null,
+        })
+      // } else {
+      //   consoleLog('failed to initiate date picker...')
+      // }
     })
   }
 }
@@ -633,9 +668,11 @@ const initiateQuill = (ref = document) => {
 
 // https://theisensanders.com/responsive-sketchpad/
 const initiateSketchpad = (ref = document) => {
+  consoleLog('initiating sketchpad...', ref)
   if (ref.querySelectorAll('.sketchpad').length > 0) {
     const sketchpads = ref.querySelectorAll('.sketchpad')
     sketchpads.forEach(sketchpad => {
+      consoleLog('sketchpad ===> ', sketchpad)
       const container = sketchpad.querySelector('.sketchpad-canvas')
       const sizeSelect = sketchpad.querySelector('.sketchpad-size select')
       const colorBlack = sketchpad.querySelector('.sketchpad-colors .color-black')
@@ -1063,6 +1100,77 @@ const initiateToolbarPortable = (ref = document) => {
         event.stopPropagation(); 
       });
     })
+  }
+}
+
+const initiateWizardForm = (ref = document) => {
+  consoleLog('initiating wizard form', ref)
+  if (ref.querySelectorAll('.wizardForm').length > 0) {
+    $(ref.querySelectorAll('.wizardForm')).each(function(i,e) {
+      const mainTitleCtx = $(e).find('.wizardForm-maintitle')
+      const titleArray = $(e).find('.wizardForm-title')
+      let nextBtn, prevBtn
+      mainTitleCtx.html(titleArray[0].innerHTML)
+      console.log(titleArray)
+      const wizardo = $(e).find('.wizard').steps({
+        headerTag: "h4",
+        bodyTag: "section",
+        enableAllSteps: true,
+        transitionEffectSpeed: 0,
+        onStepChanging: function(event, currentIndex, newIndex) {
+          mainTitleCtx.html(titleArray[newIndex].innerHTML)
+          // initiateSelect2(this)
+          // initiateDateTimePicker(this)
+          return true
+        //   if (newIndex === 1) {
+        //     $('.steps ul').addClass('step-2');
+        //   } else {
+        //     $('.steps ul').removeClass('step-2');
+        //   }
+        //   if (newIndex === 2) {
+        //     $('.steps ul').addClass('step-3');
+        //   } else {
+        //     $('.steps ul').removeClass('step-3');
+        //   }
+  
+        //   if (newIndex === 3) {
+        //     $('.steps ul').addClass('step-4');
+        //     $('.actions ul').addClass('step-last');
+        //   } else {
+        //     $('.steps ul').removeClass('step-4');
+        //     $('.actions ul').removeClass('step-last');
+        //   }
+        //   return true;
+        },
+        onInit: function(ev) {
+          // initiateSelect2(this)
+          // initiateDateTimePicker(this)
+        },
+        labels: {
+          finish: "",
+          next: "<i class='mdi mdi-chevron-right'></i>",
+          previous: "<i class='mdi mdi-chevron-left'></i>"
+        }
+      })
+    })
+    // Custom Steps Jquery Steps
+    // $('.wizard > .steps li a').click(function() {
+    //   $(this).parent().addClass('checked');
+    //   $(this).parent().prevAll().addClass('checked');
+    //   $(this).parent().nextAll().removeClass('checked');
+    // });
+    // // Custom Button Jquery Steps
+    // $('.forward').click(function() {
+    //   $("#wizard").steps('next');
+    // })
+    // $('.backward').click(function() {
+    //   $("#wizard").steps('previous');
+    // })
+    // // Checkbox
+    // $('.checkbox-circle label').click(function() {
+    //   $('.checkbox-circle label').removeClass('active');
+    //   $(this).addClass('active');
+    // })
   }
 }
 

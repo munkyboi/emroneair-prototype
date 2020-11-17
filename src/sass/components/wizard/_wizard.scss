@@ -1,0 +1,250 @@
+ .wizardForm {
+
+  .wizardForm-maintitle {
+    padding: 0 1rem;
+    margin: 0;
+    margin-top: 1rem;
+    font-size: 1.5rem;
+    line-height: 1.6;
+    @media #{$responsive-phone} {
+      padding: 0;
+    }
+  }
+
+  .wizard > .steps .current-info,
+  .wizard > .steps .number {
+      display: none
+  }
+
+  .wizard {
+    position: relative;
+      background: $white;
+      padding: 1rem;
+      margin: 0;
+      @media #{$responsive-phone} {
+        padding: 1rem 0;
+      }
+
+    .steps {
+      margin-bottom: 30px;
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        position: relative;
+        width: 100%;
+        @include flex(space-between, center);
+
+        li {
+          flex-grow: 1;
+          height: auto;
+          transition: all 0.5s ease;
+          &:not(:last-of-type) {
+            margin-right: 1rem;
+          }
+
+          a {
+            display: inline-block;
+            width: 100%;
+            height: 0.5rem;
+            background: rgba($black, 0.1);
+            border-radius: 0.5rem;
+            transition: all 0.5s ease;
+
+            text-indent: -200vw;
+
+            &:hover {
+              box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
+            }
+          }
+
+          &.current {
+            a {
+              background: $info;
+            }
+          }
+
+          &.done {
+            a {
+              background: rgba($black, 0.5);
+            }
+          }
+        }
+      }
+    }
+
+    .content {
+      > h4 {
+        display: none;
+      }
+      > section {
+        display: block !important;
+        height: 0;
+        overflow: hidden;
+        &.current {
+          height: auto;
+          overflow: visible;
+        }
+      }
+
+      .toolbar {
+        .btn {
+          @media #{$responsive-phone} {
+            min-height: 2.5rem;
+            min-width: 3rem;
+            @include flex(center, center);
+            > span {
+              display: none;
+            }
+            i, .mdi {
+              margin: 0;
+              font-size: 1.25rem;
+            }
+          }
+        }
+      }
+    }
+
+    .actions {
+      padding-top: 1rem;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        @include flex(center, center);
+        width: 100%;
+
+        li {
+          margin: 0 0.5rem;
+          a {
+            min-width: 2.5rem;
+            min-height: 2.5rem;
+            padding: 0;
+            @include flex(center, center);
+            border-radius: 50%;
+            font-size: 1.5rem;
+            line-height: 1;
+            background-color: rgba($black, 0.05);
+            color: $blue;
+            &:hover {
+              background-color: rgba($blue, 1);
+              color: $white;
+            }
+
+            &[href='#previous'] {
+              // left: 2rem;
+            }
+
+            &[href='#next'] {
+              // right: 2rem;
+            }
+
+            &[href='#finish'] {
+              display: none;
+            }
+          }
+
+          &.disabled {
+            a {
+              opacity: 0.25;
+              background-color: rgba($black, 0.05);
+              color: $blue;
+              &:hover {
+                background-color: rgba($black, 0.05);
+                color: $blue;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // .steps ul:before {
+    //   content: "Customer Details";
+    //   font-size: 22px;
+    //   font-family: "Poppins-SemiBold";
+    //   color: #333;
+    //   top: -38px;
+    //   position: absolute
+    // }
+
+    // .steps ul.step-2:before {
+    //   content: "Additional Info"
+    // }
+
+    // .steps ul.step-3:before {
+    //   content: "Your Order"
+    // }
+
+    // .steps ul.step-4:before {
+    //   content: "Billing Method"
+    // }
+  }
+}
+
+
+
+ @-webkit-keyframes hvr-icon-wobble-horizontal {
+  16.65% {
+      -webkit-transform: translateX(6px);
+      transform: translateX(6px)
+  }
+
+  33.3% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px)
+  }
+
+  49.95% {
+      -webkit-transform: translateX(4px);
+      transform: translateX(4px)
+  }
+
+  66.6% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px)
+  }
+
+  83.25% {
+      -webkit-transform: translateX(1px);
+      transform: translateX(1px)
+  }
+
+  100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0)
+  }
+}
+
+@keyframes hvr-icon-wobble-horizontal {
+  16.65% {
+      -webkit-transform: translateX(6px);
+      transform: translateX(6px)
+  }
+
+  33.3% {
+      -webkit-transform: translateX(-5px);
+      transform: translateX(-5px)
+  }
+
+  49.95% {
+      -webkit-transform: translateX(4px);
+      transform: translateX(4px)
+  }
+
+  66.6% {
+      -webkit-transform: translateX(-2px);
+      transform: translateX(-2px)
+  }
+
+  83.25% {
+      -webkit-transform: translateX(1px);
+      transform: translateX(1px)
+  }
+
+  100% {
+      -webkit-transform: translateX(0);
+      transform: translateX(0)
+  }
+}

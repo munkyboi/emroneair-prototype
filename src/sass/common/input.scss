@@ -83,6 +83,35 @@
   .content-title {
     min-height: auto;
     padding: 0 1rem 1rem;
+    
+    @include flex(flex-start, center);
+    flex-wrap: nowrap;
+
+    h5, h4, h3, h2, h1 {
+      width: 100%;
+      margin-bottom: 0;
+      @include flex(flex-start, center);
+      @media #{$responsive-phone} {
+        @include flex(flex-start, flex-start);
+        flex-direction: column;
+        margin-bottom: 0;
+      }
+
+      > span {
+        flex-grow: 1;
+      }
+
+      .form-group {
+        margin: 0;
+        @media #{$responsive-phone} {
+          margin-top: 1rem;
+        }
+      }
+    }
+  }
+
+  &:not(:last-of-type) {
+    margin-bottom: 1rem;
   }
 }
 
@@ -132,7 +161,7 @@
 }
 .select2-container {
   height: auto;
-  z-index: 3004;
+  z-index: 6004;
 
   &--default {
     .select2-selection--single {

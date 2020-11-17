@@ -1,0 +1,201 @@
+<div class='row'>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-meds-date">Select a date</label>
+      <div class='input-field dateselect dateselect-current'>
+        <a class="dateselect-icon" href="#">
+          <i class='mdi mdi-calendar-search'></i>
+        </a>
+        <input id='new-meds-date' name='date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search">
+      </div>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">
+      <label for="new-meds-favorites">Quick Meds</label>
+      <select id='new-meds-favorites' class="select2" name='vitals'>
+        <option value="Kugmo Supplies">Kugmo Supplies</option>
+        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+      </select>
+    </div>
+  </div>
+</div>
+<div class='detail-box row'>
+  <div class='content-title col-md-12'>
+    <h5>
+      <span>Details</span>
+      
+      <div class="form-group">  
+        <span class="switch switch-sm">
+          <span>Inactive</span>
+          <input type="checkbox" name='isactive' class="switch" id="isactive">
+          <label for="isactive"></label>
+          <span>Active</span>
+        </span>
+      </div>
+
+    </h5>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-meds-drug">Drug</label>
+      <select id='new-meds-drug' class="select2" name='drug'>
+        <option value="Kugmo Supplies">Kugmo Supplies</option>
+        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-meds-dose">Dose</label>
+      <select id='new-meds-dose' class="select2" name='dose'>
+        <option value="5mg">5mg</option>
+        <option value="10mg">10mg</option>
+        <option value="50mg">50mg</option>
+        <option value="100mg">100mg</option>
+        <option value="500mg">500mg</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-meds-route">Route</label>
+      <select id='new-meds-route' class="select2" name='route'>
+        <option value="Kugmo Supplies">Kugmo Supplies</option>
+        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-meds-frequency">Frequency</label>
+      <select id='new-meds-frequency' class="select2" name='frequency'>
+        <option value="Kugmo Supplies">Kugmo Supplies</option>
+        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">  
+      <label>Track Days?</label>
+      <span class="switch switch-sm">
+        <span>No</span>
+        <input type="checkbox" name='trackdays' class="switch" id="trackdays">
+        <label for="trackdays"></label>
+        <span>Yes</span>
+      </span>
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-med-numdays">Number of Days</label>
+      <input name='numdays' id="new-med-numdays" class="form-control">
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-med-numdispense">Dispense Number</label>
+      <input name='numdispense' id="new-med-numdispense" class="form-control">
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-med-numrefill">Refill Number</label>
+      <input name='numrefill' id="new-med-numrefill" class="form-control">
+    </div>
+  </div>
+  <div class='col-md-4'>
+    <div class="form-group">
+      <label for="new-meds-oxytocin">Oxytocin</label>
+      <select id='new-meds-oxytocin' class="select2" name='oxytocin'>
+        <option value="Kugmo Supplies">Kugmo Supplies</option>
+        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+      </select>
+    </div>
+  </div>
+  <div class='col-md-12'>
+    <div class="form-group">
+      <label for="new-form-compaddress">Company Address</label>
+      <textarea class='form-control' name='compaddress' rows='5'></textarea>
+    </div>
+  </div>
+</div>
+
+<div class='detail-box row'>
+  <div class='content-title col-md-12'>
+    <h5>
+      <span>Instructions</span>
+    </h5>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group inline">
+      <label for="new-med-instruction-day">Day</label>
+      <input name='instruction-day' id="new-med-instruction-day" class="form-control">
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group inline">
+      <label for="new-med-instruction-month">Month</label>
+      <input name='instruction-month' id="new-med-instruction-month" class="form-control">
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">  
+      <label>Breakfast</label>
+      <span class="switch switch-sm">
+        <span>Before</span>
+        <input type="checkbox" name='breakfast' class="switch" id="breakfast">
+        <label for="breakfast"></label>
+        <span>After</span>
+      </span>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">  
+      <label>Lunch</label>
+      <span class="switch switch-sm">
+        <span>Before</span>
+        <input type="checkbox" name='lunch' class="switch" id="lunch">
+        <label for="lunch"></label>
+        <span>After</span>
+      </span>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">  
+      <label>Dinner</label>
+      <span class="switch switch-sm">
+        <span>Before</span>
+        <input type="checkbox" name='dinner' class="switch" id="dinner">
+        <label for="dinner"></label>
+        <span>After</span>
+      </span>
+    </div>
+  </div>
+  <div class='col-md-6'>
+    <div class="form-group">  
+      <label>Bedtime</label>
+      <span class="switch switch-sm">
+        <span>No</span>
+        <input type="checkbox" name='bedtime' class="switch" id="bedtime">
+        <label for="bedtime"></label>
+        <span>Yes</span>
+      </span>
+    </div>
+  </div>
+</div>
