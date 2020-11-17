@@ -1117,6 +1117,7 @@ const initiateWizardForm = (ref = document) => {
         bodyTag: "section",
         enableAllSteps: true,
         transitionEffectSpeed: 0,
+        titleTemplate: `<span class="number">#index#</span><span class="title">#title#</span>`,
         onStepChanging: function(event, currentIndex, newIndex) {
           mainTitleCtx.html(titleArray[newIndex].innerHTML)
           // initiateSelect2(this)

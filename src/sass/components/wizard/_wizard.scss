@@ -8,12 +8,8 @@
     line-height: 1.6;
     @media #{$responsive-phone} {
       padding: 0;
+      text-align: center;
     }
-  }
-
-  .wizard > .steps .current-info,
-  .wizard > .steps .number {
-      display: none
   }
 
   .wizard {
@@ -25,7 +21,7 @@
         padding: 1rem 0;
       }
 
-    .steps {
+    > .steps {
       margin-bottom: 30px;
 
       ul {
@@ -40,34 +36,102 @@
           flex-grow: 1;
           height: auto;
           transition: all 0.5s ease;
-          &:not(:last-of-type) {
-            margin-right: 1rem;
-          }
 
           a {
-            display: inline-block;
+            @include flex(center, center);
+            flex-direction: column;
             width: 100%;
-            height: 0.5rem;
-            background: rgba($black, 0.1);
+            // background: rgba($black, 0.1);
             border-radius: 0.5rem;
             transition: all 0.5s ease;
+            color: lighten($black, 50%);
+            position: relative;
+            font-weight: bold;
 
-            text-indent: -200vw;
+            &:before {
+              content: '';
+              display: block;
+              width: 100%;
+              height: 0.2rem;
+              background-color: lighten($black, 85%);
+              position: absolute;
+              z-index: 1;
+              top: 50%;
+              left: 0;
+              transform: translateY(calc(-50% - 1rem));
+              transition: all 0.5s ease;
 
-            &:hover {
-              box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
+            }
+
+            &:hover, &:focus {
+              color: $info;
+              .number {
+                background-color: $info;
+                color: $white;
+                box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
+              }
+            }
+
+            .number {
+              position: relative;
+              z-index: 2;
+              @include flex(center, center);
+              width: 2.5rem;
+              height: 2.5rem;
+              border-radius: 50%;
+              background-color: lighten($black, 85%);
+              color: $black;
+              margin-bottom: 1rem;
+              font-size: 1.25rem;
+              transition: all 0.5s ease;
+            }
+
+            .title {
+              font-weight: bold;
+              font-size: 0.8rem;
+
+              @media #{$responsive-phone} {
+                text-indent: -200vw;
+              }
+            }
+
+            .current-info {
+              display: none
             }
           }
 
           &.current {
             a {
-              background: $info;
+              &:before {
+                background-color: $info;
+              }
+              color: $info;
+              .number {
+                background-color: $info;
+                color: $white;
+              }
             }
           }
 
           &.done {
             a {
-              background: rgba($black, 0.5);
+              &:before {
+                background-color: lighten($black, 40%);
+              }
+              color: lighten($black, 10%);
+              .number {
+                background-color: lighten($black, 40%);
+                color: $white;
+              }
+
+              &:hover, &:focus {
+                color: $info;
+                .number {
+                  background-color: $info;
+                  color: $white;
+                  box-shadow: 0 0 0 0.2rem rgba(255, 183, 3, 0.25);
+                }
+              }
             }
           }
         }
