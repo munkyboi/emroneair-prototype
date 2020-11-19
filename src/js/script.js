@@ -1294,12 +1294,15 @@ const initiateCustomDialog = (ref = document) => {
 
         
         if (dialogType === 'image') {
+          dialog.addClass('imageViewer')
           const img = new Image()
           img.src = dialogContent
-          dialog.addClass('imageViewer')
-          dialog.find('.modal-body').html(img)
-          dialog.find('.modal-footer').hide()
-          dialog.modal('show')
+          img.onload = function() {
+            dialog.find('.modal-body').html(img)
+            dialog.find('.modal-footer').hide()
+            emrGlobalStates.dialog.dialogLoading = false
+            dialog.modal('show')
+          }
         } else if (dialogType === 'ajax' || 'ajax-form' || 'ajax-doc' || 'ajax-selection') {
           $.ajax({
             url: dialogContent,
