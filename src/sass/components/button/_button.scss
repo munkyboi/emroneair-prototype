@@ -2,7 +2,6 @@
 @import './iconbutton.scss';
 
 .btn {
-  color: $white;
   font-size: 1rem;
   @include flex(center, center);
   i, .mdi {
@@ -30,5 +29,16 @@
 
   &[disabled] {
     opacity: 0.25;
+  }
+
+  &.unresponsive {
+    @media #{$responsive-phone} {
+      flex-grow: 1;
+      @include flex(center, center);
+      margin: 0;
+      > span {
+        display: inline-block !important;
+      }
+    }
   }
 }

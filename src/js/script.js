@@ -160,6 +160,9 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
                   emrGlobalStates.ui.pageLoading = true
                   document.querySelector('.content-wrapper').innerHTML = ''
                   contentWrapper.innerHTML = emrGlobalStates.ui.preloaderStr
+                  emrGlobalStates.ui.contentCurrentTab = 0
+                  emrGlobalStates.ui.contentTabPositions = []
+                  emrGlobalStates.ui.contentTabWidth = []
                 }
               })
               return result
@@ -172,9 +175,9 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
           doAjax()
             .then((data) => {
               contentWrapper.innerHTML = data
-              emrGlobalStates.ui.contentCurrentTab = 0
-              emrGlobalStates.ui.contentTabPositions = []
-              emrGlobalStates.ui.contentTabWidth = []
+              // emrGlobalStates.ui.contentCurrentTab = 0
+              // emrGlobalStates.ui.contentTabPositions = []
+              // emrGlobalStates.ui.contentTabWidth = []
               return 'html insert done'
             })
             .then((res) => {
@@ -256,11 +259,14 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
     } else if (property === 'contentCurrentTab') {
       $(document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')[change.newValue]).tab('show')
       const tabcontainer = document.querySelector('.content-wrapper .tabs-container')
+      const ylimit = Math.round(document.querySelector('.content-wrapper .tabs-container .nav-tabs').offsetWidth - tabcontainer.offsetWidth)
       if (tabcontainer) {
-        if (tabcontainer.scrollLeft !== tabcontainer.clientWidth) {
-          $(tabcontainer).stop().animate({
-            scrollLeft: emrGlobalStates.ui.contentTabPositions[change.newValue]
-          }, 300)
+        const scrollY = Math.round(emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue] > ylimit ? ylimit : emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue])
+        consoleLog('tab position', scrollY, ylimit,  Math.round(emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue]))
+        if (tabcontainer.scrollLeft <= ylimit) {
+          $(tabcontainer).animate({
+            scrollLeft: scrollY
+          }, 150)
         }
       }
     }
@@ -295,7 +301,7 @@ const hammerTimeContent = (cnt) => {
     var timeout
     consoleLog('start tab iteration')
     const doFunc = () => {
-      const tabPosX = tabs[count].getBoundingClientRect().left - 1
+      const tabPosX = tabs[count].getBoundingClientRect().left
       if (vw > 1024) {
         emrGlobalStates.ui.contentTabPositions.push(tabPosX - asideWidth - sidebarWidth)
       } else if (vw > 812 && vw <= 1024) {
@@ -303,6 +309,7 @@ const hammerTimeContent = (cnt) => {
       } else {
         emrGlobalStates.ui.contentTabPositions.push(tabPosX + vw)
       }
+      emrGlobalStates.ui.contentTabWidth.push(tabs[count].clientWidth)
       timeout = setTimeout(() => {
         if (count != tabs.length - 1) {
           count++
@@ -329,8 +336,10 @@ const hammerTimeContent = (cnt) => {
     consoleLog('tabs detected', res)
     if (res > 0) {
       const hammCnt = cnt.querySelector('.content-body')
-      const hamm = new Hammer(hammCnt)
-      hamm.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+      const hamm = new Hammer(hammCnt, {
+        touchAction: 'pan-y'
+      })
+      // hamm.set({ direction: Hammer.DIRECTION_HORIZONTAL });
       hamm.on('swipeleft swiperight', function(ev) {
         if (emrGlobalStates.ui.isMobile) {
           if (ev.type === 'swiperight') {
@@ -356,11 +365,16 @@ const hammerTimeContent = (cnt) => {
   .then((res) => {
     consoleLog(res)
     $('.content-wrapper .nav-tabs .nav-item').on('show.bs.tab', function(e, i) {
-      exitContentViewlist();
-      emrGlobalStates.ui.contentCurrentTab = $(this).index('.content-wrapper .nav-tabs a[data-toggle="tab"]')
+      // $('.content-wrapper > .tabs > .tabs-container > .nav-tabs > .nav-item.active').removeClass('active')
+      // $(e.currentTarget).addClass('active')
+      // $('.content-wrapper .tab-content .tab-pane.show.active').removeClass('show active')
+      // const tabcnt = document.querySelector(e.target.getAttribute('href'))
+      // $(tabcnt).addClass('show active')
     })
     $('.content-wrapper .nav-tabs .nav-item').on('shown.bs.tab', function(e, i) {
-      tabcnt = document.querySelector(e.target.getAttribute('href'))
+      exitContentViewlist();
+      emrGlobalStates.ui.contentCurrentTab = $(e.currentTarget).index('.content-wrapper > .tabs > .tabs-container > .nav-tabs > .nav-item')
+      const tabcnt = document.querySelector(e.target.getAttribute('href'))
       initiateDatatables(tabcnt)
     })
     return 'hammer time content done'
@@ -803,8 +817,9 @@ const initiateAside = () => {
   if (asideTabs.length > 0) {
     document.querySelectorAll('.aside .aside-content .list-container').forEach((asideContainer) => {
       // const hammerContainer = document.querySelector('.aside .aside-content .list-container')
-      var hammertime = new Hammer(asideContainer);
-      hammertime.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+      var hammertime = new Hammer(asideContainer, {
+        touchAction: 'pan-y'
+      });
   
       hammertime.on('swipeleft swiperight', function(ev) {
         if (emrGlobalStates.ui.isMobile) {
@@ -889,7 +904,7 @@ const debounce = (func, wait, immediate) => {
 }
 
 const is_touch_device = () => {
-  console.log('check if touch device...')
+  consoleLog('check if touch device...')
   return ( 'ontouchstart' in window ) ||  
          ( navigator.maxTouchPoints > 0 ) ||  
          ( navigator.msMaxTouchPoints > 0 ); 
@@ -1264,7 +1279,6 @@ const initiateCustomDialog = (ref = document) => {
             complete: function() {
               initiateDatatables(_this)
               initiateQuill(_this)
-              initiateSketchpad(_this)
               initiateWizardForm(_this)
               initiateSelect2(_this)
               initiateDateTimePicker(_this)
@@ -1272,6 +1286,10 @@ const initiateCustomDialog = (ref = document) => {
             }
           })
         }
+
+        dialog.on('shown.bs.modal', function(ev) {
+          initiateSketchpad(_this)
+        })
 
         dialog.on('hide.bs.modal', function(ev) {
           removeDatePickers(_this)
@@ -1284,9 +1302,11 @@ const initiateCustomDialog = (ref = document) => {
   }
 }
 
-const consoleLog = (log, ...args) => {
+const consoleLog = (...logs) => {
   if (emrGlobalStates.ui.debugMode) {
-    console.log(log, args)
+    logs.forEach(log => {
+      console.log(log)
+    })
   }
 }
 

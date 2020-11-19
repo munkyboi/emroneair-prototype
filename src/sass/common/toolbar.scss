@@ -104,6 +104,23 @@
       }
     }
   }
+
+  &.unresponsive {
+    @media #{$responsive-phone} {
+      @include flex(center, flex-start);
+      flex-direction: column;
+      min-height: auto;
+      padding: 0.5rem 0;
+
+      .btn {
+        width: 100%;
+        margin: 0;
+        &:not(:last-of-type) {
+          margin-bottom: 0.5rem;
+        }
+      }
+    }
+  }
 }
 
 
