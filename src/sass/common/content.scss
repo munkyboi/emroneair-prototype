@@ -75,6 +75,8 @@
         @include applyScrollbar();
         overflow-y: auto;
         overflow-x: hidden;
+
+        touch-action: pan-y;
       }
 
       .ps__rail-y {
