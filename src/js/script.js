@@ -330,8 +330,9 @@ const hammerTimeContent = (cnt) => {
     if (res > 0) {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt)
+      hamm.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
       hamm.on('swipeleft swiperight', function(ev) {
-        // if (emrGlobalStates.ui.isMobile) {
+        if (emrGlobalStates.ui.isMobile) {
           if (ev.type === 'swiperight') {
             if (emrGlobalStates.ui.contentCurrentTab > 0) {
               emrGlobalStates.ui.contentCurrentTab = emrGlobalStates.ui.contentCurrentTab - 1
@@ -345,7 +346,7 @@ const hammerTimeContent = (cnt) => {
               emrGlobalStates.ui.contentCurrentTab = 0
             }
           }
-        // }
+        }
       })
     } else {
       initiateDatatables(cnt)
@@ -800,25 +801,28 @@ const initiateAside = () => {
   emrGlobalStates.ui.asideTotalTabs = document.querySelectorAll('.aside .aside-tabs .nav-item').length
   const asideTabs = document.querySelectorAll('.aside .aside-tabs .nav-item')
   if (asideTabs.length > 0) {
-    const hammerContainer = document.querySelector('.aside')
-    var hammertime = new Hammer(hammerContainer);
-
-    hammertime.on('swipeleft swiperight', function(ev) {
-      if (emrGlobalStates.ui.isMobile) {
-        if (ev.type === 'swiperight') {
-          if (emrGlobalStates.ui.asideCurrentTab > 0) {
-            emrGlobalStates.ui.asideCurrentTab--
-          } else {
-            emrGlobalStates.ui.asideCurrentTab = emrGlobalStates.ui.asideTotalTabs - 1
-          }
-        } else if (ev.type === 'swipeleft') {
-          if (emrGlobalStates.ui.asideCurrentTab < emrGlobalStates.ui.asideTotalTabs - 1) {
-            emrGlobalStates.ui.asideCurrentTab++
-          } else {
-            emrGlobalStates.ui.asideCurrentTab = 0
+    document.querySelectorAll('.aside .aside-content .list-container').forEach((asideContainer) => {
+      // const hammerContainer = document.querySelector('.aside .aside-content .list-container')
+      var hammertime = new Hammer(asideContainer);
+      hammertime.get('swipe').set({ direction: Hammer.DIRECTION_HORIZONTAL });
+  
+      hammertime.on('swipeleft swiperight', function(ev) {
+        if (emrGlobalStates.ui.isMobile) {
+          if (ev.type === 'swiperight') {
+            if (emrGlobalStates.ui.asideCurrentTab > 0) {
+              emrGlobalStates.ui.asideCurrentTab--
+            } else {
+              emrGlobalStates.ui.asideCurrentTab = emrGlobalStates.ui.asideTotalTabs - 1
+            }
+          } else if (ev.type === 'swipeleft') {
+            if (emrGlobalStates.ui.asideCurrentTab < emrGlobalStates.ui.asideTotalTabs - 1) {
+              emrGlobalStates.ui.asideCurrentTab++
+            } else {
+              emrGlobalStates.ui.asideCurrentTab = 0
+            }
           }
         }
-      }
+      })
     })
   }
   // ASIDE TABS EVENT
