@@ -22,7 +22,7 @@ var __EMR_GLOBAL_STATES__ = {
         <div class='modal-skin'>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='mdi mdi-close'></i></button>
           <div class="modal-content">
-            <form>
+            <form class="modal-form">
               <div class="modal-header"><h5 class="modal-title">Dialog Title</h5></div>
               <div class="modal-body"></div>
               <div class="modal-footer">
@@ -1277,13 +1277,18 @@ const initiateCustomDialog = (ref = document) => {
         const dialogContent = $(this).data('content')
         const dialogType = $(this).data('type')
         const dialogSize = $(this).data('size')
+        const dialogAction = $(this).data('action')
 
         const dialog = $(emrGlobalStates.dialog.dialogTemplate)
         const _this = dialog[0]
+        const dialogForm = $(dialog).find('.modal-form')
         dialog.attr('id', newGuid())
         dialog.find('.modal-title').html(dialogTitle)
         if (dialogSize) {
           dialog.find('.modal-dialog').addClass(dialogSize)
+        }
+        if (dialogAction) {
+          dialog.find('.modal-form').attr('action', dialogAction)
         }
         $('body').append(dialog)
 
@@ -1327,6 +1332,16 @@ const initiateCustomDialog = (ref = document) => {
               }
               dialog.modal('show')
               emrGlobalStates.dialog.dialogLoading = false
+
+              dialog.find('.modal-footer [data-toggle="dialog-save"]').on('click', function(ev) {
+                dialogForm.trigger('submit')
+              })
+
+              dialogForm.on('submit', function(ev) {
+                ev.preventDefault()
+                const data = dialogForm.serializeArray()
+                consoleLog('SUBMITING FORM...', data)
+              })
             },
             complete: function() {
               initiateDatatables(_this)
