@@ -59,6 +59,7 @@ var __EMR_GLOBAL_STATES__ = {
     vw: 0,
     vh: 0,
     isMobile: false,
+    datepickers: [],
   },
   context: {
     contextType: '',
@@ -633,7 +634,7 @@ const initiateDateTimePicker = (ref = document) => {
         if (picker.classList.contains('current')) {
           picker.value = moment().format('MM/DD/YYYY')
         }
-        tail.DateTime(picker, {
+        const newPicker = tail.DateTime(picker, {
           closeButton: false,
           dateFormat: 'mm/dd/YYYY',
           timeFormat: false,
@@ -644,6 +645,8 @@ const initiateDateTimePicker = (ref = document) => {
           timeSeconds: false,
           viewDecades: false,
         })
+
+        emrGlobalStates.ui.datepickers.push(newPicker)
       // } else {
       //   consoleLog('failed to initiate date picker...')
       // }
@@ -656,12 +659,14 @@ const initiateDateTimePicker = (ref = document) => {
         if (picker.classList.contains('current')) {
           picker.value = moment().format('MM/DD/YYYY h:mm:ss A')
         }
-        tail.DateTime(picker, {
+        const newPicker = tail.DateTime(picker, {
           closeButton: false,
           time12h: true,
           dateFormat: 'mm/dd/YYYY',
           timeFormat: 'G:ii:ss A',
         })
+
+        emrGlobalStates.ui.datepickers.push(newPicker)
       // } else {
       //   consoleLog('failed to initiate date picker...')
       // }
@@ -674,18 +679,53 @@ const initiateDateTimePicker = (ref = document) => {
         if (picker.classList.contains('current')) {
           picker.value = moment().format('h:mm:ss A')
         }
-        tail.DateTime(picker, {
+        const newPicker = tail.DateTime(picker, {
           dateFormat: false,
           closeButton: true,
           timeFormat: 'G:ii:ss A',
           time12h: true,
           timeSeconds: null,
         })
+
+        emrGlobalStates.ui.datepickers.push(newPicker)
       // } else {
       //   consoleLog('failed to initiate date picker...')
       // }
     })
   }
+}
+
+const removeDatePickers = (ref = document) => {
+  consoleLog('removing datepicker...', ref)
+  const removeFunc = (item) => {
+    emrGlobalStates.ui.datepickers.forEach((globalitem, i) => {
+      if (globalitem.e.__getTarget === item) {
+        globalitem.__getTarget.remove()
+        emrGlobalStates.ui.datepickers.splice(i, 1)
+      }
+    })
+    return true
+  }
+
+  new Promise((res) => {
+    if (ref.querySelectorAll('[data-toggle="datepicker"]').length > 0) {
+      $(ref).find('[data-toggle="datepicker"]').each(function(i, item) {
+        res(removeFunc(item))
+      })
+    }
+  }).then(() => {
+    if (ref.querySelectorAll('[data-toggle="datetimepicker"]').length > 0) {
+      $(ref).find('[data-toggle="datetimepicker"]').each(function(i, item) {
+        removeFunc(item)
+      })
+    }
+  }).then(() => {
+    if (ref.querySelectorAll('[data-toggle="timepicker"]').length > 0) {
+      $(ref).find('[data-toggle="timepicker"]').each(function(i, item) {
+        removeFunc(item)
+      })
+    }
+  })
 }
 
 // https://quilljs.com/docs/configuration/
@@ -1300,7 +1340,10 @@ const initiateCustomDialog = (ref = document) => {
           })
         }
 
-        dialog.on('hidden.bs.modal', function() {
+        dialog.on('hide.bs.modal', function(ev) {
+          removeDatePickers(_this)
+        })
+        dialog.on('hidden.bs.modal', function(ev) {
           $(this).remove()
         })
       })

@@ -74,10 +74,14 @@
     <div class="simple-table">
       <div class="toolbar table-toolbar">
         <button
-          class="btn btn-info"
-          data-toggle="modal"
-          data-target="#warehouseItemModal"
-        >
+          type='button'
+          class='btn btn-info'
+          data-toggle='dialog'
+          data-title='Add Items'
+          data-content='/forms/table-select-form.html'
+          data-type='ajax-selection'
+          data-size='modal-lg'
+          >
           <i class="mdi mdi-plus"></i>
           <span>Add Items</span>
         </button>

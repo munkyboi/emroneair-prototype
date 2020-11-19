@@ -280,6 +280,16 @@ body.show-context {
   &-body {
     width: 100%;
     height: 100%;
+
+    .datatable, .datatable-wrapper {
+      height: 100%;
+    }
+    .datatable-body {
+      @include applyScrollbar();
+      overflow-x: auto;
+      overflow-y: auto;
+      height: calc(100% - (#{$contentToolbar-height} * 2));
+    }
   }
 
   // WITH TOOLBAR
