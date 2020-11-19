@@ -38,6 +38,8 @@
       @include flex(flex-start, center);
       padding: 0 1rem;
       min-height: $contentToolbar-height;
+      outline: none;
+      color: $sidebar-textcolor;
       i, .mdi {
         font-size: 2rem;
         margin-right: 1rem;
@@ -45,9 +47,12 @@
       > span {
         font-weight: bold;
       }
-
+      &:hover {
+        background-color: rgba($black, 0.025);
+      }
       &.active {
         background-color: $primary-color;
+        color: $white;
       }
     }
   }

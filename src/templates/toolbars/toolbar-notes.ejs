@@ -6,12 +6,11 @@ __DIALOG_CONTENT__ = '/forms/new-notes-form.html'
   <button
     type='button'
     class='btn btn-info'
-    data-toggle="modal"
-    data-type="page-load"
-    data-target="#dynamicDialog"
+    data-toggle='dialog'
     data-title="<%= __DIALOG_TITLE__ %>"
     data-content="<%= __DIALOG_CONTENT__ %>"
-    data-size="modal-xl"
+    data-type='ajax-form'
+    data-size='modal-xl'
   >
     <i class='mdi mdi-note-outline'></i>
     <span>New Notes</span>

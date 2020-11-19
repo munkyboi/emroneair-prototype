@@ -6,12 +6,11 @@ __DIALOG_CONTENT__ = '/forms/new-todo-form.html'
   <button
     type='button'
     class='btn btn-info'
-    data-toggle="modal"
-    data-type="page-load"
-    data-target="#dynamicDialog"
+    data-toggle='dialog'
     data-title="<%= __DIALOG_TITLE__ %>"
     data-content="<%= __DIALOG_CONTENT__ %>"
-    data-size="modal-lg"
+    data-type='ajax-form'
+    data-size='modal-lg'
   >
     <i class='mdi mdi-playlist-check'></i>
     <span>New Todo</span>

@@ -4,15 +4,15 @@ __DIALOG_CONTENT__ = '/forms/new-inventory-receiving-form.html'
 %>
 <div class='filter'>
   <button
-    class='btn btn-info add-new'
-    data-toggle="modal"
-    data-type="page-load"
-    data-target="#dynamicDialog"
+    type='button'
+    class='btn btn-info'
+    data-toggle='dialog'
     data-title="<%= __DIALOG_TITLE__ %>"
     data-content="<%= __DIALOG_CONTENT__ %>"
-    data-size="modal-xl"
+    data-type='ajax-form'
+    data-size='modal-xl'
   >
-    <i class='mdi mdi-plus'></i>
+    <i class="mdi mdi-plus"></i>
     <span>New Receiving</span>
   </button>
   <div class='input-field search'>

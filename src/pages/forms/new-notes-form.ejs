@@ -42,6 +42,7 @@
             <div class="form-group inline">
               <label for="new-form-vitals">Vitals</label>
               <select id='new-form-vitals' class="select2" name='vitals'>
+                <option selected value="" style="display:none;"></option>
                 <option value="Kugmo Supplies">Kugmo Supplies</option>
                 <option value="Ship-On Unlimited">Ship-On Unlimited</option>
                 <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
@@ -57,9 +58,12 @@
               <div class="toolbar table-toolbar">
                 <button
                   type='button'
-                  class="btn btn-info"
-                  data-toggle="modal"
-                  data-target="#warehouseItemModal"
+                  class='btn btn-info'
+                  data-toggle='dialog'
+                  data-title='Add Medical Prescription'
+                  data-content='/forms/table-select-form.html'
+                  data-type='ajax-selection'
+                  data-size='modal-lg'
                 >
                   <i class="mdi mdi-plus"></i>
                   <span>Add Labs</span>
@@ -94,12 +98,15 @@
               <div class="toolbar table-toolbar">
                 <button
                   type='button'
-                  class="btn btn-info"
-                  data-toggle="modal"
-                  data-target="#warehouseItemModal"
+                  class='btn btn-info'
+                  data-toggle='dialog'
+                  data-title='Add Medical Prescription'
+                  data-content='/forms/table-select-form.html'
+                  data-type='ajax-selection'
+                  data-size='modal-lg'
                 >
                   <i class="mdi mdi-plus"></i>
-                  <span>Add Tests</span>
+                  <span>Add Test</span>
                 </button>
               </div>
               <div class="table-wrapper">
@@ -157,18 +164,24 @@
           <div class="toolbar table-toolbar">
             <button
               type='button'
-              class="btn btn-info"
-              data-toggle="modal"
-              data-target="#warehouseItemModal"
+              class='btn btn-info'
+              data-toggle='dialog'
+              data-title='Add Medical Prescription'
+              data-content='/forms/table-select-form.html'
+              data-type='ajax-selection'
+              data-size='modal-lg'
             >
               <i class="mdi mdi-plus"></i>
               <span>Insert Meds</span>
             </button>
             <button
               type='button'
-              class="btn btn-primary"
-              data-toggle="modal"
-              data-target="#newMedsModal"
+              class='btn btn-primary'
+              data-toggle='dialog'
+              data-title='New Medical Prescription'
+              data-content='/forms/new-meds-form.html'
+              data-type='ajax-form'
+              data-size='modal-lg'
             >
               <i class="mdi mdi-plus"></i>
               <span>Create New Meds</span>

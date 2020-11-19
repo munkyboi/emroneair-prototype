@@ -11,10 +11,32 @@
 
 var __EMR_GLOBAL_STATES__ = {
   dialog: {
+    dialogLoading: false,
     dialogTitle: '',
     dialogContent: '',
     dialogName: '',
     dialogContentURL: '',
+    dialogTemplate: `
+    <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="customDialog" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class='modal-skin'>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='mdi mdi-close'></i></button>
+          <div class="modal-content">
+            <form>
+              <div class="modal-header"><h5 class="modal-title">Dialog Title</h5></div>
+              <div class="modal-body"></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                  <i class="mdi mdi-close"></i>
+                  <span>Cancel</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    `,
   },
   toasts: {},
   ui: {
@@ -67,6 +89,17 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
         document.querySelector('body').classList.add('page-loading')
       } else {
         document.querySelector('body').classList.remove('page-loading')
+      }
+
+    // ======================================
+    // HANDLE MENU BURGER
+    // ======================================
+
+    } else if (property === 'dialogLoading') {
+      if (change.newValue === true) {
+        document.querySelector('body').classList.add('dialog-loading')
+      } else {
+        document.querySelector('body').classList.remove('dialog-loading')
       }
 
     // ======================================
@@ -435,6 +468,7 @@ const hammerTimeContent = (cnt) => {
     initiateButtonLinks(cnt)
     initiateTooltips(cnt)
     initiateToolbarPortable(cnt)
+    initiateCustomDialog(cnt)
     // first tab with datatable
     if (document.querySelectorAll('.content-wrapper .tabs-container .nav-item').length > 0) {
       const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
@@ -561,8 +595,15 @@ const initiateDatatables = (ref = document.querySelector('.main')) => {
 const initiateSelect2 = (ref = document) => {
   consoleLog('initiating select2...', ref)
   if (ref.querySelectorAll('.select2').length > 0) {
-    $(ref).find('.select2').select2({
-      tags: true
+    ref.querySelectorAll('.select2').forEach(item => {
+      const isEditable = item.classList.contains('editable') ? true : false
+      const placeholder = item.getAttribute('placeholder') ? item.getAttribute('placeholder') : 'please select'
+      consoleLog('placeholder', placeholder)
+      $(item).select2({
+        tags: isEditable,
+        placeholder: placeholder,
+        allowClear: false
+      })
     })
   }
 }
@@ -1186,6 +1227,87 @@ const initiateMainScrolLDetector = () => {
   })
 }
 
+const initiateCustomDialog = (ref = document) => {
+  consoleLog('initiating custom dialog...', ref)
+  if (ref.querySelectorAll('[data-toggle="dialog"]').length > 0) {
+    $(ref.querySelectorAll('[data-toggle="dialog"]')).each(function(i,e) {
+      $(this).on('click', function(ev) {
+        emrGlobalStates.dialog.dialogLoading = true
+        const dialogTitle = $(this).data('title')
+        const dialogContent = $(this).data('content')
+        const dialogType = $(this).data('type')
+        const dialogSize = $(this).data('size')
+
+        const dialog = $(emrGlobalStates.dialog.dialogTemplate)
+        const _this = dialog[0]
+        dialog.attr('id', newGuid())
+        dialog.find('.modal-title').html(dialogTitle)
+        if (dialogSize) {
+          dialog.find('.modal-dialog').addClass(dialogSize)
+        }
+        $('body').append(dialog)
+
+        
+        if (dialogType === 'image') {
+          const img = new Image()
+          img.src = dialogContent
+          dialog.addClass('imageViewer')
+          dialog.find('.modal-body').html(img)
+          dialog.find('.modal-footer').hide()
+          dialog.modal('show')
+        } else if (dialogType === 'ajax' || 'ajax-form' || 'ajax-doc' || 'ajax-selection') {
+          $.ajax({
+            url: dialogContent,
+            beforeSend: function() {
+              dialog.find('.modal-body').html(emrGlobalStates.ui.preloaderStr)
+            },
+            success: function(result) {
+              dialog.find('.modal-body').html(result)
+              if (dialogType === 'ajax-form') {
+                dialog.find('.modal-footer').append($(`
+                <button type='button' class="btn btn-success" data-toggle='dialog-save'>
+                  <i class="mdi mdi-plus"></i>
+                  <span>Save</span>
+                </button>
+              `))
+              } else if (dialogType === 'ajax-doc') {
+                dialog.find('.modal-footer').append($(`
+                  <button type='button' class="btn btn-success" data-toggle='printer'>
+                    <i class="mdi mdi-printer"></i>
+                    <span>Print</span>
+                  </button>
+                `))
+              } else if (dialogType === 'ajax-selection') {
+                dialog.find('.modal-footer').append($(`
+                  <button type='button' class="btn btn-info" data-toggle='selection'>
+                    <i class="mdi mdi-arrow-right"></i>
+                    <span>Continue</span>
+                  </button>
+                `))
+              }
+              dialog.modal('show')
+              emrGlobalStates.dialog.dialogLoading = false
+            },
+            complete: function() {
+              initiateDatatables(_this)
+              initiateQuill(_this)
+              initiateSketchpad(_this)
+              initiateWizardForm(_this)
+              initiateSelect2(_this)
+              initiateDateTimePicker(_this)
+              initiateCustomDialog(_this)
+            }
+          })
+        }
+
+        dialog.on('hidden.bs.modal', function() {
+          $(this).remove()
+        })
+      })
+    })
+  }
+}
+
 const consoleLog = (log, ...args) => {
   if (emrGlobalStates.ui.debugMode) {
     console.log(log, args)
@@ -1230,7 +1352,19 @@ const initiateUI = () => {
   // SKETCHPAD
   initiateSketchpad()
 
+  // custom dialog
+  initiateCustomDialog()
+
   // PDFJS
+}
+
+const newGuid = () => {
+  return 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+    function(c) {
+      var r = Math.random() * 16 | 0,
+        v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    }).toUpperCase();
 }
 
 // Document Ready

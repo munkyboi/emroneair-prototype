@@ -308,6 +308,7 @@ a {
 		}
 	}
 }
+
 body.page-loading {
 	@media #{$responsive-phone} {
 		.mobile-preloader {
@@ -315,6 +316,15 @@ body.page-loading {
 		}
 	}
 }
+
+body.dialog-loading {
+	@media #{$responsive-phone} {
+		.mobile-preloader {
+			animation: mobile-preloader-show 0.5s ease-out 1 forwards;
+		}
+	}
+}
+
 @keyframes mobile-preloader-show {
 	0% {
 		pointer-events: none;

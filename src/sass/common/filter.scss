@@ -6,7 +6,7 @@
   min-height: $contentToolbar-height;
   border-bottom: 1px solid rgba($black, 0.1);
 
-  .add-new {
+  .btn {
     margin-right: 1rem;
     min-height: 38px;
     @media #{$responsive-phone} {
