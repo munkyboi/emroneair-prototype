@@ -41,38 +41,58 @@ $scroller-thumb-color-active: $primary-color;
   $scrollbar-thumb-bg: $scroller-thumb-color-inactive,
   $scrollbar-track-bg-active: $scroller-track-color-active,
   $scrollbar-thumb-bg-active: $scroller-thumb-color-active,
-  $scrollbar-curve: 8px,
-  $scrollbar-size: 8px
+  $scrollbar-curve: 2px,
+  $scrollbar-size: 2px
 ) {
   // width: 100%;
   overflow-y: auto;
   overflow-x: hidden;
   // position: relative;
 
-  &::-webkit-scrollbar {
-    width: $scrollbar-size;
-    height: $scrollbar-size;
-    background-color: inherit;
-  }
+  // &::-webkit-scrollbar {
+  //   width: $scrollbar-size;
+  //   height: $scrollbar-size;
+  //   // background-color: inherit;
+  // }
 
-  &::-webkit-scrollbar-track {
-    background-color: $scrollbar-track-bg;
-    border-radius: $scrollbar-curve;
-  }
+  // &::-webkit-scrollbar-track {
+  //   background-color: $scrollbar-track-bg;
+  //   border-radius: $scrollbar-curve;
+  // }
 
-  &::-webkit-scrollbar-thumb {
-    background-color: $scrollbar-thumb-bg;
-    border-radius: 4em;
-  }
-  &:hover {
-    &::-webkit-scrollbar-track {
-      background-color: $scrollbar-track-bg-active;
-    }
+  // &::-webkit-scrollbar-thumb {
+  //   background-color: $scrollbar-thumb-bg;
+  //   border-radius: $scrollbar-curve;
+  // }
+  // &:hover {
+  //   &::-webkit-scrollbar-track {
+  //     background-color: $scrollbar-track-bg-active;
+  //   }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: $scrollbar-thumb-bg-active;
-    }
-  }
+  //   &::-webkit-scrollbar-thumb {
+  //     background-color: $scrollbar-thumb-bg-active;
+  //   }
+  // }
+
+  // @media #{$responsive-tablet} {
+  //   &::-webkit-scrollbar {
+  //     all:unset;
+  //   }
+  //   &::-webkit-scrollbar-track {
+  //     all:unset;
+  //   }
+  //   &::-webkit-scrollbar-thumb {
+  //     all:unset;
+  //   }
+  //   &:hover {
+  //     &::-webkit-scrollbar-track {
+  //       all:unset;
+  //     }
+  //     &::-webkit-scrollbar-thumb {
+  //       all:unset;
+  //     }
+  //   }
+  // }
 }
 
 @mixin ellipsis($width: 100%) {

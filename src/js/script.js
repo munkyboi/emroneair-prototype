@@ -274,98 +274,6 @@ const initScripts = () => {
   // INITIAL UI SETUP
   initiateUI()
 
-  // TODO: REFACTOR
-  // DYNAMIC DIALOG EVENT AND AJAX
-  $('#dynamicDialog').on('show.bs.modal', function (event) {
-    const button = $(event.relatedTarget)
-    const title = button.data('title')
-    const content = button.data('content')
-    const size = button.data('size')
-    const type = button.data('type')
-    const modal = $(this)
-    const _this = this
-    modal.find('.modal-dialog').addClass(size)
-    modal.find('.modal-title').text(title)
-    modal.find('.modal-body').html(emrGlobalStates.ui.preloaderStr)
-  })
-  $('#dynamicDialog').on('shown.bs.modal', function (event) {
-    const button = $(event.relatedTarget)
-    const title = button.data('title')
-    const content = button.data('content')
-    const size = button.data('size')
-    const type = button.data('type')
-    const modal = $(this)
-    const _this = this
-    modal.find('.modal-dialog').addClass(size)
-    modal.find('.modal-title').text(title)
-    if (type === 'image') {
-      const img = new Image()
-      img.src = content
-      modal.addClass('imageViewer')
-      modal.find('.modal-body').html(img)
-      modal.find('.modal-footer').hide()
-    } else if (type === 'page-load' || 'page-view') {
-      $.ajax({
-        url: content,
-        beforeSend: function() {
-          modal.find('.modal-body').html(emrGlobalStates.ui.preloaderStr)
-        },
-        success: function(result) {
-          modal.find('.modal-body').html(result)
-          if (type === 'page-view') {
-            modal.find('.modal-footer #modal-save-btn').hide()
-          } else if (type === 'page-load') {
-            modal.find('.modal-footer #modal-print-btn').hide()
-          }
-        },
-        complete: function() {
-          initiateDatatables(_this)
-          initiateQuill(_this)
-          initiateSketchpad(_this)
-          initiateWizardForm(_this)
-          initiateSelect2(_this)
-          initiateDateTimePicker(_this)
-
-          if (!modal.find('.wizardForm').length) {
-          }
-        }
-      })
-    }
-  })
-  $('#dynamicDialog').on('hidden.bs.modal', function (event) {
-    modal = $(this)
-    modal.find('.modal-body').html('')
-    modal.find('.modal-dialog').removeClass(['modal-sm', 'modal-lg', 'modal-xl'])
-    modal.find('.modal-footer').show()
-    modal.find('.modal-footer').html($(`
-      <button type="button" class="btn btn-default" data-dismiss="modal" id="modal-close-btn">
-        <i class="mdi mdi-close"></i>
-        <span>Close</span>
-      </button>
-      <button type="button" class="btn btn-info" id="modal-print-btn">
-        <i class="mdi mdi-printer"></i>
-        <span>Print</span>
-      </button>
-      <button type="button" class="btn btn-success" id="modal-save-btn">
-        <i class="mdi mdi-check"></i>
-        <span>Save</span>
-      </button>
-    `))
-  })
-
-  $('.modal.tier-2').on('shown.bs.modal', function(ev) {
-    console.log('tier-2 modal show event...', this)
-    initiateDatatables(this)
-    initiateQuill(this)
-    initiateSketchpad(this)
-    initiateWizardForm(this)
-    initiateSelect2(this)
-    initiateDateTimePicker(this)
-  })
-  $('.modal').on('shown.bs.modal', function(ev) {
-    // $(ev.target).removeClass('ready')
-  })
-
   // WINDOW EVENTS
   windowResized()
   window.onresize = windowResized
@@ -423,7 +331,7 @@ const hammerTimeContent = (cnt) => {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt)
       hamm.on('swipeleft swiperight', function(ev) {
-        if (emrGlobalStates.ui.isMobile) {
+        // if (emrGlobalStates.ui.isMobile) {
           if (ev.type === 'swiperight') {
             if (emrGlobalStates.ui.contentCurrentTab > 0) {
               emrGlobalStates.ui.contentCurrentTab = emrGlobalStates.ui.contentCurrentTab - 1
@@ -437,7 +345,7 @@ const hammerTimeContent = (cnt) => {
               emrGlobalStates.ui.contentCurrentTab = 0
             }
           }
-        }
+        // }
       })
     } else {
       initiateDatatables(cnt)
@@ -976,8 +884,11 @@ const debounce = (func, wait, immediate) => {
 	};
 }
 
-const is_touch_device = () => {  
-  return 'ontouchstart' in window
+const is_touch_device = () => {
+  console.log('check if touch device...')
+  return ( 'ontouchstart' in window ) ||  
+         ( navigator.maxTouchPoints > 0 ) ||  
+         ( navigator.msMaxTouchPoints > 0 ); 
 }
 
 const initiatePDFJS = (url = '/docs/sample-pdf.pdf') => {
