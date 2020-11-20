@@ -341,7 +341,8 @@ const hammerTimeContent = (cnt) => {
     if (res > 0) {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt, {
-        touchAction: 'pan-y'
+        touchAction: 'pan-y',
+        inputClass: Hammer.TouchMouseInput
       })
       // hamm.set({ direction: Hammer.DIRECTION_HORIZONTAL });
       hamm.on('swipeleft swiperight', function(ev) {
