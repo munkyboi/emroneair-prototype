@@ -1248,6 +1248,17 @@ const initiateCustomDialog = (ref = document) => {
             emrGlobalStates.dialog.dialogLoading = false
             dialog.modal('show')
           }
+        } else if (dialogType === 'confirm') {
+          emrGlobalStates.dialog.dialogLoading = false
+          dialog.addClass('confirm')
+          dialog.find('.modal-body').html(dialogContent)
+          dialog.modal('show')
+          dialog.find('.modal-footer').append($(`
+            <button type='button' class="btn btn-danger" data-toggle='dialog-submit'>
+              <i class="mdi mdi-logout-variant"></i>
+              <span>Logout</span>
+            </button>
+          `))
         } else if (dialogType === 'ajax' || 'ajax-form' || 'ajax-doc' || 'ajax-selection') {
           $.ajax({
             url: dialogContent,
@@ -1258,7 +1269,7 @@ const initiateCustomDialog = (ref = document) => {
               dialog.find('.modal-body').html(result)
               if (dialogType === 'ajax-form') {
                 dialog.find('.modal-footer').append($(`
-                <button type='button' class="btn btn-success" data-toggle='dialog-save'>
+                <button type='button' class="btn btn-success" data-toggle='dialog-submit'>
                   <i class="mdi mdi-plus"></i>
                   <span>Save</span>
                 </button>
@@ -1280,21 +1291,6 @@ const initiateCustomDialog = (ref = document) => {
               }
               dialog.modal('show')
               emrGlobalStates.dialog.dialogLoading = false
-
-              dialog.find('.modal-footer [data-toggle="dialog-save"]').on('click', function(ev) {
-                dialogForm.trigger('submit')
-              })
-
-              // DIALOG FORM SUBMISSION
-              dialogForm.on('submit', function(ev) {
-                ev.preventDefault()
-                const data = dialogForm.serializeArray()
-                consoleLog('SUBMITING FORM...', data)
-                dialog.addClass('processing')
-                setTimeout(() => {
-                  dialog.modal('hide')
-                }, 3000)
-              })
             },
             complete: function() {
               initiateDatatables(_this)
@@ -1310,6 +1306,32 @@ const initiateCustomDialog = (ref = document) => {
 
         dialog.on('shown.bs.modal', function(ev) {
           initiateSketchpad(_this)
+        
+          const dialogForm = $(_this).find('.modal-form')
+
+          $(_this).find('.modal-footer [data-toggle="dialog-submit"]').on('click', function(ev) {
+            dialogForm.trigger('submit')
+          })
+  
+          // DIALOG FORM SUBMISSION
+          dialogForm.on('submit', function(ev) {
+            ev.preventDefault()
+            const data = dialogForm.serializeArray()
+            consoleLog('SUBMITING FORM...', data)
+            dialog.addClass('processing')
+
+            $.ajax({
+              url: dialogAction,
+              // method: 'post',
+              data: data,
+              success: (result) => {
+                dialog.modal('hide')
+                setTimeout(() => {
+                  window.location = dialogAction
+                }, 3000)
+              }
+            })
+          })
         })
 
         dialog.on('hide.bs.modal', function(ev) {

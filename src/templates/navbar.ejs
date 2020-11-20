@@ -18,9 +18,29 @@
           <img src='/img/default_photo.jpg' />
         </div>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#">Change Password</a>
+          <button
+            type='button'
+            class="dropdown-item"
+            data-toggle='dialog'
+            data-title='Change Password'
+            data-content='/forms/change-password-form.html'
+            data-action='/'
+            data-type='ajax-form'
+          >
+            Change Password
+          </button>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Logout</a>
+          <button
+            type='button'
+            class="dropdown-item"
+            data-toggle='dialog'
+            data-title='Confirm Logout'
+            data-content='Are you sure you want to logout?'
+            data-action='/login.html'
+            data-type='confirm'
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>
