@@ -17,47 +17,46 @@ __FAB__ = '../templates/fabs/patients-fab';
             <img src="/img/logo_dark.png" width="95" height="30" alt="" loading="lazy">
           </a>
           <div class='paper'>
-            <div class="paper-header">
-              <div class="row">
-                <div class="col-md-12">
-                  <h1>Login</h1>
+            <form action="/index.html">
+              <div class="paper-header">
+                <h2>Welcome!</h2>
+                <p>Please login using the form below.</p>
+              </div>
+              <div class="paper-body">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-username">Username / Email Address</label>
+                      <input type='username' name='username' id="new-form-username" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-password">Password</label>
+                      <input type='password' name='password' id="new-form-password" class="form-control" required>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-meds-location">Location</label>
+                      <select id='new-meds-location' class="select2" name='location' placeholder='' required>
+                        <option selected value="" style="display:none;"></option>
+                        <option value="Medical Arts">Medical Arts</option>
+                        <option value="Cosmopolitan Memorial Hospital">Cosmopolitan Memorial Hospital</option>
+                        <option value="UC Med">UC Med</option>
+                        <option value="Cebu Doctors Hospital">Cebu Doctors Hospital</option>
+                      </select>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="paper-body">
-              <div class="row">
-                <div class='col-md-12'>
-                  <div class="form-group">
-                    <label for="new-form-username">Username / Email Address</label>
-                    <input type='username' name='username' id="new-form-username" class="form-control">
-                  </div>
-                </div>
-                <div class='col-md-12'>
-                  <div class="form-group">
-                    <label for="new-form-password">Password</label>
-                    <input type='password' name='password' id="new-form-password" class="form-control">
-                  </div>
-                </div>
-                <div class='col-md-12'>
-                  <div class="form-group">
-                    <label for="new-meds-location">Location</label>
-                    <select id='new-meds-location' class="select2" name='location' placeholder=''>
-                      <option selected value="" style="display:none;"></option>
-                      <option value="Medical Arts">Medical Arts</option>
-                      <option value="Cosmopolitan Memorial Hospital">Cosmopolitan Memorial Hospital</option>
-                      <option value="UC Med">UC Med</option>
-                      <option value="Cebu Doctors Hospital">Cebu Doctors Hospital</option>
-                    </select>
-                  </div>
-                </div>
+              <div class="paper-footer">
+                <button type='submit' class='btn btn-info'>
+                  <i class="mdi mdi-login"></i>
+                  <span>Login</span>
+                </button>
               </div>
-            </div>
-            <div class="paper-footer">
-              <button type='button' class='btn btn-info' onclick="window.location = '/'">
-                <i class="mdi mdi-login"></i>
-                <span>Login</span>
-              </button>
-            </div>
+            </form>
           </div>
         </div>
       </div>

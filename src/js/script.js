@@ -1222,7 +1222,7 @@ const initiateCustomDialog = (ref = document) => {
         const dialogContent = $(this).data('content')
         const dialogType = $(this).data('type')
         const dialogSize = $(this).data('size')
-        const dialogAction = $(this).data('action')
+        const dialogAction = $(this).data('action') ? $(this).data('action') : '/'
 
         const dialog = $(emrGlobalStates.dialog.dialogTemplate)
         const _this = dialog[0]
@@ -1254,7 +1254,7 @@ const initiateCustomDialog = (ref = document) => {
           dialog.find('.modal-body').html(dialogContent)
           dialog.modal('show')
           dialog.find('.modal-footer').append($(`
-            <button type='button' class="btn btn-danger" data-toggle='dialog-submit'>
+            <button type='submit' class="btn btn-danger" data-toggle='dialog-submit'>
               <i class="mdi mdi-information-outline"></i>
               <span>Confirm</span>
             </button>
@@ -1305,32 +1305,58 @@ const initiateCustomDialog = (ref = document) => {
         }
 
         dialog.on('shown.bs.modal', function(ev) {
-          initiateSketchpad(_this)
-        
-          const dialogForm = $(_this).find('.modal-form')
-
-          $(_this).find('.modal-footer [data-toggle="dialog-submit"]').on('click', function(ev) {
+          initiateSketchpad(this)
+          $(this).find('.modal-footer [data-toggle="dialog-submit"]').on('click', function(ev) {
+            ev.preventDefault()
             dialogForm.trigger('submit')
           })
   
           // DIALOG FORM SUBMISSION
           dialogForm.on('submit', function(ev) {
             ev.preventDefault()
-            const data = dialogForm.serializeArray()
-            consoleLog('SUBMITING FORM...', data)
-            dialog.addClass('processing')
+            if (dialogType !== 'confirm') {
+              const data = dialogForm.serializeArray()
+              consoleLog('SUBMITING FORM...', data)
+              dialog.addClass('processing')
+              
+              // VALIDATION GOES HERE...
+              const asyncValidate = (data) => new Promise((res, rej) => {
+                let errors = []
+                data.forEach(field => {
+                  // do validation...
+                  if (field.value === '') {
+                    errors.push({field: field.name, message: 'Should not be empty.'})
+                    throw errors
+                  }
+                })
+                res()
+              })
 
-            $.ajax({
-              url: dialogAction,
-              // method: 'post',
-              data: data,
-              success: (result) => {
-                dialog.modal('hide')
-                setTimeout(() => {
-                  window.location = dialogAction
-                }, 300)
-              }
-            })
+              asyncValidate (data)
+              .then(() => {
+                $.ajax({
+                  url: dialogAction,
+                  // method: 'post',
+                  data: data,
+                  success: (result) => {
+                    // const temp = document.createElement('div')
+                    // temp.innerHTML = result
+                    // const trimmedResult = temp.querySelector('app').innerHTML
+                    dialog.modal('hide')
+                    // $('body > app').html(trimmedResult)
+                  },
+                  complete: () => {
+                    // initiateUI()
+                  }
+                })
+              })
+              .catch(err => {
+                dialog.removeClass('processing')
+                console.error(err)
+              })
+            } else {
+              window.location = dialogAction
+            }
           })
         })
 
@@ -1343,6 +1369,18 @@ const initiateCustomDialog = (ref = document) => {
       })
     })
   }
+}
+
+function outerHTML(node){
+  // if IE, Chrome take the internal method otherwise build one
+  return node.outerHTML || (
+  function(n){
+      var div = document.createElement('div'), h;
+      div.appendChild( n.cloneNode(true) );
+      h = div.innerHTML;
+      div = null;
+      return h;
+  })(node);
 }
 
 const consoleLog = (...logs) => {
