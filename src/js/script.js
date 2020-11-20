@@ -834,7 +834,8 @@ const initiateAside = () => {
     document.querySelectorAll('.aside .aside-content .list-container').forEach((asideContainer) => {
       // const hammerContainer = document.querySelector('.aside .aside-content .list-container')
       var hammertime = new Hammer(asideContainer, {
-        touchAction: 'pan-y'
+        touchAction: 'pan-y',
+        inputClass: Hammer.TouchMouseInput
       });
   
       hammertime.on('swipeleft swiperight', function(ev) {
