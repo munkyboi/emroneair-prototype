@@ -1,0 +1,182 @@
+<% 
+__VIEW_DIALOG_TITLE__ = 'Update Patient Detail Fields'
+__VIEW_DIALOG_CONTENT__ = '/forms/new-settings-patientdetailfields-form.html'
+%>
+<div class="page">
+  <div class="page-wrapper">
+    <div class="page-body">
+      <div class='datatable'>
+        <div class='datatable-wrapper'>
+          <div class='datatable-toolbar'>
+            <%- include('../../templates/toolbars/filter-settings-others') -%>
+          </div>
+          <div class="datatable-body scroll-detector">
+            <table class="datatables" style="width:100%">
+              <thead>
+                  <tr>
+                      <th>Index</th>
+                      <th>Field Name</th>
+                      <th>Field Type</th>
+                      <th>Field Options</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Address</td>
+                    <td>Text Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Home Phone #</td>
+                    <td>Numeric Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Work Phone #</td>
+                    <td>Numeric Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Mobile #</td>
+                    <td>Numeric Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Contact Person</td>
+                    <td>Text Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>Referred By</td>
+                    <td>Text Input</td>
+                    <td>NA</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>Sample Select Field</td>
+                    <td>Selection</td>
+                    <td>Dosages</td>
+                    <td>
+                      <div class="table-actions">
+                        <button
+                          class='iconbtn info'
+                          data-toggle='dialog'
+                          data-type='ajax-form'
+                          data-title='<%= __VIEW_DIALOG_TITLE__ %>'
+                          data-content='<%= __VIEW_DIALOG_CONTENT__ %>'
+                          data-size="modal-lg"
+                        >
+                          <i class="mdi mdi-pencil"></i>
+                        </button>
+                        <button data-toggle='remove-entry' class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class='datatable-footer toolbar clean'>
+            <%- include('../../templates/toolbars/datatable-pagination') -%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

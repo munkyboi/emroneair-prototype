@@ -14,6 +14,12 @@
       }
     }
   }
+
+  &.processing {
+    .modal-preloader {
+      animation: mobile-preloader-show 0.5s ease-out 1 forwards;
+    }
+  }
 }
 .modal-open .modal {
   overflow-x: hidden;
@@ -47,7 +53,7 @@
     float: none;
     clear: both;
     position: absolute;
-    z-index: 3;
+    z-index: 8001;
     top: -1rem;
     right: -1rem;
     width: 3rem;
@@ -65,6 +71,41 @@
       opacity: 1 !important;
     }
   }
+}
+.modal-preloader {
+	width: 100%;
+	height: 100%;
+	@include flex(center, center);
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 8000;
+	opacity: 1;
+	transition: opacity 0.3s ease-out;
+	background-color: rgba($black, 0.15);
+	pointer-events: all;
+	animation: mobile-preloader-hide 0.15s ease-out 1 forwards;
+	> div {
+		height: 3rem;
+		width: 3rem;
+		border-radius: 50%;
+		background-color: rgba($black, 0.8);
+		color: $white;
+		@include flex(center, center);
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		> div {
+			height: 2rem;
+			width: 2rem;
+			border-radius: 50%;
+			border: 0.3rem solid $primary-color;
+			border-top-color: transparent;
+			display: block;
+			animation: ajaxloaderspin 1s linear infinite;
+		}
+	}
 }
 .modal-body {
   max-height: calc(var(--vh, 1vh) * 100 - 12rem);

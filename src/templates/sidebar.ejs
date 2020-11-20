@@ -17,7 +17,7 @@
         <i class='mdi mdi-point-of-sale'></i>
         <span>Cashering</span>
       </a>
-      <a href="#" class='list-group-item list-group-item-action <% if (__PAGE__ === 'settings') { %>active<% } %>'>
+      <a href="/settings.html" class='list-group-item list-group-item-action <% if (__PAGE__ === 'settings') { %>active<% } %>'>
         <i class='mdi mdi-cog'></i>
         <span>Settings</span>
       </a>
@@ -29,9 +29,10 @@
         data-content='/forms/new-notes-form.html'
         data-type='ajax-form'
         data-size='modal-xl'
+        data-action='/'
       >
         <i class='mdi mdi-cog'></i>
-        <span>Test</span>
+        <span>Test Dynamic Dialog</span>
       </button>
     </div>
   </div>

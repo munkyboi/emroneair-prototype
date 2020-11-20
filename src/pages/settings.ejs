@@ -1,0 +1,25 @@
+<% 
+__PAGE__ = 'settings'
+__CONTENT__ = '../templates/content/settings-content';
+__ASIDE__ = '../templates/asides/settings-asides';
+__FAB__ = '../templates/fabs/settings-fab';
+%> 
+
+<%- include('../templates/header'); -%>
+
+<div class='main'>
+  <%- include('../templates/navbar'); -%>
+
+  <%- include('../templates/sidebar'); -%>
+
+  <div class='content <% if (__ASIDE__ != '') { %>has-aside<% } %>'>
+    <% if (__ASIDE__ != '') { %>
+    <%- include(__ASIDE__); -%>
+    <% } %>
+    
+    <div class='content-wrapper'></div>
+  </div>
+
+</div>
+
+<%- include('../templates/footer'); -%>

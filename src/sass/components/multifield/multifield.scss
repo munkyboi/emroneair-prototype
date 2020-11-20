@@ -1,0 +1,36 @@
+.multifield {
+  // .multifield-toolbar
+  &-toolbar {
+    padding: 0 !important;
+  }
+
+  // .multifield-body
+  &-body {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  // .multifield-item
+  &-item {
+    &:not(:last-of-type) {
+      margin-bottom: 1rem;
+    }
+
+    @include flex(flex-start, center);
+    flex-wrap: nowrap;
+
+    .form-group {
+      flex-grow: 1;
+      margin: 0;
+      margin-right: 1rem;
+
+      > label {
+        min-width: 10rem;
+      }
+    }
+
+    .btnRemove {
+      min-height: 38px;
+    }
+  }
+}

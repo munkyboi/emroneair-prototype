@@ -292,6 +292,25 @@ body.show-context {
       overflow-y: auto;
       height: calc(100% - (#{$contentToolbar-height} * 2));
     }
+
+    .viewlist, .viewlist-wrapper, .viewlist-content, .viewlist-sidebar {
+      height: 100%;
+    }
+
+    .viewlist-sidebar-wrapper {
+      min-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+      min-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+      max-height: calc(100vh - #{$navbar-height}); /* Fallback for browsers that do not support Custom Properties */
+      max-height: calc(var(--vh, 1vh) * 100 - #{$navbar-height});
+    }
+
+    .viewlist-content {
+      &.scroll-detector {
+        height: 100%;
+        overflow-y: auto;
+        overflow-x: hidden;
+      }
+    }
   }
 
   // WITH TOOLBAR

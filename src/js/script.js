@@ -19,7 +19,8 @@ var __EMR_GLOBAL_STATES__ = {
     dialogTemplate: `
     <div class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="customDialog" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class='modal-skin'>
+        <div class="modal-skin">
+          <div class="modal-preloader"><div><div></div></div></div>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class='mdi mdi-close'></i></button>
           <div class="modal-content">
             <form class="modal-form">
@@ -40,7 +41,7 @@ var __EMR_GLOBAL_STATES__ = {
   },
   toasts: {},
   ui: {
-    preloaderStr: '<div class="ajaxloader"><div><div></div></div></div>',
+    preloaderStr: `<div class="ajaxloader"><div><div></div></div></div>`,
     pageLoading: false,
     showMenu: false,
     debugMode: true,
@@ -125,23 +126,6 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
       }
 
     // ======================================
-    // SHOW VIEWLIST CONTEXT EVENT
-    // ======================================
-    } else if (property === 'showViewlistContext') {
-      if (change.newValue === true) {
-        document.querySelector('body').classList.add('show-viewlist-context')
-        emrGlobalStates.context.viewlistTarget.__getTarget.classList.add('show-viewlist-context')
-      } else {
-        document.querySelector('body').classList.remove('show-viewlist-context')
-        emrGlobalStates.context.viewlistTarget.__getTarget.classList.remove('show-viewlist-context')
-        if (emrGlobalStates.context.viewlistTarget) {
-          if (emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active')) {
-            emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active').classList.remove('active')
-          }
-        }
-      }
-
-    // ======================================
     // HANDLE MAIN CONTEXT AJAX
     // ======================================
     } else if (property === 'contextURL') {
@@ -213,16 +197,36 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
       }
 
     // ======================================
+    // SHOW VIEWLIST CONTEXT EVENT
+    // ======================================
+    } else if (property === 'showViewlistContext') {
+      consoleLog('global showViewlistContext', change)
+      if (change.newValue === true) {
+        consoleLog('SEEEEEEEEEEEEEEEEEEEEE')
+        document.querySelector('body').classList.add('show-viewlist-context')
+        emrGlobalStates.context.viewlistTarget.__getTarget.classList.add('show-viewlist-context')
+      } else {
+        document.querySelector('body').classList.remove('show-viewlist-context')
+        emrGlobalStates.context.viewlistTarget.__getTarget.classList.remove('show-viewlist-context')
+        if (emrGlobalStates.context.viewlistTarget) {
+          if (emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active')) {
+            emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active').classList.remove('active')
+          }
+        }
+      }
+
+    // ======================================
     // HANDLE CONTENT VIEWLIST SELECTABLE
     // ======================================
     } else if (property === 'viewlistItemSelected') {
+      consoleLog('global viewlistItemSelected', change.newValue)
       if (change.newValue !== '') {
         const cnt = new Promise((res) => {
           res(emrGlobalStates.context.viewlistTarget = change.newValue.closest('.viewlist'))
         })
-        cnt.then(() => {
-          if (emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active')) {
-            emrGlobalStates.context.viewlistTarget.__getTarget.querySelector('.list-item.active').classList.remove('active')
+        cnt.then((e) => {
+          if (e.querySelector('.list-item.active')) {
+            e.querySelector('.list-item.active').classList.remove('active')
           }
         })
         cnt.then(() => {
@@ -259,8 +263,8 @@ var emrGlobalStates = ObservableSlim.create(__EMR_GLOBAL_STATES__, true, functio
     } else if (property === 'contentCurrentTab') {
       $(document.querySelectorAll('.content-wrapper .nav-tabs .nav-item')[change.newValue]).tab('show')
       const tabcontainer = document.querySelector('.content-wrapper .tabs-container')
-      const ylimit = Math.round(document.querySelector('.content-wrapper .tabs-container .nav-tabs').offsetWidth - tabcontainer.offsetWidth)
       if (tabcontainer) {
+        const ylimit = Math.round(document.querySelector('.content-wrapper .tabs-container .nav-tabs').offsetWidth - tabcontainer.offsetWidth)
         const scrollY = Math.round(emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue] > ylimit ? ylimit : emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue])
         consoleLog('tab position', scrollY, ylimit,  Math.round(emrGlobalStates.ui.contentTabPositions.__getTarget[change.newValue]))
         if (tabcontainer.scrollLeft <= ylimit) {
@@ -393,6 +397,7 @@ const hammerTimeContent = (cnt) => {
     initiateTooltips(cnt)
     initiateToolbarPortable(cnt)
     initiateCustomDialog(cnt)
+    initiateMultiFields(cnt)
     // first tab with datatable
     if (document.querySelectorAll('.content-wrapper .tabs-container .nav-item').length > 0) {
       const firstTabDatatable = document.querySelector(document.querySelectorAll('.content-wrapper .tabs-container .nav-item')[0].getAttribute('href'))
@@ -724,12 +729,16 @@ const initiateSketchpad = (ref = document) => {
 }
 
 const initiateViewlistFunctions = (ref = document) => {
+  consoleLog('initiating viewlist function...', ref)
   if (ref.querySelectorAll('.viewlist').length > 0) {
     ref.querySelectorAll('.viewlist').forEach(list => {
       list.querySelectorAll('.list-link').forEach(link => {
         link.addEventListener('click', (e) => {
           // e.preventDefault()
-          emrGlobalStates.context.viewlistItemSelected = e.target.closest('.list-item')
+          emrGlobalStates.context.viewlistItemSelected = ''
+          setTimeout(() => {
+            emrGlobalStates.context.viewlistItemSelected = e.target.closest('.list-item')
+          }, 100)
         })
       })
       list.querySelector('.close').addEventListener('click', (e) => {
@@ -794,17 +803,23 @@ const initiateTooltips = (ref = document) => {
   }
 }
 
-const initiateModalToggles = (ref = document) => {
-  consoleLog('modal togglers initiated', ref.querySelectorAll('[data-toggle="modal"]').length)
-  if (ref.querySelectorAll('[data-toggle="modal"]').length > 0) {
-    ref.querySelectorAll('[data-toggle="modal"]').forEach((item) => {
-      $(item).on('click', function(e) {
-        const modal = $(this).data('target')
-        consoleLog(modal)
+// const initiateModalToggles = (ref = document) => {
+//   consoleLog('modal togglers initiated', ref.querySelectorAll('[data-toggle="modal"]').length)
+//   if (ref.querySelectorAll('[data-toggle="modal"]').length > 0) {
+//     ref.querySelectorAll('[data-toggle="modal"]').forEach((item) => {
+//       $(item).on('click', function(e) {
+//         const modal = $(this).data('target')
+//         consoleLog(modal)
         
-        // modal.modal('show')
-      })
-    })
+//         // modal.modal('show')
+//       })
+//     })
+//   }
+// }
+
+const initiateMultiFields = (ref = document) => {
+  if (ref.querySelectorAll('.multifield').length > 0) {
+    $(ref.querySelectorAll('.multifield')).multifield()
   }
 }
 
@@ -1270,10 +1285,15 @@ const initiateCustomDialog = (ref = document) => {
                 dialogForm.trigger('submit')
               })
 
+              // DIALOG FORM SUBMISSION
               dialogForm.on('submit', function(ev) {
                 ev.preventDefault()
                 const data = dialogForm.serializeArray()
                 consoleLog('SUBMITING FORM...', data)
+                dialog.addClass('processing')
+                setTimeout(() => {
+                  dialog.modal('hide')
+                }, 3000)
               })
             },
             complete: function() {
@@ -1283,6 +1303,7 @@ const initiateCustomDialog = (ref = document) => {
               initiateSelect2(_this)
               initiateDateTimePicker(_this)
               initiateCustomDialog(_this)
+              initiateMultiFields(_this)
             }
           })
         }

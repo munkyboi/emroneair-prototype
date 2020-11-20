@@ -1,0 +1,30 @@
+<% 
+__DIALOG_TITLE__ = 'New Patient Detail Fields'
+__DIALOG_CONTENT__ = '/forms/new-settings-patientdetailfields-form.html'
+%>
+<div class='filter'>
+  <button
+    type='button'
+    class='btn btn-info'
+    data-toggle='dialog'
+    data-title='<%= __DIALOG_TITLE__ %>'
+    data-content='<%= __DIALOG_CONTENT__ %>'
+    data-type='ajax-form'
+    data-size='modal-lg'
+    data-action='/'
+  >
+    <i class="mdi mdi-plus"></i>
+    <span>New Patient Detail Fields</span>
+  </button>
+  <div class='input-field search'>
+    <div class="search-icon">
+      <i class='mdi mdi-magnify'></i>
+    </div>
+    <input type="text" class="form-control" placeholder="Search" aria-label="Search">
+    <button type='button' class="clear">
+      <i class='mdi mdi-close-circle'></i>
+    </button>
+  </div>
+
+  <%- include('../dropdown/datatable-filter-menu'); -%>
+</div>
