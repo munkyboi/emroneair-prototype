@@ -1255,8 +1255,8 @@ const initiateCustomDialog = (ref = document) => {
           dialog.modal('show')
           dialog.find('.modal-footer').append($(`
             <button type='button' class="btn btn-danger" data-toggle='dialog-submit'>
-              <i class="mdi mdi-logout-variant"></i>
-              <span>Logout</span>
+              <i class="mdi mdi-information-outline"></i>
+              <span>Confirm</span>
             </button>
           `))
         } else if (dialogType === 'ajax' || 'ajax-form' || 'ajax-doc' || 'ajax-selection') {
@@ -1328,7 +1328,7 @@ const initiateCustomDialog = (ref = document) => {
                 dialog.modal('hide')
                 setTimeout(() => {
                   window.location = dialogAction
-                }, 3000)
+                }, 300)
               }
             })
           })
