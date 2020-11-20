@@ -282,10 +282,10 @@ a {
 	top: 0;
 	left: 0;
 	z-index: 4000;
-	opacity: 1;
+	opacity: 0;
 	transition: opacity 0.3s ease-out;
 	background-color: rgba($black, 0);
-	pointer-events: all;
+	pointer-events: none;
 	animation: mobile-preloader-hide 0.15s ease-out 1 forwards;
 	> div {
 		height: 3rem;
@@ -318,10 +318,10 @@ a {
 	top: 0;
 	left: 0;
 	z-index: 4000;
-	opacity: 1;
+	opacity: 0;
 	transition: opacity 0.3s ease-out;
 	background-color: rgba($black, 0.2);
-	pointer-events: all;
+	pointer-events: none;
 	animation: mobile-preloader-hide 0.15s ease-out 1 forwards;
 	> div {
 		height: 3rem;
