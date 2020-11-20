@@ -342,7 +342,7 @@ const hammerTimeContent = (cnt) => {
       const hammCnt = cnt.querySelector('.content-body')
       const hamm = new Hammer(hammCnt, {
         touchAction: 'pan-y',
-        inputClass: Hammer.TouchMouseInput
+        // inputClass: Hammer.TouchMouseInput
       })
       // hamm.set({ direction: Hammer.DIRECTION_HORIZONTAL });
       hamm.on('swipeleft swiperight', function(ev) {
@@ -835,7 +835,7 @@ const initiateAside = () => {
       // const hammerContainer = document.querySelector('.aside .aside-content .list-container')
       var hammertime = new Hammer(asideContainer, {
         touchAction: 'pan-y',
-        inputClass: Hammer.TouchMouseInput
+        // inputClass: Hammer.TouchMouseInput
       });
   
       hammertime.on('swipeleft swiperight', function(ev) {
