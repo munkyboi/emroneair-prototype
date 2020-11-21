@@ -1,4 +1,4 @@
-# F8Photo.ph UI Prototype
+# EMRONEAIR UI Prototype
 
 Developed by: [Carlo Abella](https://carloabella.com) |
 Online Demo: [emroneair.netlify.app](https://emroneair.netlify.app) |
