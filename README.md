@@ -1,7 +1,7 @@
 # F8Photo.ph UI Prototype
 
 Developed by: [Carlo Abella](https://carloabella.com) |
-Online Demo: [f8photo.netlify.app](https://emroneair.netlify.app) |
+Online Demo: [emroneair.netlify.app](https://emroneair.netlify.app) |
 [![Netlify Status](https://api.netlify.com/api/v1/badges/f2675a14-e85f-4797-a74e-f8aa1b7655a0/deploy-status)](https://app.netlify.com/sites/emroneair/deploys)
 
 ### Tech
