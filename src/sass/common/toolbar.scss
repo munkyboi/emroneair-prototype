@@ -56,6 +56,18 @@
     width: 100%;
     @include flex(flex-start, center);
 
+    .form-group {
+      // flex-grow: 1;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+
+      &.nogrow {
+        flex-grow: 0;
+      }
+    }
+
     @media #{$responsive-phone} {
       position: absolute;
       top: 100%;

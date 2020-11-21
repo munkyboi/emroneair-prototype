@@ -257,7 +257,7 @@ body.show-context {
       @include flex(space-around, center);
     }
     .form-group {
-      margin: 0;
+      margin-bottom: 0;
       @media #{$responsive-tablet} {
         flex-grow: 1;
       }
