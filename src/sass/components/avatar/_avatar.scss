@@ -102,4 +102,13 @@
   }
 }
 
+.newPatientAvatar {
+  @include flex(flex-start, center);
+  flex-direction: column;
+
+  .takePhoto {
+    margin-top: 1rem;
+  }
+}
+
 @import './avatar-zoomer';

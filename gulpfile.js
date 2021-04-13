@@ -58,7 +58,7 @@ function css() {
 }
 
 function modules() {
-    return gulp.src('src/modules/**/*.js')
+    return gulp.src('src/modules/**/*')
         .pipe(gulpIf(isProd, uglify()))
         .pipe(gulp.dest('dist/js/modules'));
 }

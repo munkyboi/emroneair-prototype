@@ -1,0 +1,410 @@
+<div class="wizardForm">
+  <form action="">
+    <h3 class="wizardForm-maintitle"></h3>
+    <div class="wizard">
+      <!-- SECTION 1 -->
+      <h4 class='wizardForm-title'>Main Info</h4>
+      <section>
+        <div class="row">
+          <div class="col-md-3 newPatientAvatar">
+            <div class='avatar xl avatar-zoomer'>
+              <img src='/img/default_photo.jpg'>
+              <button
+                type='button'
+                class='view-button'
+                data-toggle='dialog'
+                data-title='Profile Photo'
+                data-content='/img/default_photo.jpg'
+                data-type='image'
+                data-size='modal-lg'
+              >
+                <i class='mdi mdi-magnify'></i>
+                <span>View</span>
+              </button>
+            </div>
+            <button type='button' class='btn btn-info takePhoto'>
+              <i class='mdi mdi-camera'></i>
+              <span>Take Photo</span>
+            </button>
+            <input type="file" class="fileInput">
+          </div>
+          <div class="col-md-9">
+            <div class="row justify-content-center">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-code">Code</label>
+                      <input name='code' id="new-form-code" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-firstname">First Name</label>
+                      <input name='firstname' id="new-form-firstname" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-lastname">Last Name</label>
+                      <input name='lastname' id="new-form-lastname" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-middlename">Middle Name</label>
+                      <input name='middlename' id="new-form-middlename" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="new-form-dob">Date of Birth</label>
+                      <div class='input-field dateselect dateselect-current'>
+                        <a class="dateselect-icon" href="#">
+                          <i class='mdi mdi-calendar-search'></i>
+                        </a>
+                        <input name='dob' id='new-form-dob' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+                      </div>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-age">Age</label>
+                      <input name='age' id="new-form-age" class="form-control" disabled>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-occupation">Occupation</label>
+                      <input name='occupation' id="new-form-occupation" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-insurance">Accompanying Insurance</label>
+                      <select id='new-form-insurance' class="select2" name='insurance'>
+                        <option selected value="" style="display:none;"></option>
+                        <option value="Kugmo Supplies">Kugmo Supplies</option>
+                        <option value="Ship-On Unlimited">Ship-On Unlimited</option>
+                        <option value="Boe Ugohn Industries">Boe Ugohn Industries</option>
+                        <option value="Two Bull Enterprise">Two Bull Enterprise</option>
+                        <option value="e-Gate Liquid State">e-Gate Liquid State</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+    
+              <div class="col-md-4">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-race">Race</label>
+                      <select id='new-form-race' class="select2" name='race'>
+                        <option selected value="" style="display:none;"></option>
+                        <option value="Filipino">Filipino</option>
+                        <option value="Chinese">Chinese</option>
+                        <option value="Korean">Korean</option>
+                        <option value="Japanese">Japanese</option>
+                        <option value="American">American</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-civilstatus">Civil Status</label>
+                      <select id='new-form-civilstatus' class="select2" name='civilstatus'>
+                        <option selected value="" style="display:none;"></option>
+                        <option value="Single">Single</option>
+                        <option value="Married">Married</option>
+                        <option value="Annuled/Divorced">Annuled/Divorced</option>
+                        <option value="Widowed">Widowed</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-gender">Gender</label>
+                      <select id='new-form-gender' class="select2" name='gender'>
+                        <option selected value="" style="display:none;"></option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Not Sure">Not Sure</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-12">
+                <div class='detail-box row'>
+                  <div class='content-title col-md-12'>
+                    <h5>Contact Information &amp; Location</h5>
+                  </div>
+    
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class='col-md-12'>
+                        <div class="form-group">
+                          <label for="new-form-location">Type/Location</label>
+                          <select id='new-form-location' class="select2" name='location'>
+                            <option selected value="" style="display:none;"></option>
+                            <option value="Filipino">Filipino</option>
+                            <option value="Chinese">Chinese</option>
+                            <option value="Korean">Korean</option>
+                            <option value="Japanese">Japanese</option>
+                            <option value="American">American</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class='col-md-12'>
+                        <div class="form-group">
+                          <label for="new-form-tel">Tel Number</label>
+                          <input name='tel' id="new-form-tel" class="form-control">
+                        </div>
+                      </div>
+                      <div class='col-md-12'>
+                        <div class="form-group">
+                          <label for="new-form-mobile">Mobile Number</label>
+                          <input name='mobile' id="new-form-mobile" class="form-control">
+                        </div>
+                      </div>
+                      <div class='col-md-12'>
+                        <div class="form-group">
+                          <label for="new-form-email">Email Address</label>
+                          <input name='email' id="new-form-email" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+    
+                  <div class="col-md-6">
+                    <div class="row">
+                      <div class='col-md-12'>
+                        <div class="form-group">
+                          <label for="new-form-address">Address</label>
+                          <textarea class='form-control' name='address' rows='5'></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+                  
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 2 -->
+      <h4 class='wizardForm-title'>Problems</h4>
+      <section>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="editor">
+              <div class="form-group">
+                <label for="new-form-objective-remark">Problems</label>
+                <div id='new-form-problems' class="editor-field"></div>
+                <input type='hidden' class='editor-input' name='problems' />
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-12">
+            <div class="editor">
+              <div class="form-group">
+                <label for="new-form-diagnosis">Diagnosis</label>
+                <div id='new-form-diagnosis' class="editor-field"></div>
+                <input type='hidden' class='editor-input' name='diagnosis' />
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-12">
+            <div class="editor">
+              <div class="form-group">
+                <label for="new-form-allergies">Allergies</label>
+                <div id='new-form-allergies' class="editor-field"></div>
+                <input type='hidden' class='editor-input' name='allergies' />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 3 -->
+      <h4 class='wizardForm-title'>Insurance</h4>
+      <section>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="new-form-insurance-plan">Insurance Plan</label>
+              <input name='insurance-plan' id="new-form-insurance-plan" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="new-form-insurance-id-number">Insurance ID Number</label>
+              <input name='insurance-id-number' id="new-form-insurance-id-number" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="new-form-insurance-group-number">Group Number</label>
+              <input name='insurance-group-number' id="new-form-insurance-group-number" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-group">
+              <label for="new-form-insurance-co-pay">Co-Pay</label>
+              <input name='insurance-co-pay' id="new-form-insurance-co-pay" class="form-control">
+            </div>
+          </div>
+          
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="new-form-insurance-guarantor-name">Guarantors Name (LN, FN, MN)</label>
+              <input name='insurance-guarantor-name' id="new-form-insurance-guarantor-name" class="form-control">
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="new-form-guarantor-dob">Guarantor's Date of Birth</label>
+              <div class='input-field dateselect dateselect-current'>
+                <a class="dateselect-icon" href="#">
+                  <i class='mdi mdi-calendar-search'></i>
+                </a>
+                <input name='guarantor-dob' id='new-form-guarantor-dob' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="form-group">
+              <label for="new-form-insurance-guarantor-relationship">Relationsip to Guarantor</label>
+              <input name='insurance-guarantor-relationship' id="new-form-insurance-guarantor-relationship" class="form-control">
+            </div>
+          </div>
+        
+              
+          <div class="col-md-12">
+            <div class='detail-box row'>
+              <div class='content-title col-md-12'>
+                <h5>Insurance Details</h5>
+              </div>
+
+              <div class='col-md-3'>
+                <div class="form-group">
+                  <label for="new-form-insurance-phone">Insurance Plan Phone</label>
+                  <input name='insurance-phone' id="new-form-insurance-phone" class="form-control">
+                </div>
+              </div>
+              
+              <div class="col-md-5">
+                <div class="row">
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-insurance-address">Address Line 1</label>
+                      <input name='insurance-address' id="new-form-insurance-address" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-12'>
+                    <div class="form-group">
+                      <label for="new-form-insurance-address2">Address Line 2</label>
+                      <input name='insurance-address2' id="new-form-insurance-address2" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class="form-group">
+                      <label for="new-form-insurance-city">City</label>
+                      <input name='insurance-city' id="new-form-insurance-city" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class="form-group">
+                      <label for="new-form-insurance-state">State/Province</label>
+                      <input name='insurance-state' id="new-form-insurance-state" class="form-control">
+                    </div>
+                  </div>
+                  <div class='col-md-4'>
+                    <div class="form-group">
+                      <label for="new-form-insurance-zip">Zip Code</label>
+                      <input name='insurance-zip' id="new-form-insurance-zip" class="form-control">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-insurance-notes">Insurance Notes</label>
+                  <textarea class='form-control' name='insurance-notes' rows='5'></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      <!-- SECTION 4 -->
+      <h4 class='wizardForm-title'>Details</h4>
+      <section>
+        <div class="row">
+          <div class="col-md-4">
+            <div class="form-group">
+              <label for="new-form-details-address">Address</label>
+              <textarea class='form-control' name='details-address' rows='5'></textarea>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-details-home-phone">Home Phone Number</label>
+                  <input name='details-home-phone' id="new-form-details-home-phone" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-details-work-phone">Work Phone Number</label>
+                  <input name='details-work-phone' id="new-form-details-work-phone" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-details-mobile-phone">Mobile Phone Number</label>
+                  <input name='details-mobile-phone' id="new-form-details-mobile-phone" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-details-contact-person">Contact Person</label>
+                  <input name='details-contact-person' id="new-form-details-contact-person" class="form-control">
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label for="new-form-details-referred-by">Referred By</label>
+                  <input name='details-referred-by' id="new-form-details-referred-by" class="form-control">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </form>
+</div>
+
+<script>
+  $(function() {
+    $('.takePhoto').on('click', function() {
+      $('.fileInput').click();
+    })
+    $('.fileInput').fileinput();
+  })
+</script>

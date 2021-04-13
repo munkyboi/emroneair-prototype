@@ -1,0 +1,152 @@
+<div class="medprescriptionForm">
+  <form action="">
+    <section>
+      <div class="row">
+        <div class="col-md-6 medprescriptionForm-prescriptionsColumn">
+          <div class="prescriptionsColumn-container">
+            <div class="simple-table">
+              <div class="toolbar table-toolbar unresponsive">
+                <button
+                  type='button'
+                  class='btn btn-info unresponsive'
+                  data-toggle='dialog'
+                  data-title='Add Medical Prescription'
+                  data-content='/forms/table-select-form.html'
+                  data-type='ajax-selection'
+                  data-size='modal-lg'
+                >
+                  <i class="mdi mdi-plus"></i>
+                  <span>Add Prescription Meds</span>
+                </button>
+              </div>
+              <div class="table-wrapper">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Prescription</th>
+                      <th scope="col">Quantity</th>
+                      <th scope="col" class='actions'></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Amlodipine (Norvasc) 5mg</th>
+                      <td>20</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Parasatumoy (Biotgesic) 100mg</th>
+                      <td>1</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Amlodipine (Norvasc) 5mg</th>
+                      <td>20</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Parasatumoy (Biotgesic) 100mg</th>
+                      <td>1</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Amlodipine (Norvasc) 5mg</th>
+                      <td>20</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Parasatumoy (Biotgesic) 100mg</th>
+                      <td>1</td>
+                      <td class='actions'><div class="table-actions">
+                        <button class='iconbtn danger'><i class="mdi mdi-delete"></i></button>
+                      </div></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class='col-md-5'>
+                <div class="form-group">
+                  <label for="new-form-date">Next Follow-up Date</label>
+                  <div class='input-field dateselect dateselect-current'>
+                    <a class="dateselect-icon" href="#">
+                      <i class='mdi mdi-calendar-search'></i>
+                    </a>
+                    <input id='new-form-date' type="text" class="form-control current" data-toggle='datepicker' aria-label="Search" data-date-format="dd/mm/yyyy">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="editor">
+                  <div class="form-group">
+                    <label for="new-form-plan-remark">Remark</label>
+                    <div id='new-form-plan-remark' class="editor-field"></div>
+                    <input type='hidden' class='editor-input' name='plan-remark' />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-5">
+                <div class="form-group">
+                  <label for="text1">Total FCFS: 0</label>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="form-group">
+                  <label for="text2">Total Appointments: 0</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 medprescriptionForm-userListColumn">
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#fcfs" role="tab" aria-controls="fcfs" aria-selected="true">FCFS</a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#appointments" role="tab" aria-controls="appointments" aria-selected="false">Appointments</a>
+            </li>
+          </ul>
+          
+          <div class="tab-content">
+            <div class="tab-pane userList active" id="fcfs" role="tabpanel" aria-labelledby="fcfs-tab">
+              <%- include('../../templates/filter-simple') -%>
+              <div class='list-container'>
+                <%- include('../../templates/lists/patients-list') -%>
+              </div>
+              <%- include('../../templates/pagination') -%>
+            </div>
+            <div class="tab-pane userList" id="appointments" role="tabpanel" aria-labelledby="appointments-tab">
+              <%- include('../../templates/filter-simple') -%>
+              <div class='list-container'>
+                <%- include('../../templates/lists/patients-appointments') -%>
+              </div>
+              <%- include('../../templates/pagination') -%>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </form>
+  <script>
+    $(function () {
+      $('#myTab').tab()
+    })
+    console.log("2222222222222222222222222222222")
+  </script>
+</div>

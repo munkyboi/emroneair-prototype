@@ -1,0 +1,74 @@
+.medprescriptionForm {
+
+  &-prescriptionsColumn {
+    min-height: calc(100vh - 20rem);
+    max-height: calc(100vh - 20rem);
+    @media #{$responsive-tablet} {
+      min-height: auto;
+      max-height: none;
+    }
+    .table-wrapper {
+      display: block;
+      width: 100%;
+      min-height: calc(100vh - 40rem);
+      max-height: calc(100vh - 40rem);
+      overflow-y: auto;
+      overflow-x: hidden;
+      @media #{$responsive-tablet} {
+        min-height: calc(100vh - 30rem);
+        max-height: calc(100vh - 30rem);
+      }
+    }
+  }
+
+  &-userListColumn {
+    position: relative;
+    .tab-content {
+      min-height: calc(100vh - 20rem - 42px);
+      max-height: calc(100vh - 20rem - 42px);
+      overflow-y: auto;
+      overflow-x: hidden;
+      @media #{$responsive-tablet} {
+        min-height: auto;
+        max-height: none;
+      }
+
+      .tab-pane {
+        width: 100%;
+        &.userList {
+          min-height: calc(100vh - 20rem - 42px);
+          max-height: calc(100vh - 20rem - 42px);
+          overflow: hidden;
+          width: 100%;
+          @media #{$responsive-tablet} {
+            min-height: auto;
+            max-height: none;
+          }
+          .list-container {
+            width: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+            min-height: calc(100vh - 20rem - 6rem - 64px);
+            max-height: calc(100vh - 20rem - 6rem - 64px);
+            @media #{$responsive-tablet} {
+              min-height: calc(100vh - 20rem - 6rem - 64px);
+              max-height: calc(100vh - 20rem - 6rem - 64px);
+            }
+
+            .list-item-actions {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+    .pagination {
+      // position: absolute;
+      // bottom: 0;
+      // left: 0;
+      width: 100%;
+      flex-grow: 0;
+      height: 64px;
+    }
+  }
+}

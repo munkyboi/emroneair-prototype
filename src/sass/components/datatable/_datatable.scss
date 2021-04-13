@@ -316,6 +316,9 @@
         min-width: 8rem;
         white-space: nowrap;
         vertical-align: middle;
+        @media #{$responsive-tablet} {
+          white-space: normal;
+        }
         &.actions {
           min-width: 3rem;
         }

@@ -13,7 +13,7 @@
     </div>
   </div>
   <div class='col-md-8'>
-    <div class="form-group">
+    <div class="form-group" id="sketchpadID">
       <label for="new-form-field3">Sketch</label>
       <div class='sketchpad'>
         <div class='sketchpad-canvas'></div>
@@ -49,3 +49,9 @@
     </div>
   </div>
 </div>
+
+<script>
+  setTimeout(() => {
+    initiateSketchpad(document.querySelector("#sketchpadID"));
+  }, 500);
+</script>

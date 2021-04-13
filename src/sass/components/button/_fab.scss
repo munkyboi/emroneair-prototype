@@ -122,14 +122,14 @@ body.show-context {
 }
 
 body.show-viewlist-context {
-  .fab {
-    animation-name: fab-hide;
-    animation-duration: 0.15s;
-    animation-timing-function: ease-out;
-    animation-iteration-count: 1;
-    animation-direction: normal;
-    animation-fill-mode: forwards;
-  }
+  // .fab {
+  //   animation-name: fab-hide;
+  //   animation-duration: 0.15s;
+  //   animation-timing-function: ease-out;
+  //   animation-iteration-count: 1;
+  //   animation-direction: normal;
+  //   animation-fill-mode: forwards;
+  // }
 }
 
 @keyframes fab-hide {

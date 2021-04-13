@@ -41,6 +41,18 @@
   transition: background-color 0.15s ease-out;
   min-height: $contentToolbar-height;
 
+  h5 {
+    flex-grow: 1;
+  }
+
+  .btn {
+    span {
+      @media #{$responsive-tablet} {
+        display: none;
+      }
+    }
+  }
+
   .toolbar {
     margin-left: 1rem;
     opacity: 0;

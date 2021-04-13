@@ -5,7 +5,14 @@
   <div class="dropdown-menu dropdown-menu-right menu-icons" aria-labelledby='new-patients-menu'>
     <div class='dropdown-menu-container'>
       <div class='icon-list'>
-        <button type='button' class="iconbtn primary lg">
+        <button type='button' class="iconbtn primary lg"
+          data-toggle='dialog'
+          data-title='New Patient'
+          data-content='/forms/new-patient-form.html'
+          data-type='ajax-form'
+          data-size='modal-xl'
+          data-action='/'
+        >
           <i class='mdi mdi-card-account-details-outline'></i>
           <span>New Patient</span>
         </button>
@@ -21,7 +28,14 @@
           <i class='mdi mdi-blood-bag'></i>
           <span>New Vitals</span>
         </button>
-        <button type='button' class="iconbtn primary lg">
+        <button type='button' class="iconbtn primary lg"
+          data-toggle='dialog'
+          data-title='Med. Prescription Print'
+          data-content='/forms/new-meds-prescription.html'
+          data-type='ajax-form'
+          data-size='modal-xl'
+          data-action='/'
+        >
           <i class='mdi mdi-pill'></i>
           <span>New Meds</span>
         </button>

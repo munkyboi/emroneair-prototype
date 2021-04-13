@@ -391,7 +391,7 @@ const hammerTimeContent = (cnt) => {
     initiateSelect2(cnt)
     initiateDateTimePicker(cnt)
     initiateQuill(cnt)
-    initiateSketchpad(cnt)
+    // initiateSketchpad(cnt)
     initiateAccordions(cnt)
     initiatePDFJS()
     initiateButtonLinks(cnt)
@@ -1307,7 +1307,7 @@ const initiateCustomDialog = (ref = document) => {
         }
 
         dialog.on('shown.bs.modal', function(ev) {
-          initiateSketchpad(this)
+          // initiateSketchpad(this)
           $(this).find('.modal-footer [data-toggle="dialog-submit"]').on('click', function(ev) {
             ev.preventDefault()
             dialogForm.trigger('submit')
@@ -1429,7 +1429,7 @@ const initiateUI = () => {
   initiateQuill()
 
   // SKETCHPAD
-  initiateSketchpad()
+  // initiateSketchpad()
 
   // custom dialog
   initiateCustomDialog()
@@ -1449,4 +1449,19 @@ const newGuid = () => {
 // Document Ready
 jQuery(function() {
   initScripts()
+
+  
+  console.log('=========================================')
+  $('.dropdown-submenu').on('click', function(e) {
+    console.log('========================= target', e.target)
+    if (e.target.closest('.dropdown-menu') == $(this).find('.dropdown-menu').get(0)) {
+      const menu = $(this).find('.dropdown-menu')
+      console.log('submenu item', menu)
+      // menu.classList.add('hide')
+    } else {
+      e.stopPropagation();
+      e.preventDefault();
+      console.log('submenu', e.currentTarget, e.currentTarget.classList.contains('toggle'))
+    }
+  });
 })
